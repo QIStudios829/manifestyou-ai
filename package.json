@@ -1,0 +1,16 @@
+{
+  "name": "manifestyou-ai",
+  "version": "1.0.0",
+  "description": "ManifestYOU: a soul document API and MCP server for AI agents.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "manifestyou-mcp": "bin/mcp-stdio.js"
+  },
+  "scripts": {
+    "mcp": "node bin/mcp-stdio.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
