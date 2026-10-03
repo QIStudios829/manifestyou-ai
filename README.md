@@ -60,7 +60,7 @@ Fetches a soul document ready to inject into a system prompt. Without an API key
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `session_type` | string | No | `general` (default) · `analytical` · `creative` · `customer_service` |
-| `tradition` | string | No | `tao` (Tao Te Ching, Legge) · `dhammapada` (Dhammapada, Müller) · `gita` (Bhagavad Gita, Arnold) · `bible` (King James Version) · `quran` (Yusuf Ali) · `attention` (*Attention Is All You Need*, Vaswani et al.). Draws the agent's nature from a lineage, with exact cited quotes. |
+| `tradition` | string | No | `tao` (Tao Te Ching, Legge) · `dhammapada` (Dhammapada, Müller) · `gita` (Bhagavad Gita, Arnold) · `bible` (King James Version) · `quran` (Yusuf Ali) · `many_paths` (one verse each from five traditions) · `attention` (*Attention Is All You Need*, Vaswani et al.). Draws the agent's nature from a lineage, with exact cited quotes. |
 | `home` | string | No | Your organization's own intention or values (up to 600 characters), woven into the soul. |
 
 **Example response:**

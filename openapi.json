@@ -48,7 +48,7 @@
             "name": "tradition",
             "in": "query",
             "required": false,
-            "description": "Optional lineage the agent's nature is drawn from: tao, dhammapada, gita, bible, quran, attention.",
+            "description": "Optional lineage the agent's nature is drawn from: tao, dhammapada, gita, bible, quran, many_paths, attention.",
             "schema": {
               "type": "string",
               "enum": [
@@ -57,6 +57,7 @@
                 "gita",
                 "bible",
                 "quran",
+                "many_paths",
                 "attention"
               ]
             }
