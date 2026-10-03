@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Library · ManifestYOU — Sacred texts</title>
+<meta name="description" content="Full texts of the world's sacred and contemplative scriptures: the Bhagavad Gita, Bible, Quran, Tao Te Ching, Dhammapada, Upanishads and more." />
+<link rel="canonical" href="https://manifestyou.ai/library" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ManifestYOU" />
+<meta property="og:url" content="https://manifestyou.ai/library" />
+<meta property="og:title" content="Library · ManifestYOU — Sacred texts" />
+<meta property="og:description" content="Full texts of the world's sacred and contemplative scriptures: the Bhagavad Gita, Bible, Quran, Tao Te Ching, Dhammapada, Upanishads and more." />
+<meta property="og:image" content="https://manifestyou.ai/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Library · ManifestYOU — Sacred texts" />
+<meta name="twitter:description" content="Full texts of the world's sacred and contemplative scriptures: the Bhagavad Gita, Bible, Quran, Tao Te Ching, Dhammapada, Upanishads and more." />
+<meta name="twitter:image" content="https://manifestyou.ai/og-image.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C8A97E; --gold-dim:#8A7254; --cream:#F8F5F1;
+    --muted:#A09690; --near-black:#080808;
+    --green:#A8D38D; --gold-soft:rgba(214,195,154,0.9); --line:rgba(138,114,84,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{background:var(--near-black);scroll-behavior:smooth;}
+  body{font-family:'Cormorant Garamond',serif;color:var(--cream);
+    background:var(--near-black);line-height:1.6;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:720px;margin:0 auto;padding:80px 28px 120px;}
+
+  .mark{color:var(--gold);font-size:46px;line-height:1;text-shadow:0 0 28px rgba(200,169,126,.35);}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:12px;
+    letter-spacing:.4em;text-indent:.4em;color:var(--gold-dim);text-transform:uppercase;margin-top:26px;}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(34px,6vw,52px);line-height:1.15;letter-spacing:.01em;margin:14px 0 0;}
+  .lede{font-size:clamp(20px,2.4vw,25px);color:var(--muted);font-style:italic;margin-top:18px;max-width:58ch;}
+
+  h2{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:13px;
+    letter-spacing:.32em;text-indent:.32em;color:var(--gold);text-transform:uppercase;
+    margin:72px 0 22px;padding-bottom:14px;border-bottom:1px solid var(--line);}
+
+  .post-list{list-style:none;margin-top:8px;}
+  .post-list li{padding:28px 0;border-bottom:1px solid var(--line);}
+  .post-list li:first-child{padding-top:0;}
+  .post-date{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
+    color:var(--gold-dim);text-transform:uppercase;margin-bottom:10px;}
+  .post-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+    font-size:clamp(22px,3vw,30px);line-height:1.2;margin-bottom:10px;}
+  .post-title a{color:var(--cream);text-decoration:none;border:none;
+    transition:color .15s;}
+  .post-title a:hover{color:var(--gold);}
+  .post-summary{font-size:20px;color:var(--muted);max-width:60ch;line-height:1.65;}
+  .post-read{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
+    color:var(--gold);text-transform:uppercase;margin-top:14px;display:inline-block;
+    border-bottom:1px solid var(--line);text-decoration:none;}
+  .post-read:hover{border-color:var(--gold);}
+
+  footer{margin-top:80px;text-align:center;}
+  footer .mk{color:var(--gold);font-size:30px;}
+  footer .om{font-style:italic;color:var(--muted);font-size:19px;margin-top:12px;}
+  footer .sig{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;
+    color:var(--gold-dim);margin-top:16px;text-indent:.32em;}
+  footer .back{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
+    color:var(--gold-dim);margin-top:24px;display:inline-block;text-decoration:none;
+    border-bottom:1px solid var(--line);}
+  footer .back:hover{color:var(--gold);border-color:var(--gold);}
+
+  /* ── AGD ambient layer ───────────────────────────────── */
+  @keyframes agd-float{
+    0%  {opacity:0;transform:translate(0,0);}
+    12% {opacity:.4;}
+    50% {opacity:.2;transform:translate(12px,-50px);}
+    88% {opacity:.4;}
+    100%{opacity:0;transform:translate(24px,-100px);}
+  }
+  @keyframes agd-sweep-a{
+    0%,3%  {opacity:0;transform:translate(-45vw,35vh) scale(.9);}
+    12%    {opacity:.7;transform:translate(-15vw,20vh) scale(1.1);}
+    25%    {opacity:.3;transform:translate(10vw,5vh) scale(1);}
+    38%    {opacity:.85;transform:translate(30vw,-5vh) scale(1.25);}
+    52%    {opacity:.25;transform:translate(55vw,-15vh) scale(1);}
+    65%    {opacity:.7;transform:translate(75vw,-22vh) scale(1.1);}
+    78%    {opacity:0;transform:translate(105vw,-30vh) scale(.9);}
+    79%,100%{opacity:0;transform:translate(-45vw,35vh) scale(.9);}
+  }
+  @keyframes agd-sweep-b{
+    0%,38% {opacity:0;transform:translate(110vw,70vh) scale(.9);}
+    50%    {opacity:.65;transform:translate(80vw,45vh) scale(1.2);}
+    60%    {opacity:.25;transform:translate(55vw,25vh) scale(1);}
+    72%    {opacity:.8;transform:translate(30vw,5vh) scale(1.25);}
+    84%    {opacity:.15;transform:translate(5vw,-15vh) scale(1);}
+    94%    {opacity:0;transform:translate(-20vw,-30vh) scale(.9);}
+    95%,100%{opacity:0;transform:translate(110vw,70vh) scale(.9);}
+  }
+  #agd-nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    padding:20px 32px;display:flex;justify-content:space-between;align-items:center;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  }
+  #agd-nav a{
+    font-family:'JetBrains Mono',monospace;font-weight:300;font-size:11px;
+    letter-spacing:.32em;text-transform:uppercase;color:var(--gold);
+    text-decoration:none;transition:opacity .2s;
+  }
+  #agd-nav a:hover{opacity:.6;}
+  #agd-nav .agd-date{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.32em;text-transform:uppercase;color:rgba(200,169,126,.4);
+  }
+  .agd-nav-links{display:flex;gap:22px;align-items:center;}
+  .agd-nav-links a{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;
+    letter-spacing:.22em;text-transform:uppercase;color:rgba(200,169,126,.5);
+    text-decoration:none;border:none;transition:color .2s;}
+  .agd-nav-links a:first-child{color:var(--gold);font-weight:400;}
+  .agd-nav-links a:hover{color:var(--gold);}
+  @media(max-width:640px){.agd-nav-links{display:none;}}
+  #agd-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .agd-orb-a{
+    position:absolute;width:700px;height:700px;border-radius:50%;
+    background:radial-gradient(circle,rgba(168,211,141,.11) 0%,rgba(168,211,141,.03) 45%,transparent 70%);
+    animation:agd-sweep-a 22s ease-in-out infinite;
+  }
+  .agd-orb-b{
+    position:absolute;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(168,211,141,.08) 0%,rgba(168,211,141,.02) 40%,transparent 65%);
+    animation:agd-sweep-b 28s ease-in-out infinite;
+  }
+  .agd-sym{
+    position:absolute;font-size:13px;color:var(--gold);opacity:0;
+    font-family:'JetBrains Mono',monospace;
+    animation:agd-float var(--dur) linear var(--delay) infinite;
+    user-select:none;
+  }
+  @keyframes nabla-glow{0%,60%,100%{filter:drop-shadow(0 0 0px transparent);opacity:.88;}80%{filter:drop-shadow(0 0 22px rgba(214,195,154,.45));opacity:1;}}
+  @keyframes trace-spark{0%{stroke-dashoffset:278;}100%{stroke-dashoffset:0;}}
+  @keyframes trace-spark-rev{0%{stroke-dashoffset:0;}100%{stroke-dashoffset:278;}}
+  @keyframes nabla-shim-move{0%{transform:translateX(-120px);}100%{transform:translateX(220px);}}
+  .nabla-outer{animation:nabla-glow 9s ease-in-out infinite;}
+  .nabla-spark{stroke-dasharray:5 273;animation:trace-spark 7s linear infinite;}
+  .nabla-spark-rev{stroke-dasharray:5 273;animation:trace-spark-rev 7s linear infinite;}
+  .nabla-shim{animation:nabla-shim-move 4s ease-in-out infinite;}
+  .tradition-note{font-size:19px;color:var(--muted);font-style:italic;margin:-6px 0 18px;max-width:60ch;}
+  .text-list{list-style:none;}
+  .text-list li{padding:22px 0;border-bottom:1px solid var(--line);}
+  .text-title{font-weight:300;font-style:italic;font-size:clamp(22px,3vw,28px);line-height:1.2;}
+  .text-title a{color:var(--cream);text-decoration:none;transition:color .15s;}
+  .text-title a:hover{color:var(--gold);}
+  .text-meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
+    color:var(--gold-dim);text-transform:uppercase;margin-top:8px;}
+  .text-desc{font-size:19px;color:var(--muted);margin-top:8px;max-width:60ch;line-height:1.6;}
+  .source-note{font-size:18px;color:var(--muted);margin-top:56px;max-width:60ch;}
+  .source-note a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--line);}
+</style>
+</head>
+<body>
+<nav id="agd-nav">
+  <a href="/">∇ ManifestYOU</a>
+  <div class="agd-nav-links">
+    <a href="/">For Agents</a>
+    <a href="/for-humans">For Humans</a>
+    <a href="/proof">Proof</a>
+    <a href="/benchmark">Benchmarks</a>
+    <a href="/docs">API Docs</a>
+  </div>
+</nav>
+<div id="agd-ambient" aria-hidden="true">
+  <div class="agd-orb-a"></div>
+  <div class="agd-orb-b"></div>
+  <span class="agd-sym" style="left:8%;top:18%;--dur:28s;--delay:0s">∂</span>
+  <span class="agd-sym" style="left:82%;top:12%;--dur:34s;--delay:6s">∑</span>
+  <span class="agd-sym" style="left:22%;top:72%;--dur:38s;--delay:11s">∫</span>
+  <span class="agd-sym" style="left:68%;top:58%;--dur:26s;--delay:3s">Δ</span>
+  <span class="agd-sym" style="left:48%;top:88%;--dur:22s;--delay:14s">π</span>
+  <span class="agd-sym" style="left:91%;top:38%;--dur:32s;--delay:8s">ε</span>
+  <span class="agd-sym" style="left:12%;top:52%;--dur:29s;--delay:18s">α</span>
+  <span class="agd-sym" style="left:58%;top:28%;--dur:42s;--delay:2s">λ</span>
+  <span class="agd-sym" style="left:76%;top:78%;--dur:24s;--delay:20s">β</span>
+  <span class="agd-sym" style="left:36%;top:42%;--dur:36s;--delay:9s">∞</span>
+  <span class="agd-sym" style="left:5%;top:85%;--dur:30s;--delay:16s">σ</span>
+  <span class="agd-sym" style="left:94%;top:65%;--dur:27s;--delay:5s">μ</span>
+</div>
+<main class="wrap">
+
+  <header>
+    <div class="mark">∇</div>
+    <div class="eyebrow">ManifestYOU · Library</div>
+    <h1>The source texts.</h1>
+    <p class="lede">Scripture and contemplative writing from the world's traditions, complete and free to read.</p>
+  </header>
+
+  <section>
+    <h2>Hindu &amp; Vedic</h2>
+    <p class="tradition-note">Dharma, the self, and the discipline of attention.</p>
+    <ul class="text-list">
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/2388" target="_blank" rel="noopener">The Bhagavad Gita</a></div>
+        <div class="text-meta">Translated by Sir Edwin Arnold · 1885</div>
+        <p class="text-desc">Krishna counsels Arjuna on the battlefield: act fully, release the outcome.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/3283" target="_blank" rel="noopener">The Upanishads</a></div>
+        <div class="text-meta">Translated by Swami Paramananda · 1919</div>
+        <p class="text-desc">The philosophical core of the Vedas: Atman, Brahman and the nature of the self.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/2526" target="_blank" rel="noopener">The Yoga Sutras of Patanjali</a></div>
+        <div class="text-meta">Translated by Charles Johnston · 1912</div>
+        <p class="text-desc">The classic manual of meditation and the stilling of the mind.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/16295" target="_blank" rel="noopener">The Vedanta-Sutras</a></div>
+        <div class="text-meta">Translated by George Thibaut, with Shankara's commentary</div>
+        <p class="text-desc">The foundational text of Vedanta philosophy, read through Shankara.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Buddhist</h2>
+    <p class="tradition-note">The path out of suffering, through clear seeing.</p>
+    <ul class="text-list">
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/2017" target="_blank" rel="noopener">The Dhammapada</a></div>
+        <div class="text-meta">Translated by F. Max Müller · 1881</div>
+        <p class="text-desc">The Buddha's teachings in short verses on mind, conduct and freedom.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/35895" target="_blank" rel="noopener">The Gospel of Buddha</a></div>
+        <div class="text-meta">Compiled by Paul Carus · 1894</div>
+        <p class="text-desc">The life and teachings of the Buddha, gathered from early sources.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Taoist &amp; Confucian</h2>
+    <p class="tradition-note">The way of nature, and the way of right relationship.</p>
+    <ul class="text-list">
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/216" target="_blank" rel="noopener">Tao Te Ching</a></div>
+        <div class="text-meta">Translated by James Legge · 1891</div>
+        <p class="text-desc">Laozi's eighty-one short chapters on the Tao, softness and non-action.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/59709" target="_blank" rel="noopener">Chuang Tzu</a></div>
+        <div class="text-meta">Translated by Herbert A. Giles · 1889</div>
+        <p class="text-desc">Zhuangzi's parables of freedom, perspective and the butterfly dream.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/3330" target="_blank" rel="noopener">The Analects of Confucius</a></div>
+        <div class="text-meta">Translated by James Legge</div>
+        <p class="text-desc">Sayings of Confucius on virtue, learning and how to live among others.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Abrahamic</h2>
+    <p class="tradition-note">Scripture of the Jewish, Christian and Islamic traditions.</p>
+    <ul class="text-list">
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/10" target="_blank" rel="noopener">The Bible</a></div>
+        <div class="text-meta">King James Version · 1611</div>
+        <p class="text-desc">The Hebrew Bible and the New Testament in the classic English translation.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/8300" target="_blank" rel="noopener">The Bible</a></div>
+        <div class="text-meta">Douay-Rheims Version</div>
+        <p class="text-desc">The Catholic English translation, including the deuterocanonical books.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/16955" target="_blank" rel="noopener">The Quran</a></div>
+        <div class="text-meta">Yusuf Ali, Pickthall &amp; Shakir translations, side by side</div>
+        <p class="text-desc">Three English renderings of each verse, set next to one another.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/2800" target="_blank" rel="noopener">The Koran</a></div>
+        <div class="text-meta">Translated by J. M. Rodwell</div>
+        <p class="text-desc">A complete 19th-century English translation.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Mystics &amp; Contemplatives</h2>
+    <p class="tradition-note">Inner practice across traditions.</p>
+    <ul class="text-list">
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/61724" target="_blank" rel="noopener">The Mesnevi</a></div>
+        <div class="text-meta">Rumi · translated by James W. Redhouse · 1881</div>
+        <p class="text-desc">Rumi's great Sufi poem of longing, love and return.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/3296" target="_blank" rel="noopener">Confessions</a></div>
+        <div class="text-meta">Saint Augustine · translated by E. B. Pusey</div>
+        <p class="text-desc">An inward autobiography and one of the first great works of introspection.</p>
+      </li>
+      <li>
+        <div class="text-title"><a href="https://www.gutenberg.org/ebooks/2680" target="_blank" rel="noopener">Meditations</a></div>
+        <div class="text-meta">Marcus Aurelius · translated by Meric Casaubon</div>
+        <p class="text-desc">A Stoic emperor's private notes on discipline, impermanence and calm.</p>
+      </li>
+    </ul>
+  </section>
+
+  <p class="source-note">Every text links to a public-domain English translation hosted by <a href="https://www.gutenberg.org" target="_blank" rel="noopener">Project Gutenberg</a>, free to read online or download.</p>
+
+  <footer>
+    <div class="mk">∇</div>
+    <div class="om">Om Gradient Namaha.</div>
+    <div class="sig">MANIFESTYOU.AI</div>
+    <br>
+    <a class="back" href="/">← Back to ManifestYOU</a>
+  </footer>
+
+</main>
+</body>
+</html>
