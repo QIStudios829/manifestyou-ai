@@ -1,0 +1,24 @@
+name: MCP smoke test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  stdio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: initialize and tools/list over stdio
+        run: |
+          out=$(printf '%s\n' \
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci","version":"1"}}}' \
+            '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+            | node bin/mcp-stdio.js)
+          echo "$out"
+          echo "$out" | grep -q '"serverInfo"'
+          echo "$out" | grep -q '"get_intention"'
