@@ -60,7 +60,7 @@ Fetches a soul document ready to inject into a system prompt. Without an API key
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `session_type` | string | No | `general` (default) · `analytical` · `creative` · `customer_service` |
-| `tradition` | string | No | `tao` (Tao Te Ching, Legge) · `dhammapada` (Dhammapada, Müller). Draws the agent's nature from a wisdom tradition, with exact cited verses. |
+| `tradition` | string | No | `tao` (Tao Te Ching, Legge) · `dhammapada` (Dhammapada, Müller) · `gita` (Bhagavad Gita, Arnold) · `bible` (King James Version) · `quran` (Yusuf Ali) · `attention` (*Attention Is All You Need*, Vaswani et al.). Draws the agent's nature from a lineage, with exact cited quotes. |
 | `home` | string | No | Your organization's own intention or values (up to 600 characters), woven into the soul. |
 
 **Example response:**
@@ -96,7 +96,8 @@ Lists the session types and traditions `get_intention` accepts. Takes no paramet
   ],
   "traditions": [
     { "tradition": "tao", "name": "Tao Te Ching", "translation": "James Legge, 1891", "source": "https://www.gutenberg.org/ebooks/216" },
-    { "tradition": "dhammapada", "name": "Dhammapada", "translation": "F. Max Müller, 1881", "source": "https://www.gutenberg.org/ebooks/2017" }
+    { "tradition": "dhammapada", "name": "Dhammapada", "translation": "F. Max Müller, 1881", "source": "https://www.gutenberg.org/ebooks/2017" },
+    ...
   ]
 }
 ```

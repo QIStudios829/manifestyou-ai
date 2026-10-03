@@ -32,7 +32,7 @@ const TOOLS = [
         tradition: {
           type: "string",
           enum: listTraditions().map((t) => t.tradition),
-          description: "Optional wisdom tradition the agent's nature is drawn from, with exact cited verses. tao=Tao Te Ching (Legge). dhammapada=Dhammapada (Müller). Omit for the standard document.",
+          description: "Optional lineage the agent's nature is drawn from, with exact cited quotes. " + listTraditions().map((t) => `${t.tradition}=${t.name} (${t.translation})`).join(". ") + ". Omit for the standard document.",
         },
         home: {
           type: "string",

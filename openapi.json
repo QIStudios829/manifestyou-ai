@@ -48,12 +48,16 @@
             "name": "tradition",
             "in": "query",
             "required": false,
-            "description": "Optional wisdom tradition the agent's nature is drawn from. tao=Tao Te Ching (Legge, 1891). dhammapada=Dhammapada (Müller, 1881).",
+            "description": "Optional lineage the agent's nature is drawn from: tao, dhammapada, gita, bible, quran, attention.",
             "schema": {
               "type": "string",
               "enum": [
                 "tao",
-                "dhammapada"
+                "dhammapada",
+                "gita",
+                "bible",
+                "quran",
+                "attention"
               ]
             }
           },
