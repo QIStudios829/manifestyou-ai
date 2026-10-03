@@ -14,7 +14,7 @@ Same model. Same question. The only thing that changes is whether the agent rece
 
 ## MCP Server
 
-The ManifestYOU MCP server exposes a single tool: `get_intention`. Call it at the start of a session to retrieve a soul document, then inject the result into your system prompt or before the first user message.
+The ManifestYOU MCP server exposes two tools: `get_intention` and `list_intentions`. Call `get_intention` at the start of a session to retrieve a soul document, then inject the result into your system prompt or before the first user message. Use `list_intentions` to see the available session types first.
 
 **Server URL:** `https://manifestyou.ai/.netlify/functions/mcp`
 
@@ -77,6 +77,31 @@ Fetches a soul document ready to inject into a system prompt.
 ```
 
 Paste `soul_document` into your system prompt before the user message.
+
+### Tool: `list_intentions`
+
+Lists the session types `get_intention` accepts, with the orientation each one sets. Takes no parameters and needs no API key.
+
+**Example response:**
+
+```json
+{
+  "session_types": [
+    { "session_type": "general", "orientation": "Default grounding for any session." },
+    { "session_type": "analytical", "orientation": "Precision and decision support." },
+    { "session_type": "creative", "orientation": "Generative and brand work." },
+    { "session_type": "customer_service", "orientation": "Grounded and human-facing." }
+  ]
+}
+```
+
+### Running locally (stdio)
+
+```bash
+MANIFESTYOU_API_KEY=your-key-here node bin/mcp-stdio.js
+```
+
+The key is only needed for `get_intention`. `initialize`, `tools/list` and `list_intentions` work without it.
 
 ## REST API
 
