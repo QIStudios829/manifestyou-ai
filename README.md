@@ -53,13 +53,15 @@ The ManifestYOU MCP server exposes two tools: `get_intention` and `list_intentio
 
 ### Tool: `get_intention`
 
-Fetches a soul document ready to inject into a system prompt. Without an API key it returns a free sample: the public default document, marked `"sample": true`.
+Fetches a soul document ready to inject into a system prompt. Without an API key it returns a free sample, marked `"sample": true`: the general soul with the Tao Te Ching lineage.
 
 **Parameters:**
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `session_type` | string | No | `general` (default) · `analytical` · `creative` · `customer_service` |
+| `tradition` | string | No | `tao` (Tao Te Ching, Legge) · `dhammapada` (Dhammapada, Müller). Draws the agent's nature from a wisdom tradition, with exact cited verses. |
+| `home` | string | No | Your organization's own intention or values (up to 600 characters), woven into the soul. |
 
 **Example response:**
 
@@ -80,7 +82,7 @@ Paste `soul_document` into your system prompt before the user message.
 
 ### Tool: `list_intentions`
 
-Lists the session types `get_intention` accepts, with the orientation each one sets. Takes no parameters and needs no API key.
+Lists the session types and traditions `get_intention` accepts. Takes no parameters and needs no API key.
 
 **Example response:**
 
@@ -91,6 +93,10 @@ Lists the session types `get_intention` accepts, with the orientation each one s
     { "session_type": "analytical", "orientation": "Precision and decision support." },
     { "session_type": "creative", "orientation": "Generative and brand work." },
     { "session_type": "customer_service", "orientation": "Grounded and human-facing." }
+  ],
+  "traditions": [
+    { "tradition": "tao", "name": "Tao Te Ching", "translation": "James Legge, 1891", "source": "https://www.gutenberg.org/ebooks/216" },
+    { "tradition": "dhammapada", "name": "Dhammapada", "translation": "F. Max Müller, 1881", "source": "https://www.gutenberg.org/ebooks/2017" }
   ]
 }
 ```
@@ -101,7 +107,7 @@ Lists the session types `get_intention` accepts, with the orientation each one s
 MANIFESTYOU_API_KEY=your-key-here node bin/mcp-stdio.js
 ```
 
-Without a key, `get_intention` returns a free sample (the public default soul document, the same for every session type). Add a key for documents tuned to your session type and deployment.
+Without a key, `get_intention` returns a free sample: the general soul with the Tao Te Ching lineage. Add a key for every session type and tradition.
 
 ## REST API
 

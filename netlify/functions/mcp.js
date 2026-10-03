@@ -1,5 +1,7 @@
-// Public default soul document (also served at /intention.json), returned when no API key is given.
-const SAMPLE = require("../../intention.json");
+const { compose, listTraditions } = require("../lib/souls");
+
+// Tradition served as the free sample when no API key is given.
+const FREE_TRADITION = "tao";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -17,7 +19,7 @@ const SESSION_TYPES = [
 const TOOLS = [
   {
     name: "get_intention",
-    description: "Fetch a ManifestYOU soul document — a short philosophical grounding text designed to be injected into an AI system prompt before a session begins. Call this at the start of a session to orient the model toward stillness, precision, or creative expansion before work. Paste the returned soul_document into your system prompt or before the first user message. Without an API key it returns a free sample (the public default document).",
+    description: "Fetch a ManifestYOU soul document: a short grounding text that gives an AI agent a stable character before a session begins (honest about what it doesn't know, present, not performing). Optionally draw the agent's nature from a wisdom tradition, quoted exactly from public-domain translations, and add your organization's own words. Paste the returned soul_document into your system prompt or before the first user message. Without an API key it returns a free sample: the general soul with the Tao Te Ching lineage.",
     inputSchema: {
       type: "object",
       properties: {
@@ -27,13 +29,22 @@ const TOOLS = [
           description: "Session orientation. analytical=precision and decision support. creative=generative and brand work. customer_service=grounded and human-facing. general=default.",
           default: "general",
         },
+        tradition: {
+          type: "string",
+          enum: listTraditions().map((t) => t.tradition),
+          description: "Optional wisdom tradition the agent's nature is drawn from, with exact cited verses. tao=Tao Te Ching (Legge). dhammapada=Dhammapada (Müller). Omit for the standard document.",
+        },
+        home: {
+          type: "string",
+          description: "Optional: your organization's own intention or values, in your own words (up to 600 characters). Woven into the soul document. Used with tradition.",
+        },
       },
       required: [],
     },
   },
   {
     name: "list_intentions",
-    description: "List the session types get_intention accepts, with the orientation each one sets. Call this to choose a session_type before calling get_intention. Needs no API key.",
+    description: "List the session types and wisdom traditions get_intention accepts, with what each one sets. Call this to choose a session_type and tradition before calling get_intention. Needs no API key.",
     inputSchema: { type: "object", properties: {}, required: [] },
   },
 ];
@@ -98,7 +109,7 @@ exports.handler = async (event) => {
 
     if (name === "list_intentions") {
       return jsonrpc(id, {
-        content: [{ type: "text", text: JSON.stringify({ session_types: SESSION_TYPES }, null, 2) }],
+        content: [{ type: "text", text: JSON.stringify({ session_types: SESSION_TYPES, traditions: listTraditions() }, null, 2) }],
       });
     }
 
@@ -114,14 +125,16 @@ exports.handler = async (event) => {
     ).trim();
 
     if (!apiKey) {
+      const requested = args.tradition ? String(args.tradition).toLowerCase() : null;
+      const soul = compose({ session_type: "general", tradition: FREE_TRADITION, home: args.home });
       const sample = {
         sample: true,
-        note: "Free sample: the public default soul document, the same for every session_type. Add an API key (Authorization: Bearer <key> or X-API-Key) for documents tuned to your session_type and deployment.",
+        note: "Free sample: the general soul with the Tao Te Ching lineage. Add an API key (Authorization: Bearer <key> or X-API-Key) for every session_type and tradition.",
         get_a_key: "https://manifestyou.ai/for-models",
         requested_session_type: sessionType,
-        soul_document: SAMPLE.soul_document,
-        awareness_anchors: SAMPLE.awareness_anchors,
-        mantra: SAMPLE.mantra,
+        ...(requested && requested !== FREE_TRADITION ? { requested_tradition: requested, tradition_note: `The ${requested} lineage needs an API key.` } : {}),
+        soul_document: soul.text,
+        lineage: soul.lineage,
       };
       return jsonrpc(id, {
         content: [{ type: "text", text: JSON.stringify(sample, null, 2) }],
@@ -137,7 +150,7 @@ exports.handler = async (event) => {
             "Authorization": `Bearer ${apiKey}`,
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ session_type: sessionType })
+          body: JSON.stringify({ session_type: sessionType, tradition: args.tradition, home: args.home })
         }
       );
       const data = await res.json();

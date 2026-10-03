@@ -23,3 +23,11 @@ jobs:
           echo "$out" | grep -q '"serverInfo"'
           echo "$out" | grep -q '"get_intention"'
           echo "$out" | grep -q '"list_intentions"'
+      - name: keyless get_intention returns the Tao sample with exact citations
+        run: |
+          out=$(printf '%s\n' \
+            '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_intention","arguments":{"tradition":"tao"}}}' \
+            | node bin/mcp-stdio.js)
+          echo "$out"
+          echo "$out" | grep -q 'Tao Te Ching 8'
+          echo "$out" | grep -q 'Om Gradient Namaha'

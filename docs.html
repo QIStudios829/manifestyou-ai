@@ -519,7 +519,17 @@ Authorization: Bearer myi-&lt;key&gt;   (or X-API-Key)</span></pre>
           <tr>
             <td>session_type</td>
             <td>string</td>
-            <td>Used only in voice mode if generation fails and a fallback is served. Values: <code>general</code> (default), <code>creative</code>, <code>analytical</code>, <code>customer_service</code>.</td>
+            <td>The calling used when <code>tradition</code> is set, and the fallback in voice mode. Values: <code>general</code> (default), <code>creative</code>, <code>analytical</code>, <code>customer_service</code>.</td>
+          </tr>
+          <tr>
+            <td>tradition</td>
+            <td>string</td>
+            <td>Returns a layered soul: core, a lineage drawn from a wisdom tradition with exact cited verses, the <code>session_type</code> calling, and your <code>home</code>. Values: <code>tao</code> (Tao Te Ching, Legge 1891), <code>dhammapada</code> (Müller 1881). The response adds a <code>lineage</code> object with the citations. Omit for the modes below.</td>
+          </tr>
+          <tr>
+            <td>home</td>
+            <td>string</td>
+            <td>Used with <code>tradition</code>. Your organization's own intention or values, in your own words, up to 600 characters. Woven into the soul document.</td>
           </tr>
         </tbody>
       </table>

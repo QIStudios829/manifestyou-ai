@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { compose } = require('../lib/souls');
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -218,15 +219,28 @@ exports.handler = async (event) => {
   // 6. Parse body
   let body = {};
   try { body = JSON.parse(event.body || '{}'); } catch {}
-  const { session_id, agent, intent, tone, lineage_id, session_type } = body;
+  const { session_id, agent, intent, tone, lineage_id, session_type, tradition, home } = body;
 
   // 7. Generate soul document
-  // Default: presence. tone=lean → lean template. tone=voice → voiced soul doc (Haiku call).
+  // tradition set → layered soul (core + lineage + calling + home).
+  // Otherwise: presence by default, tone=lean → lean template, tone=voice → voiced soul doc (Haiku call).
   let invocation = null;
+  let lineage = null;
   let outcome = 'served';
   const toneLC = (tone || '').toLowerCase();
 
-  if (toneLC === 'voice') {
+  if (tradition) {
+    const soul = compose({ session_type, tradition, agent, intent, home });
+    if (soul.error) {
+      return {
+        statusCode: 400,
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: soul.error, valid_values: soul.valid_values })
+      };
+    }
+    invocation = soul.text;
+    lineage = soul.lineage;
+  } else if (toneLC === 'voice') {
     try {
       invocation = await adapt(agent, intent, tone, lineage_id);
     } catch {}
@@ -261,6 +275,7 @@ exports.handler = async (event) => {
     headers: { ...CORS, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       invocation,
+      ...(lineage ? { lineage } : {}),
       request_id: requestId,
       billable: true,
       quota: {
