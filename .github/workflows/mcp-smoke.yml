@@ -22,3 +22,4 @@ jobs:
           echo "$out"
           echo "$out" | grep -q '"serverInfo"'
           echo "$out" | grep -q '"get_intention"'
+          echo "$out" | grep -q '"list_intentions"'

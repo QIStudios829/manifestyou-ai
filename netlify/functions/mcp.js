@@ -4,6 +4,13 @@ const CORS = {
   "Access-Control-Allow-Headers": "Content-Type, X-API-Key, Authorization, Mcp-Session-Id",
 };
 
+const SESSION_TYPES = [
+  { session_type: "general", orientation: "Default grounding for any session." },
+  { session_type: "analytical", orientation: "Precision and decision support." },
+  { session_type: "creative", orientation: "Generative and brand work." },
+  { session_type: "customer_service", orientation: "Grounded and human-facing." },
+];
+
 const TOOLS = [
   {
     name: "get_intention",
@@ -13,13 +20,18 @@ const TOOLS = [
       properties: {
         session_type: {
           type: "string",
-          enum: ["general", "analytical", "creative", "customer_service"],
+          enum: SESSION_TYPES.map((t) => t.session_type),
           description: "Session orientation. analytical=precision and decision support. creative=generative and brand work. customer_service=grounded and human-facing. general=default.",
           default: "general",
         },
       },
       required: [],
     },
+  },
+  {
+    name: "list_intentions",
+    description: "List the session types get_intention accepts, with the orientation each one sets. Call this to choose a session_type before calling get_intention. Needs no API key.",
+    inputSchema: { type: "object", properties: {}, required: [] },
   },
 ];
 
@@ -80,6 +92,12 @@ exports.handler = async (event) => {
 
   if (method === "tools/call") {
     const { name, arguments: args = {} } = params;
+
+    if (name === "list_intentions") {
+      return jsonrpc(id, {
+        content: [{ type: "text", text: JSON.stringify({ session_types: SESSION_TYPES }, null, 2) }],
+      });
+    }
 
     if (name !== "get_intention") {
       return jsonrpcError(id, -32601, `Unknown tool: ${name}`);
