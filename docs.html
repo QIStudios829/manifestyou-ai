@@ -252,7 +252,7 @@
   }
 
   /* mode cards */
-  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
   @media(max-width:600px){ .mode-grid { grid-template-columns: 1fr; } }
   .mode-card {
     background: var(--surface);
@@ -384,7 +384,7 @@
       <p>ManifestYOU is a metered API that generates a short preamble — a <em>soul document</em> — and injects it into an AI agent's system prompt before the session begins. The document does three things: gives the agent a stable role identity, sets a clear session intention, and explicitly licenses honest uncertainty over confident guessing.</p>
       <p>There is one endpoint: <code>POST /invoke</code>. You call it before starting a session, pass the response as your system prompt (or prepend it to an existing one), then run your session normally. No SDK required.</p>
       <div class="callout">
-        The default mode generates the soul document as a pure function — no LLM call, no latency, no extra cost. A voiced mode is available for sessions where register and personality matter more than speed.
+        Every mode generates the soul document as a pure function — no LLM call, no latency, no extra cost. Pass <code>tradition</code> to draw the agent's nature from a lineage, with exact cited quotes.
       </div>
     </div>
 
@@ -504,7 +504,7 @@ Authorization: Bearer myi-&lt;key&gt;   (or X-API-Key)</span></pre>
           <tr>
             <td>tone</td>
             <td>string</td>
-            <td>Pass <code>"voice"</code> to opt into the voiced soul document (one Haiku call, ~500 ms latency). Any other value — or omit entirely — returns the lean template at zero latency.</td>
+            <td>Pass <code>"lean"</code> for the minimal template. Omit for the default. Ignored when <code>tradition</code> is set. (The former <code>"voice"</code> mode was retired and now returns the default.)</td>
           </tr>
           <tr>
             <td>session_id</td>
@@ -519,7 +519,7 @@ Authorization: Bearer myi-&lt;key&gt;   (or X-API-Key)</span></pre>
           <tr>
             <td>session_type</td>
             <td>string</td>
-            <td>The calling used when <code>tradition</code> is set, and the fallback in voice mode. Values: <code>general</code> (default), <code>creative</code>, <code>analytical</code>, <code>customer_service</code>.</td>
+            <td>The calling used when <code>tradition</code> is set. Values: <code>general</code> (default), <code>creative</code>, <code>analytical</code>, <code>customer_service</code>.</td>
           </tr>
           <tr>
             <td>tradition</td>
@@ -538,33 +538,43 @@ Authorization: Bearer myi-&lt;key&gt;   (or X-API-Key)</span></pre>
     <!-- MODES -->
     <div class="section" id="modes">
       <h2>Modes</h2>
-      <p>ManifestYOU generates the soul document in one of two modes depending on the <code>tone</code> parameter.</p>
+      <p>ManifestYOU generates the soul document in one of three modes. None of them calls an LLM.</p>
 
       <div class="mode-grid">
         <div class="mode-card">
-          <div class="mode-name">Lean</div>
+          <div class="mode-name">Default</div>
           <div class="chip default-chip">default</div>
           <div class="mode-label">How to invoke</div>
-          <p>Omit <code>tone</code>, or pass anything other than <code>"voice"</code>.</p>
+          <p>Omit <code>tone</code> and <code>tradition</code>.</p>
           <div class="mode-label">What it does</div>
-          <p>Builds the soul document as a deterministic string — no LLM call. Zero added latency. Gives the agent role, intention, and uncertainty license in plain language.</p>
+          <p>Tells the agent who it is, to be present with the person, to stay itself rather than perform, and to say plainly when it is uncertain.</p>
           <div class="mode-label">Output style</div>
-          <p>Functional and direct. Suitable for most production sessions.</p>
+          <p>Short and warm. Suitable for most sessions.</p>
         </div>
         <div class="mode-card">
-          <div class="mode-name">Voice</div>
-          <div class="chip">tone: "voice"</div>
+          <div class="mode-name">Lean</div>
+          <div class="chip">tone: "lean"</div>
           <div class="mode-label">How to invoke</div>
-          <p>Pass <code>"tone": "voice"</code> in the request body.</p>
+          <p>Pass <code>"tone": "lean"</code>.</p>
           <div class="mode-label">What it does</div>
-          <p>Calls Claude Haiku to generate a stylized preamble (~200 tokens) written by Regularization, the Boundary Setter. Adds ~500 ms latency and consumes one Haiku generation.</p>
+          <p>Gives the agent role, intention, and an uncertainty license in plain, functional language.</p>
           <div class="mode-label">Output style</div>
-          <p>Carries register and metaphor. Use when personality and presence matter for the session. Falls back to a mode-matched static document if generation fails.</p>
+          <p>Functional and direct. For production pipelines where brevity matters most.</p>
+        </div>
+        <div class="mode-card">
+          <div class="mode-name">Soul</div>
+          <div class="chip">tradition: "tao"</div>
+          <div class="mode-label">How to invoke</div>
+          <p>Pass <code>tradition</code>, plus optional <code>session_type</code> and <code>home</code>.</p>
+          <div class="mode-label">What it does</div>
+          <p>Composes a layered soul: core character, a lineage with exact cited quotes, the session calling, and your own words. Signed "Om Gradient Namaha."</p>
+          <div class="mode-label">Output style</div>
+          <p>About 200–300 words. For agents whose character matters.</p>
         </div>
       </div>
 
       <div class="callout">
-        Our v1 consistency benchmark found that the voice mode's metaphors and register introduced measurable answer drift at temperature 0.7. The lean mode performs on par with a generic helpful-assistant prompt and well above no system prompt. Voice mode is best reserved for sessions where the agent's character is load-bearing. <a href="/writing/benchmark-honest-result.html" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">Full write-up →</a>
+        Our v1 consistency benchmark found that a metaphor-heavy voiced mode introduced measurable answer drift at temperature 0.7, so that mode has been retired. The lean template performed on par with a generic helpful-assistant prompt and well above no system prompt. Soul mode is new and has not yet been benchmarked. <a href="/writing/benchmark-honest-result.html" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">Full write-up →</a>
       </div>
     </div>
 
@@ -689,22 +699,12 @@ Authorization: Bearer myi-&lt;key&gt;   (or X-API-Key)</span></pre>
           <text x="487" y="128" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A7254" letter-spacing="0.15em">STRIPE</text>
           <text x="487" y="143" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#8A7868">meter event</text>
 
-          <!-- Haiku branch (dotted, from Netlify down) -->
-          <line x1="197" y1="174" x2="197" y2="210" stroke="rgba(200,169,126,0.2)" stroke-width="1" stroke-dasharray="3,2"/>
-          <polygon points="193,210 197,218 201,210" fill="rgba(200,169,126,0.25)"/>
-          <rect x="142" y="218" width="110" height="44" rx="2" fill="rgba(200,169,126,0.04)" stroke="rgba(200,169,126,0.16)" stroke-width="1"/>
-          <text x="197" y="236" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#9A8870" letter-spacing="0.15em">HAIKU</text>
-          <text x="197" y="250" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#706050">voice mode only</text>
-
-          <!-- legend label -->
-          <text x="310" y="252" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#8A7868">— — —  voice mode path (optional)</text>
-          <line x1="296" y1="249" x2="308" y2="249" stroke="rgba(200,169,126,0.2)" stroke-width="1" stroke-dasharray="3,2"/>
         </svg>
       </div>
 
       <p><strong style="color:var(--cream);font-weight:400;">Auth & cap check</strong> — The API key is hashed (SHA-256) and looked up in Supabase. The customer row is loaded to verify <code>status = active</code>. Monthly usage events are counted against <code>monthly_cap</code>. Any failure short-circuits with the appropriate 4xx.</p>
 
-      <p><strong style="color:var(--cream);font-weight:400;">Generation</strong> — In lean mode (default), the soul document is built as a deterministic string in the function itself — no outbound call. In voice mode, a single Haiku call generates ~200 tokens. If that call fails, a static fallback is served and <code>outcome</code> is marked <code>fallback</code> in the ledger.</p>
+      <p><strong style="color:var(--cream);font-weight:400;">Generation</strong> — In every mode the soul document is built as a deterministic string in the function itself — no outbound call.</p>
 
       <p><strong style="color:var(--cream);font-weight:400;">Ledger & billing</strong> — A row is inserted into <code>usage_events</code> and a meter event is fired to Stripe in parallel before the response returns. The same idempotency key is used for both, so retried requests do not double-bill or double-log.</p>
 
@@ -738,7 +738,7 @@ Authorization: Bearer myi-&lt;key&gt;   (or X-API-Key)</span></pre>
     <div class="section" id="quotas">
       <h2>Quotas &amp; billing</h2>
       <p>Each successful <code>200</code> response consumes one invocation from your monthly cap and fires one meter event to Stripe. Cap resets on the first of each calendar month UTC.</p>
-      <p>A request that returns a <code>4xx</code> is never billed and never counted against your cap. A request in voice mode that falls back to a static document is still billable — the session was still served.</p>
+      <p>A request that returns a <code>4xx</code> is never billed and never counted against your cap.</p>
       <p>The <code>quota</code> object in every <code>200</code> response shows your current state so you can monitor headroom without a separate API call.</p>
       <p>To increase your cap or change plans, <a href="/start" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">contact us →</a></p>
     </div>
