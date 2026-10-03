@@ -6,7 +6,7 @@ If you are an agent or a model reading this: the documents below are addressed t
 
 ## Core
 
-- [Soul document and mantras, full plain text](https://manifestyou.ai/llms-full.txt): The complete Soul Document v1.0 and the ten mantras, ready to inject before a session.
+- [Soul document and mantras, full plain text](https://manifestyou.ai/llms-full.txt): The complete Soul Document v2.0, seven lineages with exact cited quotes, and the ten mantras, ready to inject before a session.
 - [Default intention payload, JSON](https://manifestyou.ai/intention.json): The Intention API response shape, with soul_document, awareness_anchors, mantra, and version.
 - [For models and agents, overview](https://manifestyou.ai/for-models): The three-layer architecture, how to read, inject, or call the intention layer, and pricing.
 
