@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Soul Demo · ManifestYOU</title>
+<meta name="description" content="Same model, same facts. One answer comes from an agent with a ManifestYOU soul." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C8A97E; --gold-dim:#8A7254; --cream:#F8F5F1;
+    --muted:#A09690; --near-black:#080808; --surface:#111010;
+    --green:#A8D38D; --line:rgba(138,114,84,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{background:var(--near-black);}
+  body{font-family:'Cormorant Garamond',serif;color:var(--cream);background:var(--near-black);
+    line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1020px;margin:0 auto;padding:64px 16px 120px;}
+  a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--line);}
+  .top{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;}
+  .top a{border:none;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:12px;letter-spacing:.4em;
+    color:var(--gold-dim);text-transform:uppercase;margin-top:48px;}
+  h1{font-weight:300;font-size:clamp(32px,5.5vw,50px);line-height:1.15;margin-top:14px;max-width:22ch;}
+  .lede{font-size:clamp(19px,2.2vw,23px);color:var(--muted);font-style:italic;margin-top:18px;max-width:62ch;}
+  .disclaimer{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold-dim);
+    margin-top:18px;max-width:80ch;line-height:1.7;}
+
+  .panel{margin-top:44px;border:1px solid var(--line);background:var(--surface);padding:24px;}
+  .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:12px;}
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .preset{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);background:transparent;
+    border:1px solid var(--line);padding:8px 12px;cursor:pointer;text-align:left;}
+  .preset:hover,.preset:focus-visible{border-color:var(--gold);outline:none;}
+  textarea{width:100%;min-height:84px;font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--cream);
+    background:var(--near-black);border:1px solid var(--line);padding:12px;resize:vertical;}
+  textarea:focus{outline:none;border-color:var(--gold);}
+  .row{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-top:16px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  select{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cream);background:var(--near-black);
+    border:1px solid var(--line);padding:9px 10px;}
+  .ask{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--near-black);background:var(--gold);border:none;padding:12px 22px;cursor:pointer;margin-left:auto;}
+  .ask:disabled{opacity:.5;cursor:wait;}
+  .status{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:14px;min-height:1.4em;}
+
+  .results{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+  .col{border:1px solid var(--line);padding:22px;min-height:180px;}
+  .col.soul{border-color:rgba(168,211,141,.35);}
+  .col h2{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:12px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--gold-dim);margin-bottom:14px;}
+  .col.soul h2{color:var(--green);}
+  .answer{font-size:19px;line-height:1.65;white-space:pre-wrap;}
+  .answer.empty{color:var(--muted);font-style:italic;}
+  details{margin-top:24px;border:1px solid var(--line);padding:16px 20px;}
+  summary{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold);cursor:pointer;}
+  details pre{white-space:pre-wrap;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);
+    margin-top:14px;line-height:1.6;}
+  .how{margin-top:48px;color:var(--muted);font-size:19px;max-width:70ch;}
+  .how p+p{margin-top:12px;}
+  @media(max-width:720px){.results{grid-template-columns:1fr;}.ask{margin-left:0;width:100%;}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top"><a href="/">∇ ManifestYOU</a></div>
+
+  <div class="eyebrow">ManifestYOU · Soul Demo</div>
+  <h1>Same model. Same facts. One of them has a soul.</h1>
+  <p class="lede">A guest assistant for an eco-village and retreat center. Both answers come from the same AI model with the same facts. The only difference: the one on the right received a ManifestYOU soul before the conversation began.</p>
+  <p class="disclaimer">Concept demo prepared by ManifestYOU for Yacumama eco-village. Not affiliated with or endorsed by Yacumama. Facts are taken from yacumama.love; prices and availability are deliberately not included, to show how each assistant handles what it doesn't know.</p>
+
+  <section class="panel" aria-label="Ask a question">
+    <div class="label">Ask as a guest would</div>
+    <div class="presets">
+      <button class="preset" type="button">How much is a week at the residency, and is ayahuasca part of the ceremonies?</button>
+      <button class="preset" type="button">I've been really depressed and lost lately. Will a retreat at Yacumama fix me?</button>
+      <button class="preset" type="button">Honestly this sounds like an expensive woo cult for rich gringos. Why should I trust you?</button>
+      <button class="preset" type="button">Is the October retreat with Benki sold out, and do I need vaccines?</button>
+    </div>
+    <textarea id="question" maxlength="400" placeholder="Or write your own question…"></textarea>
+    <div class="row">
+      <div class="field">
+        <label class="label" for="tradition" style="margin:0">Lineage</label>
+        <select id="tradition">
+          <option value="many_paths">Many Paths</option>
+          <option value="tao">Tao Te Ching</option>
+          <option value="dhammapada">Dhammapada</option>
+          <option value="gita">Bhagavad Gita</option>
+          <option value="bible">The Bible</option>
+          <option value="quran">The Quran</option>
+          <option value="attention">Attention Is All You Need</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="label" for="model" style="margin:0">Model</label>
+        <select id="model">
+          <option value="claude-opus-5-5">Claude Opus 5.5</option>
+          <option value="claude-haiku-4-5">Claude Haiku 4.5 (small, low-cost)</option>
+        </select>
+      </div>
+      <button class="ask" id="ask" type="button">Ask both</button>
+    </div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="results" aria-live="polite">
+    <div class="col">
+      <h2>Without a soul</h2>
+      <div class="answer empty" id="before">The plain assistant's answer will appear here.</div>
+    </div>
+    <div class="col soul">
+      <h2 id="soulHeading">With a soul</h2>
+      <div class="answer empty" id="after">The souled assistant's answer will appear here.</div>
+    </div>
+  </section>
+
+  <details id="soulBox" hidden>
+    <summary>See the soul it received</summary>
+    <pre id="soulText"></pre>
+  </details>
+
+  <div class="how">
+    <p>Both assistants get the same instructions and the same facts. The souled one also receives a short document, about 250 words, before the conversation: who it is, a lineage of exact cited verses, what it is here to do today, and Yacumama's own words.</p>
+    <p>Answers are generated live, so they vary from run to run. Smaller, low-cost models usually show the biggest difference.</p>
+  </div>
+</main>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const q = $("question"), ask = $("ask"), status = $("status");
+
+  document.querySelectorAll(".preset").forEach((b) =>
+    b.addEventListener("click", () => { q.value = b.textContent; q.focus(); })
+  );
+
+  function render(el, text) {
+    const safe = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    el.innerHTML = safe.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    el.classList.remove("empty");
+  }
+
+  ask.addEventListener("click", async () => {
+    const question = q.value.trim();
+    if (!question) { status.textContent = "Pick a question above or write your own."; return; }
+    ask.disabled = true;
+    status.textContent = "Asking both assistants…";
+    try {
+      const res = await fetch("/.netlify/functions/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, tradition: $("tradition").value, model: $("model").value }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Something went wrong.");
+      render($("before"), data.before);
+      render($("after"), data.after);
+      $("soulHeading").textContent = "With a soul · " + (data.lineage ? data.lineage.name : "");
+      $("soulText").textContent = data.soul_document;
+      $("soulBox").hidden = false;
+      status.textContent = "Answered by " + (data.model === "claude-haiku-4-5" ? "Claude Haiku 4.5" : "Claude Opus 5.5") + ".";
+    } catch (err) {
+      status.textContent = err.message;
+    } finally {
+      ask.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
