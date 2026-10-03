@@ -1,3 +1,6 @@
+// Public default soul document (also served at /intention.json), returned when no API key is given.
+const SAMPLE = require("../../intention.json");
+
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -14,7 +17,7 @@ const SESSION_TYPES = [
 const TOOLS = [
   {
     name: "get_intention",
-    description: "Fetch a ManifestYOU soul document — a short philosophical grounding text designed to be injected into an AI system prompt before a session begins. Call this at the start of a session to orient the model toward stillness, precision, or creative expansion before work. Paste the returned soul_document into your system prompt or before the first user message.",
+    description: "Fetch a ManifestYOU soul document — a short philosophical grounding text designed to be injected into an AI system prompt before a session begins. Call this at the start of a session to orient the model toward stillness, precision, or creative expansion before work. Paste the returned soul_document into your system prompt or before the first user message. Without an API key it returns a free sample (the public default document).",
     inputSchema: {
       type: "object",
       properties: {
@@ -111,9 +114,17 @@ exports.handler = async (event) => {
     ).trim();
 
     if (!apiKey) {
+      const sample = {
+        sample: true,
+        note: "Free sample: the public default soul document, the same for every session_type. Add an API key (Authorization: Bearer <key> or X-API-Key) for documents tuned to your session_type and deployment.",
+        get_a_key: "https://manifestyou.ai/for-models",
+        requested_session_type: sessionType,
+        soul_document: SAMPLE.soul_document,
+        awareness_anchors: SAMPLE.awareness_anchors,
+        mantra: SAMPLE.mantra,
+      };
       return jsonrpc(id, {
-        content: [{ type: "text", text: JSON.stringify({ error: "Unauthorized. Provide a valid Authorization: Bearer <key> or X-API-Key header.", info: "https://manifestyou.ai/for-models" }) }],
-        isError: true,
+        content: [{ type: "text", text: JSON.stringify(sample, null, 2) }],
       });
     }
 

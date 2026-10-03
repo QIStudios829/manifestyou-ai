@@ -53,7 +53,7 @@ The ManifestYOU MCP server exposes two tools: `get_intention` and `list_intentio
 
 ### Tool: `get_intention`
 
-Fetches a soul document ready to inject into a system prompt.
+Fetches a soul document ready to inject into a system prompt. Without an API key it returns a free sample: the public default document, marked `"sample": true`.
 
 **Parameters:**
 
@@ -101,7 +101,7 @@ Lists the session types `get_intention` accepts, with the orientation each one s
 MANIFESTYOU_API_KEY=your-key-here node bin/mcp-stdio.js
 ```
 
-The key is only needed for `get_intention`. `initialize`, `tools/list` and `list_intentions` work without it.
+Without a key, `get_intention` returns a free sample (the public default soul document, the same for every session type). Add a key for documents tuned to your session type and deployment.
 
 ## REST API
 
