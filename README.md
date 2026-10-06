@@ -2,7 +2,7 @@
 
 **A soul document API for AI agents.** Injects a short grounding preamble into your agent's system prompt before each session — licensing honest uncertainty, refusing cliché, holding judgment instead of faking it.
 
-[![Glama](https://glama.ai/mcp/servers/badges/score.svg?repoUrl=https://github.com/QuarantikiIsland420/manifestyou-ai)](https://glama.ai/mcp/servers/QuarantikiIsland420/manifestyou-ai)
+[![ManifestYOU MCP server](https://glama.ai/mcp/servers/QuarantikiIsland420/manifestyou-ai/badges/score.svg)](https://glama.ai/mcp/servers/QuarantikiIsland420/manifestyou-ai)
 
 ---
 

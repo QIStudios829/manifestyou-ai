@@ -46,7 +46,7 @@ manifestyou-ai/
 
 ## Deployment Pipeline
 
-**Repo:** `github.com/QuarantikiIsland420/manifestyou-ai`  
+**Repo:** `github.com/QIStudios829/manifestyou-ai`  
 **Host:** Netlify, auto-deploy on push to `main`  
 **Build command:** none (static HTML, no build step)  
 **Functions dir:** `netlify/functions` (Node.js, CommonJS `exports.handler`)
