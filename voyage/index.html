@@ -416,7 +416,9 @@ if(RM){$('#go').textContent='View the stills ∇';$('#mute').style.display='none
 if(CAPTURE){document.body.classList.add('cap');window.READY=true}else{renderAt(0);loop()}
 if(FRAMED)document.body.classList.add('framed');
 // embed (home hero): visuals start muted on their own; sound only after a click
-if(EMBED&&!CAPTURE){document.body.classList.add('embed');start(false);
+if(EMBED&&!CAPTURE){document.body.classList.add('embed');paused=true;tPlay=0;
+ // hold on frame 0 until the page's opening ∇ hands over
+ addEventListener('message',e=>{if(e.origin===location.origin&&e.data==='voyage:play'&&!window.__played){window.__played=1;start(false)}});
  requestAnimationFrame(()=>{try{parent.postMessage('voyage:ready',location.origin)}catch(e){}});
  $('#snd').onclick=()=>{$('#snd').remove();paused=false;try{audio.currentTime=0}catch(e){}start(true)}}
 </script></body></html>
