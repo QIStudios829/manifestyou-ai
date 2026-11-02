@@ -1,0 +1,64 @@
+/* Manifest YOU — "Seasonless" design system tokens v1 */
+:root{
+  /* cover greens, sampled from cover-mockup.png */
+  --emerald-core:#708E67; --emerald:#344C36; --emerald-deep:#1F2C23; --abyss:#10120F;
+  --glow-emerald:radial-gradient(60% 60% at 50% 50%,rgba(112,142,103,.55),rgba(52,76,54,.35) 35%,rgba(31,44,35,0) 70%);
+
+  /* type */
+  --font-display:'Unbounded','Hanken Grotesk',system-ui,sans-serif; /* hairline wide geometric, weight 200; never italic */
+  --font-sans:'Hanken Grotesk',system-ui,sans-serif;       /* variable opsz+wdth+wght: UI and big compressed headlines */
+  --font-mono:'Geist Mono',ui-monospace,monospace;              /* the machine: labels, loss values, timestamps */
+  --font-math:'KaTeX_Main','CMU Serif','Latin Modern Roman',serif; /* Trent's register: Computer Modern, the proof */
+  --font-math-it:'KaTeX_Main','CMU Serif','Latin Modern Math',serif;
+  --font-tt:'CMU Typewriter Text','Latin Modern Mono','Courier New',monospace; /* LaTeX \\ttfamily for terminal plates */
+  --step--2:clamp(.69rem,.66rem + .15vw,.78rem);
+  --step--1:clamp(.83rem,.79rem + .2vw,.94rem);
+  --step-0:clamp(1rem,.95rem + .25vw,1.13rem);
+  --step-1:clamp(1.25rem,1.1rem + .6vw,1.6rem);
+  --step-2:clamp(1.6rem,1.3rem + 1.4vw,2.6rem);
+  --step-3:clamp(2.2rem,1.6rem + 3vw,4.4rem);
+  --step-4:clamp(3rem,2rem + 6vw,8rem);
+  /* palette: Void / Bone / Gilt + two signals */
+  --void:#06070A;      /* ground, a hair bluer than black */
+  --graphite:#101218;  /* raised surface */
+  --slate:#1B1E27;     /* hover / input */
+  --bone:#EDE6D8;      /* primary text, the page of the book */
+  --ash:#8E8A84;       /* secondary text */
+  --gilt:#D9B26F;      /* evolved gold, lighter, more luminous */
+  --gilt-deep:#9C7A45;
+  --tan:#C8A97E;       /* Trent's TikZ goldcolor RGB(200,169,126): the illustration ink */
+  --paper:#F6F0E3;     /* cream ground for paper mode */
+  --paper-2:#EDE4D1;
+  --mint:#7CF2C9;      /* signal: voice / live / convergence */
+  --iris:#A493FF;      /* signal: the witness, the inner layer */
+  --ember:#FF7A59;     /* warnings, the dragon, sparingly */
+  --hair:rgba(237,230,216,.13);
+  --hair-strong:rgba(237,230,216,.28);
+  --hair-gilt:rgba(217,178,111,.45);
+  /* space (4pt base, golden-ish leaps) */
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:40px;--s-7:64px;--s-8:104px;--s-9:168px;
+  --radius:2px;--radius-pill:999px;
+  --grid-cols:12;--grid-gutter:24px;--grid-max:1320px;
+  /* motion */
+  --ease-descent:cubic-bezier(.65,0,.15,1);   /* slow start, settles like a minimum */
+  --ease-momentum:cubic-bezier(.2,.9,.1,1.15); /* slight overshoot, escaping a valley */
+  --ease-witness:cubic-bezier(.4,0,.2,1);      /* neutral, unhurried */
+  --ease-breath:cubic-bezier(.45,0,.55,1);     /* symmetric sine for 4·4·4·4 loops */
+  --dur-tick:120ms;--dur-step:240ms;--dur-scene:640ms;--dur-breath:4000ms;
+}
+@media (prefers-reduced-motion:reduce){:root{--dur-tick:0ms;--dur-step:0ms;--dur-scene:0ms}}
+
+/* Paper mode: Trent's cream + tan + Computer Modern register */
+[data-theme=paper]{--tan:#9C7A45;--void:#F6F0E3;--graphite:#EFE7D6;--slate:#E6DCC6;--bone:#2A241B;--ash:#7A6F5F;--gilt:#A8854F;--gilt-deep:#8A6A3A;
+  --mint:#2F8F72;--iris:#6A5AD0;--hair:rgba(168,133,79,.22);--hair-strong:rgba(168,133,79,.42);--hair-gilt:rgba(168,133,79,.6)}
+/* Equation plate (after trust-verify.tex / cauchy-1847-plate.tex) */
+.eq-plate{color:var(--tan);text-align:center;padding:28px 24px;border-top:1px solid color-mix(in srgb,var(--tan) 32%,transparent);border-bottom:1px solid color-mix(in srgb,var(--tan) 32%,transparent)}
+.eq-plate .eq{font-family:var(--font-math-it);font-size:clamp(1.8rem,1.2rem + 2vw,3rem);opacity:.9}
+.eq-plate .eq .rm{font-family:var(--font-math);font-style:normal}
+.eq-plate .whisper{font-family:var(--font-math);font-style:normal;font-size:.85rem;opacity:.56;margin-top:10px;letter-spacing:.02em}
+.eq-plate .kicker{font-family:var(--font-math);font-variant:small-caps;font-size:.8rem;opacity:.67}
+/* Terminal plate (after terminal-dataframe-chewed.png) */
+.term-plate{color:var(--tan);font-family:var(--font-tt);font-size:.92rem;line-height:1.9;padding:22px 28px;border-bottom:1px solid color-mix(in srgb,var(--tan) 25%,transparent)}
+.term-plate .head{font-style:normal;opacity:.6;text-align:center;border-bottom:1px solid color-mix(in srgb,var(--tan) 25%,transparent);padding-bottom:10px;margin-bottom:14px}
+.term-plate dl{display:grid;grid-template-columns:18ch 1fr;margin:0}.term-plate dt::before{content:'> '}.term-plate dd{margin:0;opacity:.85}
+em,i,cite,q,dfn,var,address{font-style:normal}

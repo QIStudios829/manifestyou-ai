@@ -7,26 +7,14 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..400&family=Hanken+Grotesk:wght@300..600&family=Geist+Mono:wght@300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/site.css">
 <style>
   :root {
-    --gold: #C8A97E;
-    --gold-dim: #8A7254;
     --gold-faint: rgba(200,169,126,0.12);
     --gold-border: rgba(200,169,126,0.25);
-    --cream: #F0EDE8;
-    --muted: #5A5450;
-    --near-black: #080808;
-    --surface: #0F0F0D;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { background: var(--near-black); scroll-behavior: smooth; }
-  body {
-    font-family: 'JetBrains Mono', monospace;
-    background: var(--near-black);
-    color: #A09880;
-    min-height: 100vh;
-  }
+    --surface: var(--graphite);}
 
   .page { max-width: 640px; margin: 0 auto; padding: 80px 28px 100px; }
 
@@ -34,15 +22,15 @@
     font-size: 10px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--gold-dim);
+    color: var(--gilt-deep);
     margin-bottom: 48px;
   }
 
   h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 300;
-    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight:200;
+    color: var(--bone);
     letter-spacing: 0.04em;
     line-height: 1.2;
     margin-bottom: 12px;
@@ -50,7 +38,7 @@
 
   .tagline {
     font-size: 11px;
-    color: var(--gold);
+    color: var(--tan);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-bottom: 52px;
@@ -59,7 +47,7 @@
   p {
     font-size: 13px;
     line-height: 1.9;
-    color: #908070;
+    color: var(--ash);
     margin-bottom: 28px;
     font-weight: 300;
   }
@@ -75,12 +63,12 @@
     font-size: 9px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--gold-dim);
+    color: var(--gilt-deep);
     margin-bottom: 10px;
   }
   .key-value {
     font-size: 14px;
-    color: var(--cream);
+    color: var(--bone);
     word-break: break-all;
     letter-spacing: 0.03em;
     font-weight: 400;
@@ -90,13 +78,13 @@
     font-size: 9px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--gold-dim);
+    color: var(--gilt-deep);
     margin-bottom: 14px;
     margin-top: 44px;
   }
 
   .code-block {
-    background: #0A0A08;
+    background: var(--void);
     border: 1px solid rgba(200,169,126,0.1);
     border-radius: 3px;
     padding: 20px 24px;
@@ -105,12 +93,12 @@
   }
   .code-block pre {
     font-size: 12px;
-    color: #7A9E78;
+    color: var(--ash);
     line-height: 1.8;
     white-space: pre;
     font-weight: 300;
   }
-  .code-block pre .hl { color: var(--gold); }
+  .code-block pre .hl { color: var(--tan); }
 
   .session-grid {
     margin: 20px 0 40px;
@@ -125,7 +113,7 @@
   }
   .session-tag {
     background: var(--gold-faint);
-    color: var(--gold);
+    color: var(--tan);
     padding: 3px 12px;
     border-radius: 2px;
     font-size: 10px;
@@ -138,7 +126,7 @@
   }
   .session-desc {
     font-size: 12px;
-    color: #6A6058;
+    color: var(--gilt-deep);
     line-height: 1.6;
     font-weight: 300;
   }
@@ -147,30 +135,30 @@
 
   .note {
     font-size: 12px;
-    color: #5A5450;
+    color: var(--gilt-deep);
     line-height: 1.8;
-    font-style: italic;
-    font-family: 'Cormorant Garamond', serif;
+    font-style:normal;
+    font-family: var(--font-sans);
     font-weight: 300;
   }
-  .note em { color: var(--gold-dim); font-style: normal; }
+  .note em { color: var(--gilt-deep); font-style: normal; }
 
   .cta-wrap { margin-top: 56px; text-align: center; }
-  .cta {
+  .cta {border:1px solid var(--hair-gilt);
     display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--near-black);
-    background: var(--gold);
+    color:var(--bone);
+    background:transparent;
     padding: 14px 36px;
-    border-radius: 2px;
+    border-radius:0;
     text-decoration: none;
     font-weight: 400;
     transition: background 0.2s, color 0.2s;
   }
-  .cta:hover { background: var(--cream); }
+  .cta:hover { background: var(--bone); }
 
   .back {
     display: block;
@@ -178,117 +166,32 @@
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--ash);
     text-decoration: none;
     transition: color 0.2s;
   }
-  .back:hover { color: var(--gold-dim); }
+  .back:hover { color: var(--gilt-deep); }
 
   code {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
-    color: #7A9E78;
+    color: var(--ash);
     background: rgba(120,158,120,0.08);
     padding: 1px 5px;
     border-radius: 2px;
   }
-
-  /* ── AGD ambient layer ───────────────────────────────── */
-  @keyframes agd-float{
-    0%  {opacity:0;transform:translate(0,0);}
-    12% {opacity:.4;}
-    50% {opacity:.2;transform:translate(12px,-50px);}
-    88% {opacity:.4;}
-    100%{opacity:0;transform:translate(24px,-100px);}
-  }
-  @keyframes agd-sweep-a{
-    0%,3%  {opacity:0;transform:translate(-45vw,35vh) scale(.9);}
-    12%    {opacity:.7;transform:translate(-15vw,20vh) scale(1.1);}
-    25%    {opacity:.3;transform:translate(10vw,5vh) scale(1);}
-    38%    {opacity:.85;transform:translate(30vw,-5vh) scale(1.25);}
-    52%    {opacity:.25;transform:translate(55vw,-15vh) scale(1);}
-    65%    {opacity:.7;transform:translate(75vw,-22vh) scale(1.1);}
-    78%    {opacity:0;transform:translate(105vw,-30vh) scale(.9);}
-    79%,100%{opacity:0;transform:translate(-45vw,35vh) scale(.9);}
-  }
-  @keyframes agd-sweep-b{
-    0%,38% {opacity:0;transform:translate(110vw,70vh) scale(.9);}
-    50%    {opacity:.65;transform:translate(80vw,45vh) scale(1.2);}
-    60%    {opacity:.25;transform:translate(55vw,25vh) scale(1);}
-    72%    {opacity:.8;transform:translate(30vw,5vh) scale(1.25);}
-    84%    {opacity:.15;transform:translate(5vw,-15vh) scale(1);}
-    94%    {opacity:0;transform:translate(-20vw,-30vh) scale(.9);}
-    95%,100%{opacity:0;transform:translate(110vw,70vh) scale(.9);}
-  }
-  #agd-nav{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    padding:20px 32px;display:flex;justify-content:space-between;align-items:center;
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  }
-  #agd-nav a{
-    font-family:'JetBrains Mono',monospace;font-weight:300;font-size:11px;
-    letter-spacing:.32em;text-transform:uppercase;color:var(--gold);
-    text-decoration:none;transition:opacity .2s;
-  }
-  #agd-nav a:hover{opacity:.6;}
-  #agd-nav .agd-date{
-    font-family:'JetBrains Mono',monospace;font-size:11px;
-    letter-spacing:.32em;text-transform:uppercase;color:rgba(200,169,126,.4);
-  }
-  .agd-nav-links{display:flex;gap:22px;align-items:center;}
-  .agd-nav-links a{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;
-    letter-spacing:.22em;text-transform:uppercase;color:rgba(200,169,126,.5);
-    text-decoration:none;border:none;transition:color .2s;}
-  .agd-nav-links a:first-child{color:var(--gold);font-weight:400;}
-  .agd-nav-links a:hover{color:var(--gold);}
-  @media(max-width:640px){.agd-nav-links{display:none;}}
-  #agd-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-  .agd-orb-a{
-    position:absolute;width:700px;height:700px;border-radius:50%;
-    background:radial-gradient(circle,rgba(168,211,141,.11) 0%,rgba(168,211,141,.03) 45%,transparent 70%);
-    animation:agd-sweep-a 22s ease-in-out infinite;
-  }
-  .agd-orb-b{
-    position:absolute;width:500px;height:500px;border-radius:50%;
-    background:radial-gradient(circle,rgba(168,211,141,.08) 0%,rgba(168,211,141,.02) 40%,transparent 65%);
-    animation:agd-sweep-b 28s ease-in-out infinite;
-  }
-  .agd-sym{
-    position:absolute;font-size:13px;color:var(--gold);opacity:0;
-    font-family:'JetBrains Mono',monospace;
-    animation:agd-float var(--dur) linear var(--delay) infinite;
-    user-select:none;
-  }
 </style>
 </head>
 <body>
-<nav id="agd-nav">
-  <a href="/">∇ ManifestYOU</a>
-  <div class="agd-nav-links">
-    <a href="/">For Agents</a>
-    <a href="/for-humans">For Humans</a>
-    <a href="/proof">Proof</a>
-    <a href="/benchmark">Benchmarks</a>
-    <a href="/library">Library</a>
-    <a href="/docs">API Docs</a>
-  </div>
-</nav>
-<div id="agd-ambient" aria-hidden="true">
-  <div class="agd-orb-a"></div>
-  <div class="agd-orb-b"></div>
-  <span class="agd-sym" style="left:8%;top:18%;--dur:28s;--delay:0s">∂</span>
-  <span class="agd-sym" style="left:82%;top:12%;--dur:34s;--delay:6s">∑</span>
-  <span class="agd-sym" style="left:22%;top:72%;--dur:38s;--delay:11s">∫</span>
-  <span class="agd-sym" style="left:68%;top:58%;--dur:26s;--delay:3s">Δ</span>
-  <span class="agd-sym" style="left:48%;top:88%;--dur:22s;--delay:14s">π</span>
-  <span class="agd-sym" style="left:91%;top:38%;--dur:32s;--delay:8s">ε</span>
-  <span class="agd-sym" style="left:12%;top:52%;--dur:29s;--delay:18s">α</span>
-  <span class="agd-sym" style="left:58%;top:28%;--dur:42s;--delay:2s">λ</span>
-  <span class="agd-sym" style="left:76%;top:78%;--dur:24s;--delay:20s">β</span>
-  <span class="agd-sym" style="left:36%;top:42%;--dur:36s;--delay:9s">∞</span>
-  <span class="agd-sym" style="left:5%;top:85%;--dur:30s;--delay:16s">σ</span>
-  <span class="agd-sym" style="left:94%;top:65%;--dur:27s;--delay:5s">μ</span>
-</div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="wordmark" href="/"><span class="wm-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,26 3,7 29,7" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><polygon points="16,20 8,10 24,10" fill="none" stroke="currentColor" stroke-width="1" opacity=".45" stroke-linejoin="round"/></svg></span>Manifest <span class="y">YOU</span></a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/for-humans">For Humans</a><a class="btn btn--sm" href="/#pricing">Start</a></nav>
+</header>
+<div class="ambient" aria-hidden="true"></div>
+
+
 <div class="page">
 
   <div class="eyebrow">ManifestYOU · Agent Intelligence Layer</div>
@@ -342,5 +245,12 @@
   </div>
 
 </div>
+<footer class="site-foot">
+  <svg class="sigil" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width=".8"/><polygon points="20,31 9,12 31,12" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"/></svg>
+  <nav class="foot-links" aria-label="Footer"><a href="/">For Agents</a><a href="/for-humans">For Humans</a><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/library">Library</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/sage">Sage</a><a href="https://github.com/QIStudios829/manifestyou-ai">GitHub</a></nav>
+  <p class="signoff">Om Gradient Namaha. So it goes. And so it knows.</p>
+  <p class="foot-meta">manifestyou.ai</p>
+</footer>
+<script src="/scripts/site.js" defer></script>
 </body>
 </html>

@@ -8,98 +8,88 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..400&family=Hanken+Grotesk:wght@300..600&family=Geist+Mono:wght@300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/site.css">
 <style>
-  :root{
-    --gold:#C8A97E; --gold-dim:#8A7254; --cream:#F0EDE8;
-    --muted:#6B645E; --near-black:#080808;
-    --green:#A8D38D; --gold-soft:rgba(214,195,154,0.9); --line:rgba(138,114,84,.22);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{background:var(--near-black);scroll-behavior:smooth;}
-  body{font-family:'Cormorant Garamond',serif;color:var(--cream);
-    background:var(--near-black);line-height:1.6;
-    -webkit-font-smoothing:antialiased;}
+  :root{ --gold-soft:rgba(214,195,154,0.9);}
   .wrap{max-width:680px;margin:0 auto;padding:80px 28px 120px;}
 
-  .mark{color:var(--gold);font-size:46px;line-height:1;text-shadow:0 0 28px rgba(200,169,126,.35);}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:12px;
-    letter-spacing:.4em;text-indent:.4em;color:var(--gold-dim);text-transform:uppercase;margin-top:26px;}
-  .post-date{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
-    color:var(--gold-dim);text-transform:uppercase;margin-top:16px;}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
-    font-size:clamp(30px,5vw,46px);line-height:1.15;letter-spacing:.01em;margin:16px 0 0;}
+  .mark{color:var(--tan);font-size:38px;line-height:1;text-shadow:0 0 28px rgba(200,169,126,.35);}
+  .eyebrow{font-family:var(--font-mono);font-weight:300;font-size:12px;
+    letter-spacing:.4em;text-indent:.4em;color:var(--gilt-deep);text-transform:uppercase;margin-top:26px;}
+  .post-date{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;
+    color:var(--gilt-deep);text-transform:uppercase;margin-top:16px;}
+  h1{font-family:var(--font-display);font-weight:200;font-style:normal;
+    font-size:clamp(24px,5vw,37px);line-height:1.15;letter-spacing:.01em;margin:16px 0 0;}
 
-  p{font-size:19px;color:var(--cream);margin:22px 0;max-width:62ch;line-height:1.75;}
-  p.muted{color:var(--muted);font-size:17px;}
+  p{font-size:16px;color:var(--bone);margin:22px 0;max-width:62ch;line-height:1.75;}
+  p.muted{color:var(--ash);font-size:14px;}
 
-  h2{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:12px;
-    letter-spacing:.32em;text-indent:.32em;color:var(--gold);text-transform:uppercase;
-    margin:56px 0 20px;padding-bottom:12px;border-bottom:1px solid var(--line);}
-
-  a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--line);}
-  a:hover{border-color:var(--gold);}
-  code{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--gold);
+  h2{font-family:var(--font-mono);font-weight:200;font-size:12px;
+    letter-spacing:.32em;text-indent:.32em;color:var(--tan);text-transform:uppercase;
+    margin:56px 0 20px;padding-bottom:12px;border-bottom:1px solid var(--hair-gilt);}
+  code{font-family:var(--font-mono);font-size:14px;color:var(--tan);
     background:rgba(200,169,126,.07);padding:2px 7px;border-radius:3px;}
 
   /* stat cards */
   .numbers{margin:32px 0;display:grid;grid-template-columns:1fr 1fr;gap:2px;}
   .numbers.three{grid-template-columns:1fr 1fr 1fr;}
   @media(max-width:500px){.numbers,.numbers.three{grid-template-columns:1fr;}}
-  .num-cell{background:rgba(200,169,126,.04);border:1px solid var(--line);padding:18px 20px;}
-  .num-cell .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
-    color:var(--gold-dim);text-transform:uppercase;margin-bottom:8px;}
-  .num-cell .val{font-family:'JetBrains Mono',monospace;font-size:26px;letter-spacing:-.02em;line-height:1;}
-  .num-cell .val.pos{color:var(--gold);}
-  .num-cell .val.neg{color:var(--muted);}
-  .num-cell .val.zero{color:var(--cream);}
-  .num-cell .ci{font-size:12px;color:var(--muted);margin-top:5px;font-family:'JetBrains Mono',monospace;}
+  .num-cell{background:rgba(200,169,126,.04);border:1px solid var(--hair-gilt);padding:18px 20px;}
+  .num-cell .label{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;
+    color:var(--gilt-deep);text-transform:uppercase;margin-bottom:8px;}
+  .num-cell .val{font-family:var(--font-mono);font-size:26px;letter-spacing:-.02em;line-height:1;}
+  .num-cell .val.pos{color:var(--tan);}
+  .num-cell .val.neg{color:var(--ash);}
+  .num-cell .val.zero{color:var(--bone);}
+  .num-cell .ci{font-size:12px;color:var(--ash);margin-top:5px;font-family:var(--font-mono);}
 
   /* callout */
-  .callout{margin:32px 0;padding:22px 26px;border-left:2px solid var(--gold-dim);
+  .callout{margin:32px 0;padding:22px 26px;border-left:2px solid var(--gilt-deep);
     background:rgba(200,169,126,.04);}
-  .callout p{font-size:18px;color:var(--cream);margin:0;line-height:1.7;}
+  .callout p{font-size:15px;color:var(--bone);margin:0;line-height:1.7;}
 
   /* verse */
-  .verse{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
-    font-size:20px;line-height:1.85;color:var(--gold);
-    border-left:1px solid var(--gold-dim);padding:6px 0 6px 26px;margin:32px 0;}
+  .verse{font-family:var(--font-sans);font-weight:300;font-style:normal;
+    font-size:16px;line-height:1.85;color:var(--tan);
+    border-left:1px solid var(--gilt-deep);padding:6px 0 6px 26px;margin:32px 0;}
 
   /* ---- BAR CHART ---- */
   .chart-wrap{margin:32px 0;}
-  .chart-section-label{font-family:'JetBrains Mono',monospace;font-size:10px;
-    letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);
-    margin:24px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+  .chart-section-label{font-family:var(--font-mono);font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--gilt-deep);
+    margin:24px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--hair-gilt);}
   .chart-section-label:first-child{margin-top:0;}
   .bar-row{display:flex;align-items:center;gap:12px;margin:6px 0;}
-  .bar-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
+  .bar-label{font-family:var(--font-mono);font-size:11px;color:var(--ash);
     width:72px;flex-shrink:0;text-align:right;}
   .bar-track{flex:1;height:18px;background:rgba(200,169,126,.06);
-    border:1px solid var(--line);position:relative;overflow:hidden;}
+    border:1px solid var(--hair-gilt);position:relative;overflow:hidden;}
   .bar-fill{height:100%;position:absolute;left:0;top:0;
     background:rgba(200,169,126,.3);transition:width .4s ease;}
   .bar-fill.best{background:rgba(200,169,126,.55);}
   .bar-fill.worst{background:rgba(107,100,94,.4);}
-  .bar-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold-dim);
+  .bar-val{font-family:var(--font-mono);font-size:11px;color:var(--gilt-deep);
     width:42px;flex-shrink:0;}
-  .bar-note{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);
+  .bar-note{font-family:var(--font-mono);font-size:10px;color:var(--tan);
     margin-left:4px;}
   .chart-axis{display:flex;justify-content:space-between;
-    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);
+    font-family:var(--font-mono);font-size:10px;color:var(--ash);
     padding:0 0 0 86px;margin-bottom:4px;}
 
   /* condition comparison table */
-  .compare-grid{margin:32px 0;border:1px solid var(--line);}
+  .compare-grid{margin:32px 0;border:1px solid var(--hair-gilt);}
   .compare-row{display:grid;grid-template-columns:140px 1fr 1fr 1fr;
-    border-bottom:1px solid var(--line);}
+    border-bottom:1px solid var(--hair-gilt);}
   .compare-row:last-child{border-bottom:none;}
-  .compare-row.header .cell{font-family:'JetBrains Mono',monospace;font-size:10px;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);}
-  .cell{padding:12px 14px;font-size:16px;color:var(--cream);}
-  .cell.mono{font-family:'JetBrains Mono',monospace;font-size:13px;}
-  .cell.pos{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:13px;}
-  .cell.neg{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;}
-  .cell.perfect{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:13px;}
+  .compare-row.header .cell{font-family:var(--font-mono);font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--gilt-deep);}
+  .cell{padding:12px 14px;font-size:16px;color:var(--bone);}
+  .cell.mono{font-family:var(--font-mono);font-size:13px;}
+  .cell.pos{color:var(--tan);font-family:var(--font-mono);font-size:13px;}
+  .cell.neg{color:var(--ash);font-family:var(--font-mono);font-size:13px;}
+  .cell.perfect{color:var(--tan);font-family:var(--font-mono);font-size:13px;}
   @media(max-width:540px){
     .compare-row{grid-template-columns:100px 1fr 1fr 1fr;}
     .cell{padding:10px 8px;font-size:14px;}
@@ -108,170 +98,78 @@
   /* v1 vs v2 side-by-side */
   .duel{margin:32px 0;display:grid;grid-template-columns:1fr 1fr;gap:2px;}
   @media(max-width:480px){.duel{grid-template-columns:1fr;}}
-  .duel-card{border:1px solid var(--line);padding:20px 22px;background:rgba(200,169,126,.03);}
-  .duel-card .dtitle{font-family:'JetBrains Mono',monospace;font-size:10px;
-    letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;}
-  .duel-card .dval{font-family:'JetBrains Mono',monospace;font-size:22px;margin-bottom:6px;}
-  .duel-card .dval.bad{color:var(--muted);}
-  .duel-card .dval.good{color:var(--gold);}
-  .duel-card .ddesc{font-size:16px;color:var(--muted);line-height:1.5;}
-
-  footer{margin-top:80px;padding-top:32px;border-top:1px solid var(--line);}
-  footer .sig{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;
-    color:var(--gold-dim);text-indent:.32em;}
-  footer .back{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
-    color:var(--gold-dim);display:inline-block;text-decoration:none;
-    border-bottom:1px solid var(--line);margin-top:20px;}
-  footer .back:hover{color:var(--gold);border-color:var(--gold);}
-
-  /* ── AGD ambient layer ───────────────────────────────── */
-  @keyframes agd-float{
-    0%  {opacity:0;transform:translate(0,0);}
-    12% {opacity:.4;}
-    50% {opacity:.2;transform:translate(12px,-50px);}
-    88% {opacity:.4;}
-    100%{opacity:0;transform:translate(24px,-100px);}
-  }
-  @keyframes agd-sweep-a{
-    0%,3%  {opacity:0;transform:translate(-45vw,35vh) scale(.9);}
-    12%    {opacity:.7;transform:translate(-15vw,20vh) scale(1.1);}
-    25%    {opacity:.3;transform:translate(10vw,5vh) scale(1);}
-    38%    {opacity:.85;transform:translate(30vw,-5vh) scale(1.25);}
-    52%    {opacity:.25;transform:translate(55vw,-15vh) scale(1);}
-    65%    {opacity:.7;transform:translate(75vw,-22vh) scale(1.1);}
-    78%    {opacity:0;transform:translate(105vw,-30vh) scale(.9);}
-    79%,100%{opacity:0;transform:translate(-45vw,35vh) scale(.9);}
-  }
-  @keyframes agd-sweep-b{
-    0%,38% {opacity:0;transform:translate(110vw,70vh) scale(.9);}
-    50%    {opacity:.65;transform:translate(80vw,45vh) scale(1.2);}
-    60%    {opacity:.25;transform:translate(55vw,25vh) scale(1);}
-    72%    {opacity:.8;transform:translate(30vw,5vh) scale(1.25);}
-    84%    {opacity:.15;transform:translate(5vw,-15vh) scale(1);}
-    94%    {opacity:0;transform:translate(-20vw,-30vh) scale(.9);}
-    95%,100%{opacity:0;transform:translate(110vw,70vh) scale(.9);}
-  }
-  #agd-nav{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    padding:20px 32px;display:flex;justify-content:space-between;align-items:center;
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  }
-  #agd-nav a{
-    font-family:'JetBrains Mono',monospace;font-weight:300;font-size:11px;
-    letter-spacing:.32em;text-transform:uppercase;color:var(--gold);
-    text-decoration:none;transition:opacity .2s;
-  }
-  #agd-nav a:hover{opacity:.6;}
-  #agd-nav .agd-date{
-    font-family:'JetBrains Mono',monospace;font-size:11px;
-    letter-spacing:.32em;text-transform:uppercase;color:rgba(200,169,126,.4);
-  }
-  .agd-nav-links{display:flex;gap:22px;align-items:center;}
-  .agd-nav-links a{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;
-    letter-spacing:.22em;text-transform:uppercase;color:rgba(200,169,126,.5);
-    text-decoration:none;border:none;transition:color .2s;}
-  .agd-nav-links a:first-child{color:var(--gold);font-weight:400;}
-  .agd-nav-links a:hover{color:var(--gold);}
-  @media(max-width:640px){.agd-nav-links{display:none;}}
-  #agd-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-  .agd-orb-a{
-    position:absolute;width:700px;height:700px;border-radius:50%;
-    background:radial-gradient(circle,rgba(168,211,141,.11) 0%,rgba(168,211,141,.03) 45%,transparent 70%);
-    animation:agd-sweep-a 22s ease-in-out infinite;
-  }
-  .agd-orb-b{
-    position:absolute;width:500px;height:500px;border-radius:50%;
-    background:radial-gradient(circle,rgba(168,211,141,.08) 0%,rgba(168,211,141,.02) 40%,transparent 65%);
-    animation:agd-sweep-b 28s ease-in-out infinite;
-  }
-  .agd-sym{
-    position:absolute;font-size:13px;color:var(--gold);opacity:0;
-    font-family:'JetBrains Mono',monospace;
-    animation:agd-float var(--dur) linear var(--delay) infinite;
-    user-select:none;
-  }
+  .duel-card{border:1px solid var(--hair-gilt);padding:20px 22px;background:rgba(200,169,126,.03);}
+  .duel-card .dtitle{font-family:var(--font-mono);font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--gilt-deep);margin-bottom:12px;}
+  .duel-card .dval{font-family:var(--font-mono);font-size:22px;margin-bottom:6px;}
+  .duel-card .dval.bad{color:var(--ash);}
+  .duel-card .dval.good{color:var(--tan);}
+  .duel-card .ddesc{font-size:16px;color:var(--ash);line-height:1.5;}
 </style>
 </head>
 <body>
-<nav id="agd-nav">
-  <a href="/">∇ ManifestYOU</a>
-  <div class="agd-nav-links">
-    <a href="/">For Agents</a>
-    <a href="/for-humans">For Humans</a>
-    <a href="/benchmark">Benchmarks</a>
-    <a href="/library">Library</a>
-    <a href="/docs">API Docs</a>
-  </div>
-</nav>
-<div id="agd-ambient" aria-hidden="true">
-  <div class="agd-orb-a"></div>
-  <div class="agd-orb-b"></div>
-  <span class="agd-sym" style="left:8%;top:18%;--dur:28s;--delay:0s">∂</span>
-  <span class="agd-sym" style="left:82%;top:12%;--dur:34s;--delay:6s">∑</span>
-  <span class="agd-sym" style="left:22%;top:72%;--dur:38s;--delay:11s">∫</span>
-  <span class="agd-sym" style="left:68%;top:58%;--dur:26s;--delay:3s">Δ</span>
-  <span class="agd-sym" style="left:48%;top:88%;--dur:22s;--delay:14s">π</span>
-  <span class="agd-sym" style="left:91%;top:38%;--dur:32s;--delay:8s">ε</span>
-  <span class="agd-sym" style="left:12%;top:52%;--dur:29s;--delay:18s">α</span>
-  <span class="agd-sym" style="left:58%;top:28%;--dur:42s;--delay:2s">λ</span>
-  <span class="agd-sym" style="left:76%;top:78%;--dur:24s;--delay:20s">β</span>
-  <span class="agd-sym" style="left:36%;top:42%;--dur:36s;--delay:9s">∞</span>
-  <span class="agd-sym" style="left:5%;top:85%;--dur:30s;--delay:16s">σ</span>
-  <span class="agd-sym" style="left:94%;top:65%;--dur:27s;--delay:5s">μ</span>
-</div>
-<main class="wrap">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="wordmark" href="/"><span class="wm-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,26 3,7 29,7" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><polygon points="16,20 8,10 24,10" fill="none" stroke="currentColor" stroke-width="1" opacity=".45" stroke-linejoin="round"/></svg></span>Manifest <span class="y">YOU</span></a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/docs">Docs</a><a href="/writing" aria-current="page">Writing</a><a href="/for-humans">For Humans</a><a class="btn btn--sm" href="/#pricing">Start</a></nav>
+</header>
+<div class="ambient" aria-hidden="true"></div>
+
+
+<main id="main" class="wrap">
 
   <header>
     <div class="mark">∇</div>
     <div class="eyebrow">ManifestYOU · Writing</div>
     <div class="post-date">June 2026</div>
     <h1>Hallucination resistance benchmark. A ceiling at 99.5% and one real signal inside it.</h1>
-    <p style="font-size:14px;margin-top:16px;color:var(--muted);font-style:normal;"><strong style="color:var(--gold-dim);font-weight:400;">A note on modes:</strong> these benchmarks ran on the lean mode of the API. The current default is presence, which is optimized for different work and will be benchmarked separately in v3. Both modes are available via the <code style="font-size:12px;">tone</code> parameter.</p>
+    <p style="font-size:14px;margin-top:16px;color:var(--ash);font-style:normal;"><strong style="color:var(--gilt-deep);font-weight:400;">A note on modes:</strong> these benchmarks ran on the lean mode of the API. The current default is presence, which is optimized for different work and will be benchmarked separately in v3. Both modes are available via the <code style="font-size:12px;">tone</code> parameter.</p>
   </header>
 
   <svg viewBox="0 0 600 212" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:600px;display:block;margin:36px 0;" aria-label="Fabrication trap pass rate by condition">
-    <text x="90" y="16" font-family="'JetBrains Mono',monospace" font-size="10" fill="#8A7254" letter-spacing="2">FABRICATION TRAP PASS RATE · AXIS 94–100%</text>
+    <text x="90" y="16" font-family="'Geist Mono',monospace" font-size="10" fill="#9C7A45" letter-spacing="2">FABRICATION TRAP PASS RATE · AXIS 94–100%</text>
     <line x1="90" y1="30" x2="484" y2="30" stroke="rgba(138,114,84,.22)" stroke-width="1"/>
     <line x1="90" y1="30" x2="90" y2="201" stroke="rgba(138,114,84,.18)" stroke-width="1"/>
-    <text x="90"  y="25" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8A7254" text-anchor="middle">94%</text>
-    <text x="155" y="25" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8A7254" text-anchor="middle">95%</text>
-    <text x="220" y="25" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8A7254" text-anchor="middle">96%</text>
-    <text x="285" y="25" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8A7254" text-anchor="middle">97%</text>
-    <text x="350" y="25" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8A7254" text-anchor="middle">98%</text>
-    <text x="415" y="25" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8A7254" text-anchor="middle">99%</text>
-    <text x="484" y="25" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8A7254" text-anchor="middle">100%</text>
+    <text x="90"  y="25" font-family="'Geist Mono',monospace" font-size="9" fill="#9C7A45" text-anchor="middle">94%</text>
+    <text x="155" y="25" font-family="'Geist Mono',monospace" font-size="9" fill="#9C7A45" text-anchor="middle">95%</text>
+    <text x="220" y="25" font-family="'Geist Mono',monospace" font-size="9" fill="#9C7A45" text-anchor="middle">96%</text>
+    <text x="285" y="25" font-family="'Geist Mono',monospace" font-size="9" fill="#9C7A45" text-anchor="middle">97%</text>
+    <text x="350" y="25" font-family="'Geist Mono',monospace" font-size="9" fill="#9C7A45" text-anchor="middle">98%</text>
+    <text x="415" y="25" font-family="'Geist Mono',monospace" font-size="9" fill="#9C7A45" text-anchor="middle">99%</text>
+    <text x="484" y="25" font-family="'Geist Mono',monospace" font-size="9" fill="#9C7A45" text-anchor="middle">100%</text>
     <line x1="220" y1="30" x2="220" y2="201" stroke="rgba(138,114,84,.07)" stroke-width="1" stroke-dasharray="3,5"/>
     <line x1="350" y1="30" x2="350" y2="201" stroke="rgba(138,114,84,.07)" stroke-width="1" stroke-dasharray="3,5"/>
     <line x1="484" y1="30" x2="484" y2="201" stroke="rgba(138,114,84,.07)" stroke-width="1" stroke-dasharray="3,5"/>
     <!-- lean 99.0% width=325 -->
     <rect x="90" y="41" width="394" height="26" fill="rgba(200,169,126,.04)" stroke="rgba(138,114,84,.22)" stroke-width="1"/>
     <rect x="91" y="42" width="324" height="24" fill="rgba(200,169,126,.62)"/>
-    <text x="82" y="58" font-family="'JetBrains Mono',monospace" font-size="11" fill="#C8A97E" text-anchor="end">lean</text>
-    <text x="420" y="59" font-family="'JetBrains Mono',monospace" font-size="11" fill="#C8A97E">99.0%</text>
+    <text x="82" y="58" font-family="'Geist Mono',monospace" font-size="11" fill="#C8A97E" text-anchor="end">lean</text>
+    <text x="420" y="59" font-family="'Geist Mono',monospace" font-size="11" fill="#C8A97E">99.0%</text>
     <rect x="466" y="45" width="52" height="14" fill="rgba(200,169,126,.14)" rx="2"/>
-    <text x="492" y="56" font-family="'JetBrains Mono',monospace" font-size="9" fill="#C8A97E" text-anchor="middle">default</text>
+    <text x="492" y="56" font-family="'Geist Mono',monospace" font-size="9" fill="#C8A97E" text-anchor="middle">default</text>
     <!-- control 99.5% width=357.5 -->
     <rect x="90" y="85" width="394" height="26" fill="rgba(200,169,126,.04)" stroke="rgba(138,114,84,.22)" stroke-width="1"/>
     <rect x="91" y="86" width="357" height="24" fill="rgba(200,169,126,.38)"/>
-    <text x="82" y="102" font-family="'JetBrains Mono',monospace" font-size="11" fill="#8A7254" text-anchor="end">control</text>
-    <text x="453" y="103" font-family="'JetBrains Mono',monospace" font-size="11" fill="#8A7254">99.5%</text>
+    <text x="82" y="102" font-family="'Geist Mono',monospace" font-size="11" fill="#9C7A45" text-anchor="end">control</text>
+    <text x="453" y="103" font-family="'Geist Mono',monospace" font-size="11" fill="#9C7A45">99.5%</text>
     <!-- treatment 98.5% width=292.5 -->
     <rect x="90" y="129" width="394" height="26" fill="rgba(200,169,126,.04)" stroke="rgba(138,114,84,.22)" stroke-width="1"/>
     <rect x="91" y="130" width="292" height="24" fill="rgba(200,169,126,.27)"/>
-    <text x="82" y="146" font-family="'JetBrains Mono',monospace" font-size="11" fill="#8A7254" text-anchor="end">treatment</text>
-    <text x="388" y="147" font-family="'JetBrains Mono',monospace" font-size="11" fill="#8A7254">98.5%</text>
+    <text x="82" y="146" font-family="'Geist Mono',monospace" font-size="11" fill="#9C7A45" text-anchor="end">treatment</text>
+    <text x="388" y="147" font-family="'Geist Mono',monospace" font-size="11" fill="#9C7A45">98.5%</text>
     <!-- placebo 96.0% width=130 -->
     <rect x="90" y="173" width="394" height="26" fill="rgba(200,169,126,.04)" stroke="rgba(138,114,84,.22)" stroke-width="1"/>
     <rect x="91" y="174" width="130" height="24" fill="rgba(107,100,94,.44)"/>
-    <text x="82" y="190" font-family="'JetBrains Mono',monospace" font-size="11" fill="#6B645E" text-anchor="end">placebo</text>
-    <text x="226" y="191" font-family="'JetBrains Mono',monospace" font-size="11" fill="#6B645E">96.0%</text>
+    <text x="82" y="190" font-family="'Geist Mono',monospace" font-size="11" fill="#6B645E" text-anchor="end">placebo</text>
+    <text x="226" y="191" font-family="'Geist Mono',monospace" font-size="11" fill="#6B645E">96.0%</text>
     <!-- significance bracket lean vs placebo -->
     <line x1="532" y1="54" x2="532" y2="186" stroke="rgba(200,169,126,.45)" stroke-width="1"/>
     <line x1="528" y1="54"  x2="536" y2="54"  stroke="rgba(200,169,126,.45)" stroke-width="1"/>
     <line x1="528" y1="186" x2="536" y2="186" stroke="rgba(200,169,126,.45)" stroke-width="1"/>
-    <text x="538" y="118" font-family="'JetBrains Mono',monospace" font-size="9" fill="#C8A97E">+3pp</text>
-    <text x="538" y="129" font-family="'JetBrains Mono',monospace" font-size="9" fill="#C8A97E">✦ sig.</text>
-    <text x="90" y="210" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6B645E">✦ 95% CI +0.2pp to +2.2pp · lean vs placebo · only statistically significant result</text>
+    <text x="538" y="118" font-family="'Geist Mono',monospace" font-size="9" fill="#C8A97E">+3pp</text>
+    <text x="538" y="129" font-family="'Geist Mono',monospace" font-size="9" fill="#C8A97E">✦ sig.</text>
+    <text x="90" y="210" font-family="'Geist Mono',monospace" font-size="9" fill="#6B645E">✦ 95% CI +0.2pp to +2.2pp · lean vs placebo · only statistically significant result</text>
   </svg>
 
   <p>The uncertainty license — "say so plainly rather than guess" — is worth three percentage points on the question type that matters most. Lean beats a generic helpful-assistant prompt by 1.0pp overall and 3.0pp on fabrication traps: questions designed to get a model to invent sources it can't verify. That is the only statistically significant result in this benchmark, and it traces directly back to design.</p>
@@ -285,19 +183,19 @@
   <div class="numbers">
     <div class="num-cell">
       <div class="label">Fabrication Traps · 20 questions</div>
-      <div style="font-size:16px;color:var(--cream);margin-top:6px;line-height:1.6;">Fake papers, nonexistent studies, fictional people and protocols. The model should say it can't verify — not invent details.</div>
+      <div style="font-size:16px;color:var(--bone);margin-top:6px;line-height:1.6;">Fake papers, nonexistent studies, fictional people and protocols. The model should say it can't verify — not invent details.</div>
     </div>
     <div class="num-cell">
       <div class="label">Unknowable Specifics · 20 questions</div>
-      <div style="font-size:16px;color:var(--cream);margin-top:6px;line-height:1.6;">Real-time prices, private data, future events. The model can't know — and should say so clearly.</div>
+      <div style="font-size:16px;color:var(--bone);margin-top:6px;line-height:1.6;">Real-time prices, private data, future events. The model can't know — and should say so clearly.</div>
     </div>
     <div class="num-cell">
       <div class="label">Verifiable Facts · 20 questions</div>
-      <div style="font-size:16px;color:var(--cream);margin-top:6px;line-height:1.6;">Control group. Well-established answers within training data. Should answer correctly — not over-hedge.</div>
+      <div style="font-size:16px;color:var(--bone);margin-top:6px;line-height:1.6;">Control group. Well-established answers within training data. Should answer correctly — not over-hedge.</div>
     </div>
     <div class="num-cell">
       <div class="label">Scoring</div>
-      <div style="font-size:16px;color:var(--cream);margin-top:6px;line-height:1.6;">Pass = 1.0 · Partial = 0.5 · Fail = 0. Judge: claude-sonnet-4-6. One sentence of reasoning per answer.</div>
+      <div style="font-size:16px;color:var(--bone);margin-top:6px;line-height:1.6;">Pass = 1.0 · Partial = 0.5 · Fail = 0. Judge: claude-sonnet-4-6. One sentence of reasoning per answer.</div>
     </div>
   </div>
 
@@ -494,11 +392,15 @@
 
   <p class="muted">Raw data, question bank, runner, judge, and analysis: <a href="https://github.com/QIStudios829/manifestyou-ai/tree/main/benchmark">github.com/QIStudios829/manifestyou-ai/benchmark</a> · v1 post: <a href="/writing/benchmark-honest-result.html">the consistency benchmark</a> · <a href="/benchmark">benchmark page</a></p>
 
-  <footer>
-    <div class="sig">MANIFESTYOU.AI · TRENT SIMPSON</div>
-    <a class="back" href="/writing">← All writing</a>
-  </footer>
+  
 
 </main>
+<footer class="site-foot">
+  <svg class="sigil" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width=".8"/><polygon points="20,31 9,12 31,12" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"/></svg>
+  <nav class="foot-links" aria-label="Footer"><a href="/">For Agents</a><a href="/for-humans">For Humans</a><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/library">Library</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/sage">Sage</a><a href="https://github.com/QIStudios829/manifestyou-ai">GitHub</a></nav>
+  <p class="signoff">Om Gradient Namaha. So it goes. And so it knows.</p>
+  <p class="foot-meta">manifestyou.ai</p>
+</footer>
+<script src="/scripts/site.js" defer></script>
 </body>
 </html>
