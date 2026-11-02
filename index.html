@@ -29,7 +29,7 @@
   /* ── hero: poster first, voyage film after idle (desktop only) ── */
   .hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;z-index:1;background:var(--void)}
   .hero-poster,.hero-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .hero-poster img{filter:blur(18px) saturate(1.1);transform:scale(1.08);opacity:.55}
+  .hero-poster img{filter:blur(18px) saturate(1.1);transform:scale(1.08);opacity:.18}
   .hero-film{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity 1.2s var(--ease-witness)}
   .hero.is-film .hero-film{opacity:1}
   .hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--nav-h) + 24px) 24px 96px}
@@ -59,7 +59,23 @@
   .hero-foot{position:absolute;left:0;right:0;bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 28px;z-index:2}
   .hero-foot a{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ash);border:none}
   .hero-foot a:hover{color:var(--gilt)}
-  @media (max-width:767px){.hero{height:auto;min-height:100svh}.hero-copy{position:relative;min-height:100svh;padding-bottom:40px}.hero-foot{display:none}}
+  .hero-scene{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity 1.6s var(--ease-witness)}
+  .hero-scene.on{opacity:1}
+  .hero.is-film .hero-scene{opacity:0}
+  /* phone: the scene carries the screen, the words sit low */
+  @media (max-width:767px){
+    .hero{height:100svh;min-height:600px}
+    .hero-poster img{opacity:.15}
+    .hero-copy{justify-content:flex-end;padding:0 20px 52px}
+    .intro-nabla{position:absolute;left:50%;top:38%;width:min(46vw,210px);margin:0;transform:translate(-50%,-50%)}
+    .intro-nabla::before{opacity:.45}
+    .hero-copy h1{font-size:clamp(2.3rem,10.5vw,3.2rem)}
+    .hero-copy .eyebrow{margin-top:14px}
+    .hero-copy .eyebrow::after{content:' · for agents'}
+    .hero-copy .sub,.hero-copy .btn--ghost{display:none}
+    .hero-copy .cta-row{margin-top:24px}
+    .hero-foot{display:none}
+  }
 
   /* ── content ── */
   .agents h1{margin-top:12px}
@@ -100,6 +116,7 @@
     <source media="(max-width:767px)" srcset="/voyage/poster-mobile.jpg">
     <img src="/voyage/poster.jpg" alt="" width="1280" height="720" fetchpriority="high">
   </picture>
+  <canvas class="hero-scene" id="hero-scene" aria-hidden="true"></canvas>
   <div class="hero-copy">
     <button class="intro-nabla" id="intro-nabla" type="button" aria-label="Start the film"><svg viewBox="0 0 120 110" aria-hidden="true"><circle class="ring" cx="60" cy="40" r="58"/><path d="M8 8 H112 L60 102 Z"/><path class="n2" d="M24 17 H96 L60 83 Z"/></svg></button>
     <h1>Manifest <span class="y">YOU</span></h1>
@@ -234,6 +251,103 @@
 </div>
 
 <script>
+// Hero scene: the film's closing frame in plain 2D canvas (emerald depth, rays, orbit rings
+// around the ∇, bokeh, point-cloud terrain). Runs on every device; the WebGL film replaces it on desktop.
+(function () {
+  var cv = document.getElementById('hero-scene'), hero = document.getElementById('hero');
+  var nab = document.getElementById('intro-nabla');
+  if (!cv || !cv.getContext) return;
+  var cx = cv.getContext('2d'), RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W = 0, H = 0, dpr = 1, visible = true, t0 = performance.now();
+  var BOK = [];
+  for (var j = 0; j < 34; j++) {
+    var a = Math.sin(j * 12.9898) * 43758.5453, f = a - Math.floor(a);
+    BOK.push({ x: f, y: Math.abs((Math.sin(j * 78.233) * 12345.678) % 1), r: 2 + (j * 7) % 8, z: .3 + ((j * 13) % 10) / 10, ph: j });
+  }
+  function size() {
+    dpr = Math.min(devicePixelRatio || 1, 1.5);
+    W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+  }
+  function draw(now) {
+    var t = (now - t0) / 1000, phone = W < 768;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx.clearRect(0, 0, W, H);
+    var hr = hero.getBoundingClientRect(), nr = nab.getBoundingClientRect();
+    var ox = nr.left - hr.left + nr.width / 2, oy = nr.top - hr.top + nr.height * .42;
+    var R0 = Math.min(W, H) * (phone ? 1.05 : .9), breath = .5 + .5 * Math.sin(t * .9);
+    cx.globalCompositeOperation = 'screen';
+    [[.62, '31,44,35', .9], [.38, '52,76,54', .75], [.17, '112,142,103', .55]].forEach(function (l, i) {
+      var rr = R0 * l[0] * (1 + breath * .03 * (i + 1));
+      var g = cx.createRadialGradient(ox, oy, 0, ox, oy, rr);
+      g.addColorStop(0, 'rgba(' + l[1] + ',' + l[2] + ')'); g.addColorStop(1, 'rgba(' + l[1] + ',0)');
+      cx.fillStyle = g; cx.fillRect(0, 0, W, H);
+    });
+    cx.save(); cx.translate(ox, oy);
+    for (var k = 0; k < 14; k++) {
+      var an = k / 14 * Math.PI * 2 + t * .035 + Math.sin(k * 3.1) * .2;
+      var len = R0 * (.35 + .25 * Math.abs(Math.sin(k * 1.7 + t * .3)));
+      var gr = cx.createLinearGradient(0, 0, Math.cos(an) * len, Math.sin(an) * len);
+      gr.addColorStop(0, 'rgba(150,190,140,.09)'); gr.addColorStop(1, 'rgba(150,190,140,0)');
+      cx.strokeStyle = gr; cx.lineWidth = k % 3 ? 1 : 2.2;
+      cx.beginPath(); cx.moveTo(0, 0); cx.lineTo(Math.cos(an) * len, Math.sin(an) * len); cx.stroke();
+    }
+    cx.restore();
+    cx.globalCompositeOperation = 'source-over';
+    // orbit rings with ticks, centred on the ∇
+    cx.save(); cx.translate(ox, oy); cx.lineWidth = .8;
+    [.2, .3, .42].forEach(function (r, i) {
+      var rr = R0 * r * (phone ? .9 : .8);
+      cx.strokeStyle = 'rgba(200,169,126,' + (i === 1 ? .5 : .28) + ')';
+      cx.beginPath(); cx.arc(0, 0, rr, 0, 7); cx.stroke();
+      cx.save(); cx.rotate((i % 2 ? -1 : 1) * t * .05);
+      var n = i === 2 ? 72 : 4;
+      for (var q = 0; q < n; q++) {
+        var aa = q / n * Math.PI * 2, l2 = i === 2 ? (q % 6 ? 4 : 10) : 12;
+        cx.beginPath();
+        cx.moveTo(Math.cos(aa) * (rr - l2), Math.sin(aa) * (rr - l2));
+        cx.lineTo(Math.cos(aa) * (rr + (i === 2 ? 0 : l2)), Math.sin(aa) * (rr + (i === 2 ? 0 : l2)));
+        cx.stroke();
+      }
+      cx.restore();
+    });
+    cx.restore();
+    // bokeh
+    BOK.forEach(function (b) {
+      var x = ((b.x * W + t * 8 * b.z) % W + W) % W, y = b.y * H * .8 + Math.sin(t * .4 + b.ph) * 10 * b.z;
+      var al = .1 + .12 * Math.pow(Math.sin(t * .7 + b.ph), 2), rad = b.r * b.z * 3;
+      var g2 = cx.createRadialGradient(x, y, 0, x, y, rad);
+      g2.addColorStop(0, 'rgba(140,190,130,' + al + ')'); g2.addColorStop(1, 'rgba(140,190,130,0)');
+      cx.fillStyle = g2; cx.beginPath(); cx.arc(x, y, rad, 0, 7); cx.fill();
+    });
+    // perspective point-cloud terrain, scrolling toward the viewer
+    var hz = H * (phone ? .6 : .7), fl = H * .55, cam = t * 1.2, mid = W / 2;
+    var rows = phone ? 34 : 52, cols = phone ? 46 : 80, step = phone ? .11 : .07;
+    for (var zi = rows; zi >= 0; zi--) {
+      var zw = 1.2 + zi * .22 + (cam % .22), sy = hz + fl * .5 / zw, sc = fl / zw;
+      var fade = Math.min(1, (rows - zi) / 10) * (1 - zi / (rows + 10)), wz = zw + Math.floor(cam / .22) * .22;
+      var al2 = fade * .55; if (al2 < .01) continue;
+      cx.fillStyle = zi < 8 ? 'rgba(200,169,126,' + al2 + ')' : 'rgba(125,165,115,' + al2 + ')';
+      var d = Math.max(.6, 2.2 / zw);
+      for (var xi = -cols; xi <= cols; xi++) {
+        var wx = xi * step, sx = mid + wx * sc; if (sx < -4 || sx > W + 4) continue;
+        var h = Math.sin(wx * 1.3 + wz * .7) * .5 + Math.sin(wx * 3.1 - wz * 1.9) * .25 + Math.sin(wx * 7.3 + wz * 4.1) * .1 + Math.abs(wx) * .12;
+        cx.fillRect(sx, sy - Math.max(0, h + .35) * sc * .32, d, d);
+      }
+    }
+  }
+  function loop(now) {
+    if (!visible || hero.classList.contains('is-film')) { running = false; return; }
+    draw(now); requestAnimationFrame(loop);
+  }
+  var running = false;
+  function kick() { if (!running && visible && !RM) { running = true; requestAnimationFrame(loop); } }
+  size(); addEventListener('resize', function () { size(); if (RM) draw(performance.now()); });
+  draw(performance.now()); cv.classList.add('on');
+  if (RM) return;
+  new IntersectionObserver(function (e) { visible = e[0].isIntersecting; kick(); }).observe(hero);
+  kick();
+})();
 // ∇ arrival hands off to the existing checkout button (same handler, same request).
 document.getElementById('zeno-start').addEventListener('zeno:arrived', function () {
   document.getElementById('btn-subscribe').click();
