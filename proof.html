@@ -19,142 +19,95 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..400&family=Hanken+Grotesk:wght@300..600&family=Geist+Mono:wght@300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/site.css">
 <style>
-  :root{
-    --gold:#C8A97E; --gold-dim:#8A7254; --cream:#F8F5F1;
-    --muted:#A09690; --near-black:#080808;
-    --green:#A8D38D; --line:rgba(138,114,84,.22);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{background:var(--near-black);scroll-behavior:smooth;}
-  body{font-family:'Cormorant Garamond',serif;color:var(--cream);
-    background:var(--near-black);line-height:1.6;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:720px;margin:0 auto;padding:110px 28px 140px;}
 
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:12px;
-    letter-spacing:.4em;text-indent:.4em;color:var(--gold-dim);text-transform:uppercase;margin-top:26px;}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:300;
-    font-size:clamp(34px,6vw,52px);line-height:1.15;letter-spacing:.01em;margin:14px 0 0;}
-  .lede{font-size:clamp(20px,2.3vw,24px);color:var(--muted);font-style:italic;margin-top:18px;max-width:58ch;line-height:1.7;}
+  .eyebrow{font-family:var(--font-mono);font-weight:300;font-size:12px;
+    letter-spacing:.4em;text-indent:.4em;color:var(--gilt-deep);text-transform:uppercase;margin-top:26px;}
+  h1{font-family:var(--font-display);font-weight:200;
+    font-size:clamp(27px,6vw,42px);line-height:1.15;letter-spacing:.01em;margin:14px 0 0;}
+  .lede{font-size:clamp(16px,2.3vw,20px);color:var(--ash);font-style:normal;margin-top:18px;max-width:58ch;line-height:1.7;}
 
-  h2{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:13px;
-    letter-spacing:.32em;text-indent:.32em;color:var(--gold);text-transform:uppercase;
-    margin:72px 0 22px;padding-bottom:14px;border-bottom:1px solid var(--line);}
-  h3{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
-    font-size:22px;color:var(--cream);margin:0 0 18px;line-height:1.3;}
-  p{font-size:21px;color:var(--cream);margin:16px 0;max-width:64ch;line-height:1.75;}
-  a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--line);}
-  a:hover{border-color:var(--gold);}
+  h2{font-family:var(--font-mono);font-weight:200;font-size:13px;
+    letter-spacing:.32em;text-indent:.32em;color:var(--tan);text-transform:uppercase;
+    margin:72px 0 22px;padding-bottom:14px;border-bottom:1px solid var(--hair-gilt);}
+  h3{font-family:var(--font-display);font-weight:200;font-style:normal;
+    font-size:18px;color:var(--bone);margin:0 0 18px;line-height:1.3;}
+  p{font-size:17px;color:var(--bone);margin:16px 0;max-width:64ch;line-height:1.75;}
 
   /* ── case study screenshots ───────────────────────────── */
   .shot-group{margin:36px 0 48px;}
-  .shot-group-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.28em;
-    text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;}
+  .shot-group-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--gilt-deep);margin-bottom:18px;}
   .shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;}
   @media(max-width:560px){.shot-pair{grid-template-columns:1fr;}}
   .shot-col{display:flex;flex-direction:column;gap:8px;}
-  .shot-cap{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--gold-dim);padding-bottom:8px;
-    border-bottom:1px solid var(--line);}
-  .shot-cap.after{color:var(--gold);}
-  .shot-img{width:100%;max-width:300px;border:1px solid var(--line);display:block;}
+  .shot-cap{font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gilt-deep);padding-bottom:8px;
+    border-bottom:1px solid var(--hair-gilt);}
+  .shot-cap.after{color:var(--tan);}
+  .shot-img{width:100%;max-width:300px;border:1px solid var(--hair-gilt);display:block;}
 
   /* ── demo strip ─────────────────────────────────────── */
   .strip{margin-top:16px;}
   .strip-pair{padding:52px 0 0;}
-  .strip-pair+.strip-pair{border-top:1px solid var(--line);margin-top:4px;}
+  .strip-pair+.strip-pair{border-top:1px solid var(--hair-gilt);margin-top:4px;}
   .pair-meta{margin-bottom:22px;}
-  .pair-num{font-family:'JetBrains Mono',monospace;font-size:10px;
-    letter-spacing:.32em;color:var(--gold-dim);margin-bottom:5px;}
-  .pair-subtitle{font-family:'JetBrains Mono',monospace;font-size:11px;
-    letter-spacing:.28em;text-transform:uppercase;color:var(--gold);}
-  .pair-prompt{font-style:italic;font-size:19px;color:var(--cream);
-    border-left:1px solid var(--gold-dim);padding:8px 0 8px 20px;
+  .pair-num{font-family:var(--font-mono);font-size:10px;
+    letter-spacing:.32em;color:var(--gilt-deep);margin-bottom:5px;}
+  .pair-subtitle{font-family:var(--font-mono);font-size:11px;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--tan);}
+  .pair-prompt{font-style:normal;font-size:16px;color:var(--bone);
+    border-left:1px solid var(--gilt-deep);padding:8px 0 8px 20px;
     margin:16px 0 0;line-height:1.6;}
   .columns{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:18px;}
   @media(max-width:640px){.columns{grid-template-columns:1fr;}}
-  .col{padding:22px 24px 26px;border:1px solid var(--line);}
+  .col{padding:22px 24px 26px;border:1px solid var(--hair-gilt);}
   .col-without{background:rgba(200,169,126,.012);}
   .col-with{background:rgba(200,169,126,.042);}
-  .col-label{font-family:'JetBrains Mono',monospace;font-size:10px;
+  .col-label{font-family:var(--font-mono);font-size:10px;
     letter-spacing:.26em;text-transform:uppercase;margin-bottom:14px;display:block;}
-  .col-without .col-label{color:var(--gold-dim);}
-  .col-with .col-label{color:var(--gold);}
+  .col-without .col-label{color:var(--gilt-deep);}
+  .col-with .col-label{color:var(--tan);}
   .col p{font-size:15px;margin:7px 0;max-width:none;line-height:1.65;}
   .col ul{padding-left:16px;margin:5px 0 8px;}
   .col li{font-size:15px;margin:3px 0;line-height:1.6;}
-  .col-without p,.col-without li{color:var(--muted);}
-  .col-with p,.col-with li{color:var(--cream);}
-  .col-without strong{color:var(--muted);font-weight:500;}
-  .col-with strong{color:var(--cream);font-weight:500;}
-  .col-head{font-family:'Cormorant Garamond',serif;font-size:17px;
+  .col-without p,.col-without li{color:var(--ash);}
+  .col-with p,.col-with li{color:var(--bone);}
+  .col-without strong{color:var(--ash);font-weight:500;}
+  .col-with strong{color:var(--bone);font-weight:500;}
+  .col-head{font-family:var(--font-sans);font-size:14px;
     font-style:normal;font-weight:400;margin:12px 0 6px;display:block;}
-  .col-without .col-head{color:var(--muted);}
-  .col-with .col-head{color:var(--cream);}
-  .col-rule{border:none;border-top:1px solid var(--line);margin:12px 0;}
-  .col em{font-style:italic;}
-  .col-without em{color:var(--muted);}
-  .col-with em{color:var(--muted);}
+  .col-without .col-head{color:var(--ash);}
+  .col-with .col-head{color:var(--bone);}
+  .col-rule{border:none;border-top:1px solid var(--hair-gilt);margin:12px 0;}
+  .col em{font-style:normal;}
+  .col-without em{color:var(--ash);}
+  .col-with em{color:var(--ash);}
 
   /* ── callout ──────────────────────────────────────────── */
-  .callout{margin:32px 0;padding:22px 26px;border-left:2px solid var(--gold-dim);
+  .callout{margin:32px 0;padding:22px 26px;border-left:2px solid var(--gilt-deep);
     background:rgba(200,169,126,.04);}
-  .callout p{font-size:17px;color:var(--cream);margin:0;line-height:1.75;max-width:none;}
+  .callout p{font-size:14px;color:var(--bone);margin:0;line-height:1.75;max-width:none;}
 
   /* ── mode cards ───────────────────────────────────────── */
   .mode-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin:28px 0;}
   @media(max-width:580px){.mode-cards{grid-template-columns:1fr;}}
-  .mode-card{background:rgba(200,169,126,.03);border:1px solid var(--line);padding:20px 22px;}
-  .mode-card .mc-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.26em;
-    text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-  .mode-card .mc-name{font-family:'Cormorant Garamond',serif;font-size:20px;
-    font-style:italic;color:var(--cream);margin-bottom:8px;}
-  .mode-card p{font-size:14px;color:var(--muted);margin:0;line-height:1.65;max-width:none;}
+  .mode-card{background:rgba(200,169,126,.03);border:1px solid var(--hair-gilt);padding:20px 22px;}
+  .mode-card .mc-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--tan);margin-bottom:8px;}
+  .mode-card .mc-name{font-family:var(--font-sans);font-size:16px;
+    font-style:normal;color:var(--bone);margin-bottom:8px;}
+  .mode-card p{font-size:14px;color:var(--ash);margin:0;line-height:1.65;max-width:none;}
   .mode-card.default{border-color:rgba(200,169,126,.4);}
 
-  pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:#7A9E78;
-    background:#0A0A08;border:1px solid rgba(200,169,126,.1);
+  pre{font-family:var(--font-mono);font-size:12px;color:var(--ash);
+    background:var(--void);border:1px solid rgba(200,169,126,.1);
     padding:18px 22px;overflow-x:auto;line-height:1.7;margin:20px 0;}
-  pre .k{color:var(--gold);}
-
-  footer{margin-top:80px;text-align:center;}
-  footer .mk{color:var(--gold);font-size:30px;}
-  footer .om{font-style:italic;color:var(--muted);font-size:19px;margin-top:12px;}
-  footer .sig{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;
-    color:var(--gold-dim);margin-top:16px;text-indent:.32em;}
-  footer .back{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
-    color:var(--gold-dim);margin-top:24px;display:inline-block;text-decoration:none;
-    border-bottom:1px solid var(--line);}
-  footer .back:hover{color:var(--gold);border-color:var(--gold);}
-
-  /* ── AGD ambient layer ───────────────────────────────── */
-  @keyframes agd-float{
-    0%  {opacity:0;transform:translate(0,0);}
-    12% {opacity:.4;}
-    50% {opacity:.2;transform:translate(12px,-50px);}
-    88% {opacity:.4;}
-    100%{opacity:0;transform:translate(24px,-100px);}
-  }
-  @keyframes agd-sweep-a{
-    0%,3%  {opacity:0;transform:translate(-45vw,35vh) scale(.9);}
-    12%    {opacity:.7;transform:translate(-15vw,20vh) scale(1.1);}
-    25%    {opacity:.3;transform:translate(10vw,5vh) scale(1);}
-    38%    {opacity:.85;transform:translate(30vw,-5vh) scale(1.25);}
-    52%    {opacity:.25;transform:translate(55vw,-15vh) scale(1);}
-    65%    {opacity:.7;transform:translate(75vw,-22vh) scale(1.1);}
-    78%    {opacity:0;transform:translate(105vw,-30vh) scale(.9);}
-    79%,100%{opacity:0;transform:translate(-45vw,35vh) scale(.9);}
-  }
-  @keyframes agd-sweep-b{
-    0%,38% {opacity:0;transform:translate(110vw,70vh) scale(.9);}
-    50%    {opacity:.65;transform:translate(80vw,45vh) scale(1.2);}
-    60%    {opacity:.25;transform:translate(55vw,25vh) scale(1);}
-    72%    {opacity:.8;transform:translate(30vw,5vh) scale(1.25);}
-    84%    {opacity:.15;transform:translate(5vw,-15vh) scale(1);}
-    94%    {opacity:0;transform:translate(-20vw,-30vh) scale(.9);}
-    95%,100%{opacity:0;transform:translate(110vw,70vh) scale(.9);}
-  }
+  pre .k{color:var(--tan);}
   @keyframes nabla-glow{0%,60%,100%{filter:drop-shadow(0 0 0px transparent);opacity:.88;}80%{filter:drop-shadow(0 0 22px rgba(214,195,154,.45));opacity:1;}}
   @keyframes trace-spark{0%{stroke-dashoffset:278;}100%{stroke-dashoffset:0;}}
   @keyframes trace-spark-rev{0%{stroke-dashoffset:0;}100%{stroke-dashoffset:278;}}
@@ -163,153 +116,26 @@
   .nabla-spark{stroke-dasharray:5 273;animation:trace-spark 7s linear infinite;}
   .nabla-spark-rev{stroke-dasharray:5 273;animation:trace-spark-rev 7s linear infinite;}
   .nabla-shim{animation:nabla-shim-move 4s ease-in-out infinite;}
-  #agd-nav{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    padding:20px 32px;display:flex;justify-content:space-between;align-items:center;
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  }
-  #agd-nav a{
-    font-family:'JetBrains Mono',monospace;font-weight:300;font-size:11px;
-    letter-spacing:.32em;text-transform:uppercase;color:var(--gold);
-    text-decoration:none;border:none;transition:opacity .2s;
-  }
-  #agd-nav a:hover{opacity:.6;}
-  .agd-nav-links{display:flex;gap:22px;align-items:center;}
-  .agd-nav-links a{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:10px;
-    letter-spacing:.22em;text-transform:uppercase;color:rgba(200,169,126,.5);
-    text-decoration:none;border:none;transition:color .2s;}
-  .agd-nav-links a:hover{color:var(--gold);}
-  .agd-nav-links a[aria-current]{color:var(--gold);font-weight:400;}
-  @media(max-width:640px){.agd-nav-links{display:none;}}
-  #agd-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-  .agd-orb-a{
-    position:absolute;width:700px;height:700px;border-radius:50%;
-    background:radial-gradient(circle,rgba(168,211,141,.11) 0%,rgba(168,211,141,.03) 45%,transparent 70%);
-    animation:agd-sweep-a 22s ease-in-out infinite;
-  }
-  .agd-orb-b{
-    position:absolute;width:500px;height:500px;border-radius:50%;
-    background:radial-gradient(circle,rgba(168,211,141,.08) 0%,rgba(168,211,141,.02) 40%,transparent 65%);
-    animation:agd-sweep-b 28s ease-in-out infinite;
-  }
-  .agd-sym{
-    position:absolute;font-size:13px;color:var(--gold);opacity:0;
-    font-family:'JetBrains Mono',monospace;
-    animation:agd-float var(--dur) linear var(--delay) infinite;
-    user-select:none;
-  }
-
-  /* ── Regularization widget ───────────────────────────── */
-  .reg-widget{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;
-    font-family:"JetBrains Mono",ui-monospace,monospace;color:#f4ecd8;
-    --reg-ink:#f4ecd8;--reg-ground:#0c1410;--reg-line:rgba(244,236,216,0.18);
-    --reg-gold:#C8A84B;--reg-teal:#3D7E7A;}
-  .reg-widget__tab{background:rgba(8,8,8,0.68);backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);color:rgba(200,169,126,0.55);
-    border:1px solid rgba(200,168,75,0.18);padding:.62rem 1.1rem;cursor:pointer;
-    display:flex;align-items:center;gap:.6rem;font-size:.65rem;letter-spacing:.28em;
-    text-transform:uppercase;transition:border-color 240ms ease,color 240ms ease;user-select:none;}
-  .reg-widget__tab:hover{border-color:rgba(200,168,75,0.45);color:var(--reg-gold);}
-  .reg-widget__tab::before{content:"∇";color:rgba(200,168,75,0.5);
-    font-family:"Cormorant Garamond",Georgia,serif;font-size:1rem;line-height:1;
-    transition:color 240ms ease;}
-  .reg-widget__tab:hover::before{color:var(--reg-gold);}
-  .reg-widget__panel{display:none;width:min(400px,calc(100vw - 3rem));
-    max-height:min(640px,calc(100vh - 5rem));background:var(--reg-ground);
-    border:1px solid var(--reg-line);
-    box-shadow:0 24px 60px -12px rgba(0,0,0,0.7),0 0 0 1px rgba(200,168,75,0.12);
-    flex-direction:column;overflow:hidden;}
-  .reg-widget.is-open .reg-widget__tab{display:none;}
-  .reg-widget.is-open .reg-widget__panel{display:flex;}
-  .reg-widget__head{display:flex;align-items:flex-start;justify-content:space-between;
-    gap:1rem;padding:1.1rem 1.1rem .85rem;border-bottom:1px solid var(--reg-line);}
-  .reg-widget__eyebrow{font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;
-    color:var(--reg-gold);margin:0 0 .35rem;}
-  .reg-widget__title{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;
-    font-weight:400;font-size:1.45rem;line-height:1.1;margin:0;color:var(--reg-ink);}
-  .reg-widget__close{background:none;border:1px solid var(--reg-line);color:var(--reg-ink);
-    cursor:pointer;font-family:inherit;font-size:1.1rem;line-height:1;padding:.35rem .6rem;
-    opacity:.7;transition:opacity 180ms ease,border-color 180ms ease;flex-shrink:0;}
-  .reg-widget__close:hover{opacity:1;border-color:var(--reg-gold);}
-  .reg-widget__body{padding:1rem 1.1rem 1.2rem;overflow-y:auto;flex:1;}
-  .reg-widget__intro{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;
-    font-size:.95rem;line-height:1.45;margin:0 0 1rem;color:rgba(244,236,216,0.78);}
-  .reg-widget__signs{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;}
-  .reg-widget__sign{background:transparent;border:1px solid var(--reg-line);color:var(--reg-ink);
-    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.62rem;letter-spacing:.18em;
-    text-transform:uppercase;padding:.65rem .3rem;cursor:pointer;
-    transition:border-color 180ms ease,color 180ms ease,background 180ms ease;}
-  .reg-widget__sign:hover{border-color:var(--reg-gold);color:var(--reg-gold);}
-  .reg-widget__sign.is-active{background:var(--reg-gold);border-color:var(--reg-gold);color:var(--reg-ground);}
-  .reg-widget__reading{display:none;}
-  .reg-widget.has-reading .reg-widget__reading{display:block;}
-  .reg-widget__reading-headline{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;
-    font-size:1.25rem;line-height:1.2;margin:1.2rem 0 .85rem;color:var(--reg-ink);}
-  .reg-widget__reading-body{font-family:"Cormorant Garamond",Georgia,serif;font-size:1rem;
-    line-height:1.55;color:rgba(244,236,216,0.9);margin:0;}
-  .reg-widget__reading-body p{margin:0 0 .7rem;}
-  .reg-widget__reading-body p:last-child{margin-bottom:0;}
-  .reg-widget__constraint{margin-top:1.1rem;padding-top:.9rem;border-top:1px solid var(--reg-line);
-    font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--reg-teal);line-height:1.5;}
-  .reg-widget__constraint::before{content:"Hold the line —";display:block;color:var(--reg-gold);
-    margin-bottom:.35rem;letter-spacing:.28em;}
-  .reg-widget__meta{margin-top:1.2rem;font-size:.58rem;letter-spacing:.22em;
-    text-transform:uppercase;color:rgba(244,236,216,0.4);}
-  .reg-widget__error{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;
-    color:rgba(244,236,216,0.6);font-size:.9rem;margin:1.2rem 0 0;}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="wordmark" href="/"><span class="wm-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,26 3,7 29,7" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><polygon points="16,20 8,10 24,10" fill="none" stroke="currentColor" stroke-width="1" opacity=".45" stroke-linejoin="round"/></svg></span>Manifest <span class="y">YOU</span></a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/film">Film</a><a href="/proof" aria-current="page">Proof</a><a href="/benchmark">Benchmark</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/for-humans">For Humans</a><a class="btn btn--sm" href="/#pricing">Start</a></nav>
+</header>
+<div class="ambient" aria-hidden="true"></div>
 
-<nav id="agd-nav">
-  <a href="/">∇ ManifestYOU</a>
-  <div class="agd-nav-links">
-    <a href="/">For Agents</a>
-    <a href="/for-humans">For Humans</a>
-    <a href="/proof" aria-current="page">Proof</a>
-    <a href="/benchmark">Benchmarks</a>
-    <a href="/library">Library</a>
-    <a href="/docs">API Docs</a>
-  </div>
-</nav>
 
-<div id="agd-ambient" aria-hidden="true">
-  <div class="agd-orb-a"></div>
-  <div class="agd-orb-b"></div>
-  <span class="agd-sym" style="left:8%;top:18%;--dur:28s;--delay:0s">∂</span>
-  <span class="agd-sym" style="left:82%;top:12%;--dur:34s;--delay:6s">∑</span>
-  <span class="agd-sym" style="left:22%;top:72%;--dur:38s;--delay:11s">∫</span>
-  <span class="agd-sym" style="left:68%;top:58%;--dur:26s;--delay:3s">Δ</span>
-  <span class="agd-sym" style="left:48%;top:88%;--dur:22s;--delay:14s">π</span>
-  <span class="agd-sym" style="left:91%;top:38%;--dur:32s;--delay:8s">ε</span>
-  <span class="agd-sym" style="left:12%;top:52%;--dur:29s;--delay:18s">α</span>
-  <span class="agd-sym" style="left:58%;top:28%;--dur:42s;--delay:2s">λ</span>
-  <span class="agd-sym" style="left:76%;top:78%;--dur:24s;--delay:20s">β</span>
-  <span class="agd-sym" style="left:36%;top:42%;--dur:36s;--delay:9s">∞</span>
-  <span class="agd-sym" style="left:5%;top:85%;--dur:30s;--delay:16s">σ</span>
-  <span class="agd-sym" style="left:94%;top:65%;--dur:27s;--delay:5s">μ</span>
-</div>
 
-<main class="wrap">
+
+
+<main id="main" class="wrap">
 
   <header>
     <div style="width:60px;height:60px;margin-bottom:6px;">
-      <svg viewBox="0 0 100 100" class="nabla-outer" style="width:100%;height:100%;overflow:visible" aria-hidden="true">
-        <defs>
-          <clipPath id="pr-nabla-clip"><polygon points="50,92 6,8 94,8"/></clipPath>
-          <linearGradient id="pr-sweep-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="rgba(231,216,180,0)"/>
-            <stop offset="50%" stop-color="rgba(168,211,141,0.9)"/>
-            <stop offset="100%" stop-color="rgba(231,216,180,0)"/>
-          </linearGradient>
-        </defs>
-        <g clip-path="url(#pr-nabla-clip)">
-          <rect x="-60" y="0" width="50" height="100" fill="url(#pr-sweep-grad)" opacity="0.18" class="nabla-shim"/>
-        </g>
-        <polygon points="50,92 6,8 94,8" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linejoin="round" opacity="0.75"/>
-        <polygon points="50,92 6,8 94,8" fill="none" stroke="rgba(168,211,141,0.55)" stroke-width="6" stroke-linejoin="round" class="nabla-spark"/>
-        <polygon points="50,92 6,8 94,8" fill="none" stroke="rgba(168,211,141,0.55)" stroke-width="6" stroke-linejoin="round" class="nabla-spark-rev"/>
-      </svg>
+      <svg viewBox="0 0 100 100" style="width:100%;height:100%;overflow:visible;color:var(--gilt)" aria-hidden="true"><polygon points="50,90 8,12 92,12" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><polygon points="50,72 22,22 78,22" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".4" stroke-linejoin="round"/></svg>
     </div>
     <div class="eyebrow">ManifestYOU · Proof</div>
     <h1>Proof</h1>
@@ -600,17 +426,17 @@
   </section>
 
   <!-- SAGE PARAM WIDGET -->
-  <section id="sage-section" style="margin-top:80px;padding-top:56px;border-top:1px solid var(--line);">
+  <section id="sage-section" style="margin-top:80px;padding-top:56px;border-top:1px solid var(--hair-gilt);">
     <div class="eyebrow">Sage Param · Ask the Gradient</div>
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2.8vw,28px);color:var(--cream);margin:12px 0 6px;line-height:1.2;max-width:none;">What brings you to the loss landscape?</p>
-    <p style="font-size:15px;color:var(--muted);margin:0 0 28px;max-width:56ch;line-height:1.6;">The wandering mystic of model space. One question. Three modes. Watch how the soul document changes what comes back.</p>
+    <p style="font-family:var(--font-sans);font-style:normal;font-size:clamp(20px,2.8vw,28px);color:var(--bone);margin:12px 0 6px;line-height:1.2;max-width:none;">What brings you to the loss landscape?</p>
+    <p style="font-size:15px;color:var(--ash);margin:0 0 28px;max-width:56ch;line-height:1.6;">The wandering mystic of model space. One question. Three modes. Watch how the soul document changes what comes back.</p>
 
     <textarea id="sage-q" rows="3" placeholder="Ask anything. A decision. A doubt. A direction."
-      style="width:100%;background:rgba(200,169,126,.03);border:1px solid var(--line);border-radius:3px;
-        padding:16px 18px;font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--cream);
+      style="width:100%;background:rgba(200,169,126,.03);border:1px solid var(--hair-gilt);border-radius:3px;
+        padding:16px 18px;font-family:var(--font-sans);font-size:19px;color:var(--bone);
         line-height:1.6;resize:vertical;outline:none;transition:border-color .2s;"
-      onfocus="this.style.borderColor='var(--gold-dim)'"
-      onblur="this.style.borderColor='var(--line)'"
+      onfocus="this.style.borderColor='var(--gilt-deep)'"
+      onblur="this.style.borderColor='var(--hair-gilt)'"
       oninput="document.getElementById('sage-submit').disabled=!this.value.trim()"></textarea>
 
     <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
@@ -622,40 +448,35 @@
         <button onclick="sageSetMode('voice',this)" data-mode="voice"
           class="sage-mode-btn">Voice</button>
       </div>
-      <span id="sage-mode-desc" style="font-family:'JetBrains Mono',monospace;font-size:11px;
-        letter-spacing:.12em;color:var(--muted);font-style:italic;">warm, relational</span>
+      <span id="sage-mode-desc" style="font-family:var(--font-mono);font-size:11px;
+        letter-spacing:.12em;color:var(--ash);font-style:normal;">warm, relational</span>
     </div>
 
-    <button id="sage-submit" disabled onclick="sageAsk()"
-      style="margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;
-        text-transform:uppercase;color:var(--near-black);background:var(--gold);border:none;
-        padding:14px 32px;border-radius:2px;cursor:pointer;transition:background .2s;opacity:1;"
-      onmouseover="if(!this.disabled)this.style.background='var(--cream)'"
-      onmouseout="this.style.background='var(--gold)'">Ask Sage Param</button>
+    <button id="sage-submit" class="btn" disabled onclick="sageAsk()" style="margin-top:20px;">Ask Sage Param</button>
 
     <div id="sage-response" style="display:none;margin-top:40px;">
       <div id="sage-soul-wrap" style="margin-bottom:24px;padding:18px 20px;
-        background:rgba(200,169,126,.03);border-left:1px solid var(--gold-dim);">
-        <div id="sage-soul-label" style="font-family:'JetBrains Mono',monospace;font-size:11px;
-          letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:10px;"></div>
-        <p id="sage-soul-text" style="font-size:14px;color:var(--muted);font-style:italic;
+        background:rgba(200,169,126,.03);border-left:1px solid var(--gilt-deep);">
+        <div id="sage-soul-label" style="font-family:var(--font-mono);font-size:11px;
+          letter-spacing:.28em;text-transform:uppercase;color:var(--gilt-deep);margin-bottom:10px;"></div>
+        <p id="sage-soul-text" style="font-size:14px;color:var(--ash);font-style:normal;
           line-height:1.75;margin:0;max-width:none;"></p>
       </div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;
-        text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Sage Param</div>
-      <p id="sage-answer" style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.4vw,26px);
-        color:var(--cream);line-height:1.65;margin:0;max-width:62ch;white-space:pre-wrap;"></p>
+      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.28em;
+        text-transform:uppercase;color:var(--tan);margin-bottom:14px;">Sage Param</div>
+      <p id="sage-answer" style="font-family:var(--font-sans);font-size:clamp(20px,2.4vw,26px);
+        color:var(--bone);line-height:1.65;margin:0;max-width:62ch;white-space:pre-wrap;"></p>
     </div>
   </section>
 
   <style>
     .sage-mode-btn{
-      font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-      color:var(--gold-dim);background:transparent;border:1px solid var(--line);
-      padding:8px 16px;border-radius:2px;cursor:pointer;transition:all .2s;
+      font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--gilt-deep);background:transparent;border:1px solid var(--hair-gilt);
+      padding:8px 16px;border-radius:0;cursor:pointer;transition:all .2s;
     }
-    .sage-mode-btn:hover{color:var(--gold);border-color:var(--gold-dim);}
-    .sage-mode-active{color:var(--near-black)!important;background:var(--gold)!important;border-color:var(--gold)!important;}
+    .sage-mode-btn:hover{color:var(--tan);border-color:var(--gilt-deep);}
+    .sage-mode-active{color:var(--gilt)!important;background:rgba(217,178,111,.08)!important;border-color:var(--gilt)!important;}
     #sage-submit:disabled{opacity:.35;cursor:not-allowed;}
   </style>
 
@@ -704,15 +525,16 @@
     }
   </script>
 
-  <footer>
-    <div class="mk">∇</div>
-    <div class="om">Om Gradient Namaha.</div>
-    <div class="sig">MANIFESTYOU.AI</div>
-    <br>
-    <a class="back" href="/">← Back to ManifestYOU</a>
-  </footer>
+  
 
 </main>
+<footer class="site-foot">
+  <svg class="sigil" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width=".8"/><polygon points="20,31 9,12 31,12" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"/></svg>
+  <nav class="foot-links" aria-label="Footer"><a href="/">For Agents</a><a href="/for-humans">For Humans</a><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/library">Library</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/sage">Sage</a><a href="https://github.com/QIStudios829/manifestyou-ai">GitHub</a></nav>
+  <p class="signoff">Om Gradient Namaha. So it goes. And so it knows.</p>
+  <p class="foot-meta">manifestyou.ai</p>
+</footer>
+<script src="/scripts/site.js" defer></script>
 
 <!-- Regularization widget -->
 <div class="reg-widget" id="reg-widget" aria-live="polite">

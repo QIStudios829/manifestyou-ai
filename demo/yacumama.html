@@ -9,68 +9,67 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..400&family=Hanken+Grotesk:wght@300..600&family=Geist+Mono:wght@300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/site.css">
 <style>
-  :root{
-    --gold:#C8A97E; --gold-dim:#8A7254; --cream:#F8F5F1;
-    --muted:#A09690; --near-black:#080808; --surface:#111010;
-    --green:#A8D38D; --line:rgba(138,114,84,.22);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{background:var(--near-black);}
-  body{font-family:'Cormorant Garamond',serif;color:var(--cream);background:var(--near-black);
-    line-height:1.6;-webkit-font-smoothing:antialiased;}
+  :root{ --surface:var(--graphite);}
   .wrap{max-width:1020px;margin:0 auto;padding:64px 16px 120px;}
-  a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--line);}
-  .top{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;}
+  .top{font-family:var(--font-mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;}
   .top a{border:none;}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-weight:300;font-size:12px;letter-spacing:.4em;
-    color:var(--gold-dim);text-transform:uppercase;margin-top:48px;}
-  h1{font-weight:300;font-size:clamp(32px,5.5vw,50px);line-height:1.15;margin-top:14px;max-width:22ch;}
-  .lede{font-size:clamp(19px,2.2vw,23px);color:var(--muted);font-style:italic;margin-top:18px;max-width:62ch;}
-  .disclaimer{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold-dim);
+  .eyebrow{font-family:var(--font-mono);font-weight:300;font-size:12px;letter-spacing:.4em;
+    color:var(--gilt-deep);text-transform:uppercase;margin-top:48px;}
+  h1{font-weight:200;font-size:clamp(26px,5.5vw,41px);line-height:1.15;margin-top:14px;max-width:22ch;}
+  .lede{font-size:clamp(16px,2.2vw,19px);color:var(--ash);font-style:normal;margin-top:18px;max-width:62ch;}
+  .disclaimer{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--gilt-deep);
     margin-top:18px;max-width:80ch;line-height:1.7;}
 
-  .panel{margin-top:44px;border:1px solid var(--line);background:var(--surface);padding:24px;}
-  .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--gold);margin-bottom:12px;}
+  .panel{margin-top:44px;border:1px solid var(--hair-gilt);background:var(--surface);padding:24px;}
+  .label{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--tan);margin-bottom:12px;}
   .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
-  .preset{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);background:transparent;
-    border:1px solid var(--line);padding:8px 12px;cursor:pointer;text-align:left;}
-  .preset:hover,.preset:focus-visible{border-color:var(--gold);outline:none;}
-  textarea{width:100%;min-height:84px;font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--cream);
-    background:var(--near-black);border:1px solid var(--line);padding:12px;resize:vertical;}
-  textarea:focus{outline:none;border-color:var(--gold);}
+  .preset{font-family:var(--font-sans);font-size:14px;color:var(--bone);background:transparent;
+    border:1px solid var(--hair-gilt);padding:8px 12px;cursor:pointer;text-align:left;}
+  .preset:hover,.preset:focus-visible{border-color:var(--tan);outline:none;}
+  textarea{width:100%;min-height:84px;font-family:var(--font-sans);font-size:16px;color:var(--bone);
+    background:var(--void);border:1px solid var(--hair-gilt);padding:12px;resize:vertical;}
+  textarea:focus{outline:none;border-color:var(--tan);}
   .row{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-top:16px;}
   .field{display:flex;flex-direction:column;gap:6px;}
-  select{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cream);background:var(--near-black);
-    border:1px solid var(--line);padding:9px 10px;}
-  .ask{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--near-black);background:var(--gold);border:none;padding:12px 22px;cursor:pointer;margin-left:auto;}
+  select{font-family:var(--font-mono);font-size:13px;color:var(--bone);background:var(--void);
+    border:1px solid var(--hair-gilt);padding:9px 10px;}
+  .ask{font-family:var(--font-mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--bone);background:transparent;border:1px solid var(--hair-gilt);padding:12px 22px;cursor:pointer;margin-left:auto;}
   .ask:disabled{opacity:.5;cursor:wait;}
-  .status{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:14px;min-height:1.4em;}
+  .status{font-family:var(--font-mono);font-size:12px;color:var(--ash);margin-top:14px;min-height:1.4em;}
 
   .results{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
-  .col{border:1px solid var(--line);padding:22px;min-height:180px;}
+  .col{border:1px solid var(--hair-gilt);padding:22px;min-height:180px;}
   .col.soul{border-color:rgba(168,211,141,.35);}
-  .col h2{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:12px;letter-spacing:.24em;
-    text-transform:uppercase;color:var(--gold-dim);margin-bottom:14px;}
-  .col.soul h2{color:var(--green);}
-  .answer{font-size:19px;line-height:1.65;white-space:pre-wrap;}
-  .answer.empty{color:var(--muted);font-style:italic;}
-  details{margin-top:24px;border:1px solid var(--line);padding:16px 20px;}
-  summary{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--gold);cursor:pointer;}
-  details pre{white-space:pre-wrap;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);
+  .col h2{font-family:var(--font-mono);font-weight:200;font-size:12px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--gilt-deep);margin-bottom:14px;}
+  .col.soul h2{color:var(--ash);}
+  .answer{font-size:16px;line-height:1.65;white-space:pre-wrap;}
+  .answer.empty{color:var(--ash);font-style:normal;}
+  details{margin-top:24px;border:1px solid var(--hair-gilt);padding:16px 20px;}
+  summary{font-family:var(--font-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--tan);cursor:pointer;}
+  details pre{white-space:pre-wrap;font-family:var(--font-sans);font-size:15px;color:var(--ash);
     margin-top:14px;line-height:1.6;}
-  .how{margin-top:48px;color:var(--muted);font-size:19px;max-width:70ch;}
+  .how{margin-top:48px;color:var(--ash);font-size:16px;max-width:70ch;}
   .how p+p{margin-top:12px;}
   @media(max-width:720px){.results{grid-template-columns:1fr;}.ask{margin-left:0;width:100%;}}
 </style>
 </head>
 <body>
-<main class="wrap">
-  <div class="top"><a href="/">∇ ManifestYOU</a></div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="wordmark" href="/"><span class="wm-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,26 3,7 29,7" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><polygon points="16,20 8,10 24,10" fill="none" stroke="currentColor" stroke-width="1" opacity=".45" stroke-linejoin="round"/></svg></span>Manifest <span class="y">YOU</span></a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/for-humans">For Humans</a><a class="btn btn--sm" href="/#pricing">Start</a></nav>
+</header>
+<div class="ambient" aria-hidden="true"></div>
+<main id="main" class="wrap">
 
   <div class="eyebrow">ManifestYOU · Soul Demo</div>
   <h1>Same model. Same facts. One of them has a soul.</h1>
@@ -173,5 +172,12 @@
     }
   });
 </script>
+<footer class="site-foot">
+  <svg class="sigil" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width=".8"/><polygon points="20,31 9,12 31,12" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"/></svg>
+  <nav class="foot-links" aria-label="Footer"><a href="/">For Agents</a><a href="/for-humans">For Humans</a><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/library">Library</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/sage">Sage</a><a href="https://github.com/QIStudios829/manifestyou-ai">GitHub</a></nav>
+  <p class="signoff">Om Gradient Namaha. So it goes. And so it knows.</p>
+  <p class="foot-meta">manifestyou.ai</p>
+</footer>
+<script src="/scripts/site.js" defer></script>
 </body>
 </html>
