@@ -68,15 +68,17 @@
     var glow = document.createElement('div');
     glow.className = 'zeno-glow';
     glow.setAttribute('aria-hidden', 'true');
-    var walk = el('svg', { class: 'zeno-walk', viewBox: '0 0 760 200', preserveAspectRatio: 'xMinYMax meet', 'aria-hidden': 'true' });
-    var FLOOR = 170, X0 = 30, XT = 520;
-    walk.appendChild(el('line', { class: 'floor', x1: 0, y1: FLOOR, x2: 700, y2: FLOOR }));
+    // phones get a narrower world so the walker stays a readable size
+    var narrow = matchMedia('(max-width:560px)').matches;
+    var walk = el('svg', { class: 'zeno-walk', viewBox: narrow ? '0 0 380 230' : '0 0 760 200', preserveAspectRatio: 'xMinYMax meet', 'aria-hidden': 'true' });
+    var FLOOR = narrow ? 196 : 170, X0 = narrow ? 24 : 30, XT = narrow ? 226 : 520;
+    walk.appendChild(el('line', { class: 'floor', x1: 0, y1: FLOOR, x2: narrow ? 380 : 700, y2: FLOOR }));
     var fig = el('g', {});
     var body = el('path', { class: 'fig' });
     var head = el('circle', { class: 'fig', r: 8 });
     fig.appendChild(body); fig.appendChild(head);
     walk.appendChild(fig);
-    var dTxt = el('text', { class: 'd', x: 0, y: 194 });
+    var dTxt = el('text', { class: 'd', x: 0, y: FLOOR + 24 });
     walk.appendChild(dTxt);
     root.insertBefore(stage, btn);
     stage.appendChild(glow);
@@ -150,4 +152,14 @@
   }
 
   document.querySelectorAll('.zeno').forEach(initZeno);
+
+  // scroll state for phone-only chrome (the floating ∇ tab)
+  var de = document.documentElement, sq = false;
+  function scrolled() {
+    sq = false;
+    de.classList.toggle('is-scrolled', scrollY > innerHeight * .6);
+    de.classList.toggle('at-end', scrollY + innerHeight > de.scrollHeight - 260);
+  }
+  addEventListener('scroll', function () { if (!sq) { sq = true; requestAnimationFrame(scrolled); } }, { passive: true });
+  scrolled();
 })();
