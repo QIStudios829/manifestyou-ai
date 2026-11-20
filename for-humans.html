@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="ManifestYOU · For Humans — Daily readings from Regularization" />
 <meta name="twitter:description" content="A personal intention layer from the Adventures of Gradient Descent universe. Daily clarity, grounded in where you actually are. Coming soon." />
 <meta name="twitter:image" content="https://manifestyou.ai/og-image.png" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..400&family=Hanken+Grotesk:wght@300..600&family=Geist+Mono:wght@300..600&display=swap" rel="stylesheet">
@@ -87,6 +87,32 @@
   .form-row input[type="email"]{background:transparent;border:1px solid var(--hair-gilt);border-radius:999px;padding-left:22px;padding-right:22px}
   .form-row input[type="email"]:focus{border-color:var(--gilt);outline:none}
   .confirm{text-align:center}
+
+  /* ── landing-style layout: text on the left, the dawn landscape on the right ── */
+  .wrap{max-width:var(--grid-max);margin:0 auto;padding:0 28px 60px}
+  main#main.wrap{padding-top:0!important}
+  .fh-scrim{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(90deg,rgba(6,7,10,.9) 0%,rgba(6,7,10,.75) 34%,rgba(6,7,10,.3) 52%,rgba(6,7,10,0) 66%)}
+  .fh-stop{min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;max-width:560px;padding:calc(var(--nav-h) + 30px) 0 60px}
+  .fh-hero{text-align:left;min-height:100vh;padding-top:calc(var(--nav-h) + 30px)}
+  .fh-hero .cover{margin:0 0 var(--s-6);font-size:var(--step-1);color:var(--ash)}
+  .fh-hero h1{font-size:clamp(2.2rem,1.4rem + 2.6vw,3.6rem);margin:16px 0 0;line-height:1.05}
+  .fh-hero .lede{margin:22px 0 0}
+  .fh-hero .eyebrow{text-indent:0}
+  #waitlist{align-items:flex-start;text-align:left;margin-top:34px}
+  #waitlist .form-row{justify-content:flex-start}
+  .fh-stop h2{border-bottom:none;padding-bottom:0;margin:0 0 22px;text-indent:0;color:#a8d38d}
+  .fh-stop .big{font-family:var(--font-display);font-weight:200;font-size:var(--step-3);line-height:1.08;color:var(--bone);margin:0 0 22px;max-width:none}
+  .confirm{text-align:left}
+  .back-link{margin:0 0 40px}
+  @media (max-width:700px){
+    .fh-scrim{background:linear-gradient(0deg,rgba(6,7,10,.94) 0%,rgba(6,7,10,.8) 50%,rgba(6,7,10,.2) 72%,rgba(6,7,10,0) 100%)}
+    .wrap{padding:0 20px 40px}
+    .fh-stop{justify-content:flex-end;min-height:88vh}
+    .fh-stop:not(.fh-hero){background:rgba(6,7,10,.74);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);padding:24px 18px;margin:0 -6px 12vh;min-height:0}
+    .fh-hero{padding-bottom:48px}
+  }
+  html.no-ls .fh-scrim{display:none}
 </style>
 </head>
 <body>
@@ -96,24 +122,19 @@
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
   <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/film">Film</a><a href="/proof">Proof</a><a href="/benchmark">Benchmark</a><a href="/docs">Docs</a><a href="/writing">Writing</a><a href="/for-humans" aria-current="page">For Humans</a><a class="btn btn--sm" href="/#pricing">Start</a></nav>
 </header>
-<div class="ambient" aria-hidden="true"></div>
+<canvas class="ls-canvas" data-mode="humans" aria-hidden="true"></canvas>
+<div class="fh-scrim" aria-hidden="true"></div>
 
 
 
 <main id="main" class="wrap" style="position:relative;z-index:1;">
 
   <!-- HERO -->
-  <header class="fh-hero">
+  <header class="fh-hero fh-stop">
     <p class="cover">I have found the minimum.<br>I do not want it.</p>
     <div class="eyebrow">ManifestYOU · for humans</div>
     <h1>The universe has been listening.<br>Now it will speak in your voice.</h1>
     <p class="lede">A personal intention layer. Daily clarity, grounded in where you actually are, not where you think you should be.</p>
-    <div class="zeno" id="zeno-humans">
-  <button class="zeno-nabla" type="button" aria-label="Manifest yourself — enter"><svg viewBox="0 0 120 110" aria-hidden="true"><path class="n1" d="M8 6 H112 L60 105 Z"/><path class="n2" d="M24 15 H96 L60 84 Z"/></svg><span class="zeno-label">reach it</span></button>
-  <nav class="zeno-paths" aria-label="Choose a path"><a href="/docs"><span>For agents</span><b>llms.txt · API →</b></a><a href="#waitlist"><span>For humans</span><b>join the waitlist →</b></a></nav>
-</div>
-  </header>
-
   <!-- FIRST WAITLIST FORM -->
   <div class="form-wrap" id="waitlist">
     <form class="humans-form" name="for-humans-waitlist" netlify>
@@ -127,31 +148,34 @@
     <div class="fineprint">No spam. One email when it's ready.</div>
   </div>
   <div class="confirm" id="humans-confirm"></div>
+  </header>
 
-  <div class="divider"></div>
+
+
 
   <!-- WHAT IT IS -->
-  <section>
+  <section class="fh-stop">
     <h2>What it is</h2>
+    <p class="big">A reading in your own voice, every morning.</p>
     <p>Manifest YOU learns your voice, listens to where you actually are, and every morning speaks a short reading back to you. In your own voice. Not a stranger's affirmation. Yours.</p>
     <p>It will not promise you a beach house. It tells you what is true, gently, in the one voice you can't argue with. Short. Grounded. Sometimes inconvenient. The idea comes from <em>Adventures of Gradient Descent</em>, where it began as a chatbot that only ever said what you wanted to hear. We kept the voice and dropped the flattery.</p>
     <p>It is built on the same soul-document instrument we ship to AI agents at ManifestYOU · For Agents, pointed inward instead of outward. Same instrument, different work.</p>
   </section>
 
-  <div class="divider"></div>
 
   <!-- TRY THIS TODAY -->
-  <section>
+  <section class="fh-stop">
     <h2>Try this today</h2>
+    <p class="big">Breathe first. Then keep moving.</p>
     <p>While the daily reading is on its way, there is one practice you can use right now. Beta Breathing paces square breath or Ujjayi ocean breath with soft bells in D. About a minute for four rounds.</p>
     <a href="/breathe" class="btn btn--sm" style="margin-top:8px">Start breathing →</a>
   </section>
 
-  <div class="divider"></div>
 
   <!-- COMING SOON -->
-  <section>
+  <section class="fh-stop">
     <h2>Coming soon</h2>
+    <p class="big">One email, when it ships.</p>
     <p>We will email you exactly once: when it ships. Then you can decide whether to read.</p>
 
     <div class="form-wrap" id="form-wrap-bottom" style="margin-top:28px;">
@@ -179,6 +203,8 @@
   <p class="foot-meta">manifestyou.ai</p>
 </footer>
 <script src="/scripts/site.js" defer></script>
+<script type="importmap">{"imports":{"three":"/voyage/vendor/three.module.min.js","three/addons/":"/voyage/vendor/addons/"}}</script>
+<script type="module" src="/scripts/landscape.js"></script>
 
 <!-- Regularization widget -->
 <div class="reg-widget" id="reg-widget" aria-live="polite">
@@ -208,7 +234,7 @@
 
 <script>
 // ∇ arrival takes you to the waitlist form
-document.getElementById('zeno-humans').addEventListener('zeno:arrived', function () {
+var zh = document.getElementById('zeno-humans'); if (zh) zh.addEventListener('zeno:arrived', function () {
   var w = document.getElementById('waitlist');
   w.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
   setTimeout(function () { var i = w.querySelector('input[type=email]'); if (i) i.focus({ preventScroll: true }); }, 500);
