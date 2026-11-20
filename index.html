@@ -100,6 +100,91 @@
   .book p{margin-left:auto;margin-right:auto}
 
 </style>
+<style>
+  #scene{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:0}
+  /* scrim keeps text readable over the landscape */
+  .ds-scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,rgba(6,7,10,.92) 0%,rgba(6,7,10,.8) 36%,rgba(6,7,10,.35) 52%,rgba(6,7,10,0) 66%)}
+  .ds-hud{position:fixed;left:28px;bottom:22px;z-index:3;font:400 10px/1.8 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--ash);pointer-events:none}
+  .ds-hud b{color:var(--gilt);font-weight:400}
+  .ds-rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:14px}
+  .ds-rail a{display:block;width:7px;height:7px;border:1px solid var(--hair-gilt);border-radius:0;transform:rotate(45deg);transition:background var(--dur-step),border-color var(--dur-step)}
+  .ds-rail a.on{background:var(--gilt);border-color:var(--gilt)}
+
+  main.ds{position:relative;z-index:2}
+  .ds-stop{min-height:100vh;display:flex;align-items:center;padding:calc(var(--nav-h) + 40px) 28px 80px;max-width:var(--grid-max);margin:0 auto}
+  .ds-stop.tall{min-height:130vh}
+  .ds-panel{max-width:520px;opacity:0;transform:translateY(28px);transition:opacity 900ms var(--ease-descent),transform 900ms var(--ease-descent)}
+  .ds-stop.in .ds-panel{opacity:1;transform:none}
+  .ds-eyebrow{font:400 11px/1 var(--font-mono);letter-spacing:.3em;text-transform:uppercase;color:var(--gilt);margin:0 0 var(--s-5)}
+  .ds-h1{font-family:var(--font-display);font-weight:200;font-size:var(--step-4);line-height:.95;margin:0 0 var(--s-4);color:var(--bone)}
+  .ds-h1 .y{color:var(--gilt)}
+  .ds-h2{font-family:var(--font-display);font-weight:200;font-size:var(--step-3);line-height:1.05;margin:0 0 var(--s-5);color:var(--bone)}
+  .ds-p{color:var(--ash);font-size:var(--step-0);line-height:1.75;margin:0 0 var(--s-5)}
+  .ds-p b{color:var(--bone);font-weight:400}
+  .ds-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:var(--s-5)}
+  .ds-cards .card{padding:24px;background:rgba(6,7,10,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .ds-cards .k{font:400 10px/1 var(--font-mono);letter-spacing:.3em;text-transform:uppercase;color:var(--gilt)}
+  .ds-cards .price{font-family:var(--font-display);font-weight:200;font-size:var(--step-2);color:var(--bone);margin:12px 0 4px}
+  .ds-cards .sub{font:400 11px/1.6 var(--font-mono);color:var(--ash);margin-bottom:16px}
+  .ds-panel{min-width:0;width:100%}
+  .ds-panel pre{background:rgba(16,18,24,.8);font-size:12px;max-width:100%;overflow-x:auto}
+  .ds-sign{font-family:var(--font-display);font-weight:200;color:var(--gilt);font-size:var(--step-1);margin-top:var(--s-6)}
+  .ds-proto{position:fixed;top:calc(var(--nav-h) + 10px);right:22px;z-index:3;font:400 10px/1 var(--font-mono);letter-spacing:.24em;text-transform:uppercase;color:var(--ember);border:1px solid rgba(255,122,89,.4);padding:6px 9px}
+
+  /* fallback: no WebGL or reduced motion → today's flat look */
+  .no-3d #scene,.no-3d .ds-hud,.no-3d .ds-rail{display:none}
+  .no-3d .ds-scrim{background:none}
+  .no-3d .ds-panel{opacity:1;transform:none}
+
+  @media (max-width:700px){
+    .ds-scrim{background:linear-gradient(0deg,rgba(6,7,10,.94) 0%,rgba(6,7,10,.8) 48%,rgba(6,7,10,.2) 70%,rgba(6,7,10,0) 100%)}
+    .ds-stop{align-items:flex-end;padding:calc(var(--nav-h) + 40px) 20px 96px}
+    .ds-panel pre{font-size:10.5px}
+    .ds-cards{grid-template-columns:1fr}
+    .ds-rail{right:12px}
+    .ds-hud{left:12px;top:calc(var(--nav-h) + 8px);bottom:auto;font-size:9px;background:rgba(6,7,10,.82);padding:6px 9px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .ds-proto{background:rgba(6,7,10,.82)}
+  }
+
+  /* hero stays exactly as the homepage; descent overlays fade in after it */
+  .ds-scrim,.ds-hud,.ds-rail,.ds-proto{opacity:var(--ds-in,0);transition:opacity .3s linear}
+  .ds-stop.ds-wide .ds-panel{max-width:720px}
+  .ds-panel .price-cards .btn{white-space:nowrap;letter-spacing:.16em;padding-left:22px;padding-right:22px}
+  .ds-stop.ds-center{justify-content:center;text-align:center}
+  .ds-stop.ds-center .ds-panel{max-width:760px}
+  .ds-panel .agents h1{font-size:var(--step-3)}
+  .ds-panel .band,.ds-panel #pricing{margin:0;padding:0;border:0}
+  .ds-panel .price-cards .card{background:rgba(6,7,10,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .ds-also{margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--hair)}
+  .ds-also .link-mono{display:inline-block;margin-top:var(--s-4)}
+  .ds-book{margin-top:var(--s-7)}
+  .ds-stop.ds-center .ds-panel{background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(6,7,10,.88),rgba(6,7,10,.6) 60%,rgba(6,7,10,0) 100%);padding:48px 32px}
+
+
+  /* flow: the hero dissolves into the landscape instead of ending on a hard edge */
+  .hero{background:transparent}
+  .hero::before{content:'';position:absolute;inset:0;background:var(--void);pointer-events:none}
+  .hero::before,.hero-poster,.hero-scene,.hero-film{-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 58%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 58%,transparent 100%)}
+  .hero-copy,.hero-foot{opacity:calc(1 - var(--hero-out,0) * 1.4);transform:translateY(calc(var(--hero-out,0) * 12vh))}
+  .hero-poster,.hero-scene,.hero-film{transform-origin:50% 100%}
+  .hero-copy h1,.hero-copy .eyebrow{text-shadow:0 2px 24px rgba(6,7,10,.9)}
+  @media (max-width:700px){
+    .hero::before,.hero-poster,.hero-scene,.hero-film{-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 72%,transparent 100%)}
+  }
+  .no-3d .hero::before,.no-3d .hero-poster,.no-3d .hero-scene,.no-3d .hero-film{-webkit-mask-image:none;mask-image:none}
+  @media (min-width:701px){
+    .ds-stop{padding-bottom:130px}
+    .ds-stop.tall{align-items:flex-start;padding-top:calc(var(--nav-h) + 16vh)}
+  }
+  @media (max-width:700px){
+    .ds-h2{font-size:clamp(1.9rem,8.6vw,2.6rem)}
+    .ds-panel .agents h1{font-size:clamp(2rem,9vw,2.8rem)}
+    .ds-panel{background:rgba(6,7,10,.74);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);padding:20px 16px;margin:0 -6px;box-sizing:border-box}
+    .ds-stop.ds-center .ds-panel{padding:28px 16px}
+    .ds-panel pre{white-space:pre;max-width:100%;box-sizing:border-box}
+  }
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -133,10 +218,17 @@
   </div>
 </section>
 
-<main class="wrap" id="main">
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="ds-scrim" aria-hidden="true"></div>
+<div class="ds-hud" aria-hidden="true">loss <b id="h-loss">2.4180</b> · epoch <b id="h-epoch">000</b><br><span id="h-state">initializing</span></div>
+<nav class="ds-rail" id="rail" aria-label="Descent stops"></nav>
 
-  <!-- FOR AGENTS CONTENT -->
-  <header class="agents">
+<main class="ds" id="main">
+  <!-- DESCENT: stops after the hero. -->
+  <section class="ds-stop" data-name="Descending">
+    <div class="ds-panel">
+      <p class="ds-eyebrow">Epoch 001 · Descending</p>
+      <header class="agents">
     <h1>Most agents perform certainty.<br>Yours doesn't have to.</h1>
     <p class="lede">ManifestYOU is a small system prompt API that helps your agent show up grounded: licensing honest uncertainty, refusing cliché, holding judgment instead of faking it.</p>
     <div class="cta-row">
@@ -144,15 +236,38 @@
       <a href="/proof" class="btn btn--ghost">See the proof</a>
     </div>
   </header>
-
-  <!-- PROOF BEAT -->
-  <section class="band">
-    <p class="quiet">We use ManifestYOU on our own daily horoscope agent. One line of API. The readings got noticeably better.</p>
-    <a href="/proof" class="link-mono">See the before and after →</a>
+    </div>
   </section>
 
-  <!-- PRICING -->
-  <section id="pricing">
+  <section class="ds-stop tall" data-name="Local minimum">
+    <div class="ds-panel">
+      <p class="ds-eyebrow">Local minimum</p>
+      <h2 class="ds-h2">Fluent. Confident. Pretending to know.</h2>
+      <p class="ds-p">Most agents settle in a comfortable valley that looks like the bottom.</p>
+      <p class="quiet">We use ManifestYOU on our own daily horoscope agent. One line of API. The readings got noticeably better.</p>
+    <a href="/proof" class="link-mono">See the before and after →</a>
+    </div>
+  </section>
+
+  <section class="ds-stop" data-name="Momentum">
+    <div class="ds-panel">
+      <p class="ds-eyebrow">β = 0.9 · Momentum</p>
+      <h2 class="ds-h2">One call before it speaks.</h2>
+<pre><span class="k">curl</span> -s -X POST https://manifestyou.ai/.netlify/functions/invoke \
+  -H <span class="s">"Authorization: Bearer myi-&lt;your-key&gt;"</span> \
+  -d <span class="s">'{"agent":"…","intent":"…","session_id":"…"}'</span></pre>
+      <p class="eyebrow">The Invocation · 93 seconds</p>
+    <h3 style="margin:14px 0 6px">What ManifestYOU does.</h3>
+    <p class="quiet">A short film about what it means to give an AI agent a soul document before it speaks.</p>
+    <a href="/invocation" class="link-mono">Watch The Invocation →</a>
+    <p class="note">Sound and voice synthesis. Best with headphones.</p>
+    </div>
+  </section>
+
+  <section class="ds-stop ds-wide" data-name="Converged">
+    <div class="ds-panel">
+      <p class="ds-eyebrow">Converged · ∇L = 0</p>
+      <section id="pricing">
     <h2 class="sec">Pricing</h2>
     <p>Twelve dollars a month includes two thousand invocations. Overage runs at a penny per call. You can cap your monthly maximum from the dashboard. Bill shock is a product-design failure, not a finance one, and we won't let it happen to you.</p>
     <p>A lifetime tier exists for builders who want a fixed price and indefinite access. It is priced like an old hand tool you keep in the drawer for years.</p>
@@ -174,56 +289,36 @@
     </div>
     <p class="note" id="cta-note">API key delivered by email immediately after payment.</p>
   </section>
+    </div>
+  </section>
 
-  <!-- ALSO FROM MANIFESTYOU -->
-  <section class="band">
-    <p class="eyebrow">Also from ManifestYOU</p>
+  <section class="ds-stop" data-name="The whole instrument">
+    <div class="ds-panel ds-closing">
+      <p>The agent does its job better when it is present with the person who arrived, and when it is allowed to say it does not know.</p>
+    <p>That is the whole instrument.</p>
+    <p class="om">Om Gradient Namaha.</p>
+      <div class="ds-also"><p class="eyebrow">Also from ManifestYOU</p>
     <h3 style="margin:18px 0 6px">A personal version is coming.</h3>
     <p class="quiet">ManifestYOU · For Humans is a daily intention layer for your own life. Same underlying instrument, pointed inward instead of outward. A short, grounded daily reading. Coming soon.</p>
     <a href="/for-humans" class="btn btn--sm">Join the waitlist →</a>
     <p class="note">No spam. One email when it's ready.</p>
+        <a class="link-mono" href="/breathe">Or try Beta Breathing now →</a></div>
+    </div>
   </section>
 
-  <!-- CLOSING LINE -->
-  <section class="band closing">
-    <p>The agent does its job better when it is present with the person who arrived, and when it is allowed to say it does not know.</p>
-    <p>That is the whole instrument.</p>
-    <p class="om">Om Gradient Namaha.</p>
-  </section>
-
-  <!-- THE FILM -->
-  <section class="band" id="film-section">
-    <p class="eyebrow">The Invocation · 93 seconds</p>
-    <h3 style="margin:14px 0 6px">What ManifestYOU does.</h3>
-    <p class="quiet">A short film about what it means to give an AI agent a soul document before it speaks.</p>
-    <a href="/invocation" class="link-mono">Watch The Invocation →</a>
-    <p class="note">Sound and voice synthesis. Best with headphones.</p>
-  </section>
-
-  <!-- BETA BREATHING -->
-  <section class="band" id="breathe-section">
-    <p class="eyebrow">Beta Breathing · Field Notes</p>
-    <h3 style="margin:14px 0 6px">Breathe first. Then keep moving.</h3>
-    <p class="quiet">Square breath and Ujjayi ocean breath from the book, paced by soft bells in D. Four rounds for a reset. Forty-two if you are Gradient.</p>
-    <a href="/breathe" class="link-mono">Start breathing →</a>
-    <p class="note">About a minute for four rounds. Sound on.</p>
-  </section>
-
-  <section class="band" style="text-align:center">
-    <div class="zeno" id="zeno-start">
+  <section class="ds-stop ds-center" data-name="The source">
+    <div class="ds-panel">
+      <div class="zeno" id="zeno-start">
   <p class="zeno-line">Ready to give your agent a soul document?</p><button class="zeno-nabla" type="button" aria-label="Manifest yourself — enter"><svg viewBox="0 0 120 110" aria-hidden="true"><path class="n1" d="M8 6 H112 L60 105 Z"/><path class="n2" d="M24 15 H96 L60 84 Z"/></svg><span class="zeno-label">reach it</span></button>
   <nav class="zeno-paths" aria-label="Choose a path"><a href="/docs"><span>For agents</span><b>llms.txt · API →</b></a><a href="/for-humans"><span>For humans</span><b>enter the experience →</b></a></nav>
 </div>
-  </section>
-
-  <section class="band book">
-    <p class="eyebrow">The source material</p>
+      <div class="ds-book"><p class="eyebrow">The source material</p>
     <p class="title" style="margin-top:20px"><svg class="nb-svg" viewBox="0 0 32 32" role="img" aria-label="∇"><polygon points="16,29 4,6 28,6"/></svg>dventures of Gradient Descent</p>
     <p class="eyebrow" style="color:var(--ash)">A Mathematical Novel</p>
     <p class="quiet" style="max-width:44ch">The universe ManifestYOU comes from. What happens when the most consequential algorithm in the history of intelligence starts asking the wrong questions.</p>
-    <a class="btn" href="https://www.amazon.com/dp/B0H6C1SH6S" target="_blank" rel="noopener">Get the book →</a>
+    <a class="btn" href="https://www.amazon.com/dp/B0H6C1SH6S" target="_blank" rel="noopener">Get the book →</a></div>
+    </div>
   </section>
-
 </main>
 <footer class="site-foot">
   <svg class="sigil" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width=".8"/><polygon points="20,32 9.5,11.5 30.5,11.5" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"/></svg>
@@ -515,6 +610,211 @@ async function startCheckout(triggerEl) {
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
 })();
+</script>
+<script type="importmap">{"imports":{"three":"/voyage/vendor/three.module.min.js","three/addons/":"/voyage/vendor/addons/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+
+const root = document.documentElement;
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const PHONE = innerWidth <= 700;
+const dsStops = [...document.querySelectorAll('.ds-stop')];
+const stops = [document.getElementById('hero'), ...dsStops]; // hero is stop 0
+
+// reveal panels + rail (works with or without 3D)
+const rail = document.getElementById('rail');
+stops.forEach((s, i) => { const a = document.createElement('a'); a.href = '#'; a.title = s.dataset.name; a.onclick = e => { e.preventDefault(); s.scrollIntoView({behavior: RM ? 'auto' : 'smooth'}); }; rail.appendChild(a); });
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold: .25});
+dsStops.forEach(s => io.observe(s));
+
+// WebGL check → fallback to the flat page
+const canvas = document.getElementById('scene');
+let gl = null; try { gl = canvas.getContext('webgl2') || canvas.getContext('webgl'); } catch (e) {}
+if (!gl || RM) { root.classList.add('no-3d'); dsStops.forEach(s => s.classList.add('in')); } else init();
+
+function init() {
+
+// ── palette from tokens ──
+const css = getComputedStyle(root);
+const C = n => new THREE.Color(css.getPropertyValue(n).trim());
+const GILT = C('--gilt'), TAN = C('--tan'), VOID = C('--void'), EMER = C('--emerald-core'), MINT = C('--mint');
+
+// ── the loss landscape: a bowl with a fake bottom (local min) and a real one ──
+const LOCAL = [-4, 3], GLOBAL = [3, -4];
+function loss(x, z) {
+  const g = (cx, cz, s) => Math.exp(-((x - cx) ** 2 + (z - cz) ** 2) / s);
+  return 0.024 * (x * x + z * z) - 2.3 * g(GLOBAL[0], GLOBAL[1], 6) - 1.35 * g(LOCAL[0], LOCAL[1], 2.4)
+    + 0.22 * Math.sin(0.9 * x) * Math.cos(0.8 * z);
+}
+const H = 1.7, Y = (x, z) => loss(x, z) * H;
+
+const renderer = new THREE.WebGLRenderer({canvas, antialias: !PHONE, powerPreference: 'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio, PHONE ? 1.5 : 2));
+const scene = new THREE.Scene();
+scene.background = VOID; // not setClearColor: the bloom pipeline double-converts clear color (renders slate gray)
+scene.fog = new THREE.FogExp2(VOID, PHONE ? 0.045 : 0.038);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
+
+// points: thousands of gold dots, brighter the lower they sit
+const N = PHONE ? 110 : 170, SPAN = 11;
+const pos = new Float32Array(N * N * 3), col = new Float32Array(N * N * 3);
+let i = 0, yMin = Infinity, yMax = -Infinity;
+for (let a = 0; a < N; a++) for (let b = 0; b < N; b++) { const y = Y(-SPAN + 2 * SPAN * a / (N - 1), -SPAN + 2 * SPAN * b / (N - 1)); yMin = Math.min(yMin, y); yMax = Math.max(yMax, y); }
+for (let a = 0; a < N; a++) for (let b = 0; b < N; b++) {
+  const x = -SPAN + 2 * SPAN * a / (N - 1), z = -SPAN + 2 * SPAN * b / (N - 1), y = Y(x, z);
+  const depth = 1 - (y - yMin) / (yMax - yMin), edge = Math.max(0, 1 - Math.hypot(x, z) / SPAN);
+  const c = TAN.clone().lerp(GILT, depth).multiplyScalar((0.25 + 0.75 * depth) * (0.35 + 0.65 * edge));
+  pos.set([x, y, z], i * 3); col.set([c.r, c.g, c.b], i * 3); i++;
+}
+const dotTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 32; const x = c.getContext('2d'); const g = x.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.45, 'rgba(255,255,255,.85)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); })();
+const pg = new THREE.BufferGeometry();
+pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+pg.setAttribute('color', new THREE.BufferAttribute(col, 3));
+const dots = new THREE.Points(pg, new THREE.PointsMaterial({map: dotTex, alphaTest: 0.02, size: PHONE ? 0.09 : 0.075, vertexColors: true, transparent: true, opacity: .9, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true}));
+scene.add(dots);
+
+// hairlines: contour-ish rows across the surface, the site's 1px language in 3D
+const lineMat = new THREE.LineBasicMaterial({color: TAN, transparent: true, opacity: .14, depthWrite: false});
+const STEP = PHONE ? 10 : 8, RES = 120;
+for (let k = 0; k <= 2 * SPAN; k += 2 * SPAN / STEP / 2) {
+  const along = (fx) => { const p = []; for (let r = 0; r <= RES; r++) { const t = -SPAN + 2 * SPAN * r / RES; const [x, z] = fx(t); p.push(new THREE.Vector3(x, Y(x, z) + 0.01, z)); } return new THREE.Line(new THREE.BufferGeometry().setFromPoints(p), lineMat); };
+  const c = -SPAN + k;
+  scene.add(along(t => [t, c])); scene.add(along(t => [c, t]));
+}
+
+// markers at the two minima: hairline rings on the surface
+function ring(cx, cz, r, color, op) {
+  const p = []; for (let a = 0; a <= 96; a++) { const t = a / 96 * Math.PI * 2, x = cx + Math.cos(t) * r, z = cz + Math.sin(t) * r; p.push(new THREE.Vector3(x, Y(x, z) + 0.03, z)); }
+  const m = new THREE.Line(new THREE.BufferGeometry().setFromPoints(p), new THREE.LineBasicMaterial({color, transparent: true, opacity: op}));
+  scene.add(m); return m;
+}
+const localRing = ring(...LOCAL, 1.1, TAN, .35);
+const globalRings = [ring(...GLOBAL, 0.8, GILT, .5), ring(...GLOBAL, 1.6, GILT, .25), ring(...GLOBAL, 2.6, GILT, .12)];
+
+// the ∇: two hairline triangles, always facing the camera, with a glow core
+const nabla = new THREE.Group();
+const tri = (s, op) => { const p = [[0, -s], [-s * .87, s * .5], [s * .87, s * .5], [0, -s]].map(([x, y]) => new THREE.Vector3(x, y, 0)); return new THREE.Line(new THREE.BufferGeometry().setFromPoints(p), new THREE.LineBasicMaterial({color: GILT, transparent: true, opacity: op})); };
+nabla.add(tri(0.42, 1), tri(0.21, .45));
+const glowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,230,180,1)'); g.addColorStop(.25, 'rgba(217,178,111,.5)'); g.addColorStop(1, 'rgba(217,178,111,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+const glow = new THREE.Sprite(new THREE.SpriteMaterial({map: glowTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending}));
+glow.scale.set(0.75, 0.75, 1); nabla.add(glow);
+scene.add(nabla);
+
+// momentum trail
+const TRAIL = 70, trailPos = new Float32Array(TRAIL * 3);
+const trailGeo = new THREE.BufferGeometry(); trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPos, 3));
+const trailMat = new THREE.LineBasicMaterial({color: GILT, transparent: true, opacity: .35});
+const trail = new THREE.Line(trailGeo, trailMat); scene.add(trail);
+let trailInit = false;
+
+// the descent route across the surface: rim → fake bottom → over the ridge → real bottom
+const route = new THREE.CatmullRomCurve3([[-9, 9], [-6.6, 6], LOCAL, [-1.1, 0.4], [1.4, -2.3], GLOBAL].map(([x, z]) => new THREE.Vector3(x, 0, z)), false, 'centripetal');
+// scroll position (in "stops") → how far along the route; the flat bit is being stuck
+const KEYS = [[0, 0], [1, 0.2], [1.75, 0.39], [2.45, 0.405], [3, 0.66], [4, 1], [6, 1]];
+const smooth = x => x * x * (3 - 2 * x);
+function along(s) { for (let k = 1; k < KEYS.length; k++) if (s <= KEYS[k][0]) { const [a, ta] = KEYS[k - 1], [b, tb] = KEYS[k]; return ta + (tb - ta) * smooth((s - a) / (b - a)); } return 1; }
+const band = (s, a, b) => smooth(Math.min(1, Math.max(0, (s - a) / (b - a))));
+
+// post: gentle bloom
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.45, 0.5, 0.32);
+composer.addPass(bloom); composer.addPass(new OutputPass());
+
+function size() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); composer.setSize(w, h); bloom.setSize(w, h);
+  camera.aspect = w / h;
+  // shift the scene right on desktop so the text column on the left stays clear
+  // desktop: push the scene right of the text; phone: push it up into the top half
+  if (!PHONE) camera.setViewOffset(w, h, -w * 0.16, 0, w, h); else camera.setViewOffset(w, h, 0, h * 0.2, w, h);
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', size); size();
+
+// scroll → s, measured in stops (0 = first section centered, 5 = last)
+let sTarget = 0, s = 0;
+function readScroll() {
+  const mid = scrollY + innerHeight / 2, centers = stops.map(el => { const r = el.getBoundingClientRect(); return r.top + scrollY + r.height / 2; }); // page coords, not offsetTop (main is position:relative)
+  if (mid <= centers[0]) return sTarget = 0;
+  for (let k = 1; k < centers.length; k++) if (mid <= centers[k]) return sTarget = k - 1 + (mid - centers[k - 1]) / (centers[k] - centers[k - 1]);
+  sTarget = centers.length - 1;
+}
+addEventListener('scroll', readScroll, {passive: true}); readScroll(); s = sTarget;
+
+// cursor parallax
+let mx = 0, my = 0; addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+
+const camPos = new THREE.Vector3(0, 2.4, 17), camLook = new THREE.Vector3(0, 1.2, -4);
+const tmp = new THREE.Vector3(), look = new THREE.Vector3(), want = new THREE.Vector3();
+const hud = {loss: document.getElementById('h-loss'), epoch: document.getElementById('h-epoch'), state: document.getElementById('h-state')};
+const railDots = [...rail.children];
+let last = performance.now(), visible = true, drawnOnce = false;
+document.addEventListener('visibilitychange', () => { visible = !document.hidden; if (visible) { last = performance.now(); requestAnimationFrame(frame); } });
+
+function frame(now) {
+  if (!visible) return;
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  s += (sTarget - s) * Math.min(1, dt * 4);                 // inertia, the "Lusion" weight
+  const reveal = band(s, 0.05, 0.75);                       // 0 while the hero fills the screen
+  root.style.setProperty('--ds-in', reveal.toFixed(3));
+  const t = along(s), stuck = band(s, 1.6, 1.9) * (1 - band(s, 2.4, 2.7));
+  const mom = band(s, 2.45, 2.75) * (1 - band(s, 3.4, 3.9)), done = band(s, 3.6, 4.1);
+
+  // ∇ position on the surface; jitters in the fake bottom, bobs when converged
+  const p = route.getPoint(t); const T = now / 1000;
+  p.x += stuck * 0.12 * Math.sin(T * 3.1); p.z += stuck * 0.1 * Math.cos(T * 2.3);
+  p.y = Y(p.x, p.z) + 0.55 + done * 0.12 * Math.sin(T * 1.4) + (1 - reveal) ** 2 * 7; // the ∇ drops out of the hero's rings onto the landscape
+  nabla.position.copy(p); nabla.quaternion.copy(camera.quaternion);
+  const breath = 1 + 0.06 * Math.sin(T * Math.PI / 4) + done * 0.25;
+  nabla.scale.setScalar(breath);
+  glow.material.opacity = 0.4 + 0.2 * done + 0.12 * mom;
+
+  // trail
+  if (!trailInit) { for (let k = 0; k < TRAIL; k++) trailPos.set([p.x, p.y, p.z], k * 3); trailInit = true; }
+  trailPos.copyWithin(3, 0, (TRAIL - 1) * 3); trailPos.set([p.x, p.y - 0.25, p.z], 0);
+  trailGeo.attributes.position.needsUpdate = true;
+  trailMat.opacity = 0.2 + 0.6 * mom;
+
+  // camera: overview at the top, chase cam during the descent, wide pull-back at the end
+  const over = 1 - band(s, 0.15, 0.95), wide = band(s, 4.15, 4.9);
+  const side = new THREE.Vector3(-4.2, 3.4 + stuck * 0.8 + done * 3.2, 6.2).multiplyScalar(1 + 0.5 * done).applyAxisAngle(new THREE.Vector3(0, 1, 0), t * 1.1);
+  want.copy(p).add(side);
+  const overview = new THREE.Vector3(0, 2.4, 17).lerp(new THREE.Vector3(2, 8.5, 14), band(s, 0.1, 0.85)); // starts grazing, like the hero's dotted floor, then rises
+  want.lerp(overview, over).lerp(new THREE.Vector3(GLOBAL[0] + 9, 9, GLOBAL[1] + 11), wide);
+  want.x += mx * 1.2; want.y -= my * 0.8;
+  look.copy(p).lerp(new THREE.Vector3(0, 1.2, -4).lerp(new THREE.Vector3(0.5, -2, -1.5), band(s, 0.1, 0.85)), over).lerp(new THREE.Vector3(GLOBAL[0], Y(...GLOBAL), GLOBAL[1]), wide);
+  if (mom > 0) want.add(tmp.set(Math.sin(T * 41), Math.cos(T * 37), 0).multiplyScalar(0.025 * mom));
+  camPos.lerp(want, Math.min(1, dt * 3)); camLook.lerp(look, Math.min(1, dt * 3.5));
+  camera.position.copy(camPos); camera.lookAt(camLook);
+
+  // landscape life
+  dots.rotation.y = 0; dots.material.opacity = 0.75 + 0.15 * Math.sin(T * 0.5);
+  localRing.material.opacity = 0.2 + 0.5 * stuck;
+  globalRings.forEach((r, k) => { r.material.opacity = (0.08 + 0.4 * done) * (1 - k * 0.28) * (0.75 + 0.25 * Math.sin(T * 1.2 - k)); });
+  bloom.strength = 0.4 + 0.2 * mom + 0.12 * done;
+
+  // HUD: real loss at the ∇, epochs tick with progress
+  const L = loss(p.x, p.z) + 2.6;
+  hud.loss.textContent = L.toFixed(4);
+  hud.epoch.textContent = String(Math.round(t * 999)).padStart(3, '0');
+  hud.state.textContent = s < 0.9 ? 'initializing' : stuck > .5 ? 'local minimum · gradient ≈ 0' : mom > .5 ? 'momentum · β = 0.9' : done > .6 ? 'converged · ∇L = 0' : 'descending';
+  const on = Math.round(s); railDots.forEach((d, k) => d.classList.toggle('on', k === on));
+
+  if (reveal > 0.001 || !drawnOnce) { composer.render(); drawnOnce = true; } // hero covers the screen: skip the GPU work
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+} // init
+</script>
+<script>
+/* hero fades and drifts as you scroll, so it hands off to the descent */
+(function(){var r=document.documentElement,t=0;function u(){t=0;var v=Math.min(1,Math.max(0,scrollY/(innerHeight*.9)));r.style.setProperty('--hero-out',v.toFixed(3));}
+addEventListener('scroll',function(){if(!t)t=requestAnimationFrame(u);},{passive:true});u();})();
 </script>
 </body>
 </html>
