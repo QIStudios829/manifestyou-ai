@@ -256,3 +256,24 @@ html.has-ls .ambient{display:none}
 /* sections rise in as you reach them */
 html.has-ls .ls-rise{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
 html.has-ls .ls-rise.ls-in{opacity:1;transform:none}
+
+/* ── Docs section: one tab in the nav, sub-tabs inside ── */
+.doc-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 40px}
+.doc-tabs a{font:400 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--ash);padding:10px 16px;border:1px solid var(--hair);border-radius:999px;text-decoration:none;transition:color .2s,border-color .2s,background .2s}
+.doc-tabs a:hover{color:var(--bone);border-color:var(--hair-gilt)}
+.doc-tabs a[aria-current]{color:var(--void,#06070a);background:#a8d38d;border-color:#a8d38d}
+.doc-hub{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px 0 56px}
+.doc-hub__card{display:flex;flex-direction:column;gap:8px;padding:22px 22px 24px;border-radius:22px;border:1px solid var(--hair-gilt);background:rgba(6,7,10,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--ash);text-decoration:none;font-size:14px;line-height:1.55;transition:border-color .25s,transform .25s}
+.doc-hub__card:hover{border-color:#a8d38d;transform:translateY(-2px)}
+.doc-hub__card .k{font:400 10px/1 var(--font-mono);letter-spacing:.28em;text-transform:uppercase;color:var(--gilt)}
+.doc-hub__card b{font-family:var(--font-display);font-weight:300;font-size:20px;color:var(--bone)}
+@media (max-width:700px){.doc-hub{grid-template-columns:1fr}}
+
+/* ── soft boxes: no square gold frames anywhere ── */
+html body :is(.card,.col,.mode-card,.result-cell,.code-block,.soft-box,.shot-img,.post,.param-table,.error-table){border-radius:20px}
+html body :is(.code-block,.param-table,.error-table){overflow:hidden}
+html body :is(.card,.col,.mode-card,.result-cell,.soft-box)::after{border-radius:inherit}
+html body :is(.col,.mode-card,.result-cell,.soft-box){background:rgba(6,7,10,.5)!important;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-color:rgba(200,169,126,.22)!important}
+html body :is(.tag-opt,.tag-req,.chip,.sage-mode-btn){border-radius:999px}
+html body pre{border-radius:14px}
+@media (max-width:700px){.doc-tabs{gap:6px;flex-wrap:nowrap}.doc-tabs a{padding:9px 11px;letter-spacing:.12em;font-size:10px}}
