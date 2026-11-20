@@ -226,3 +226,33 @@ main#main.wrap{padding-top:calc(var(--nav-h) + 64px)!important}
 .btn--sm:not(.btn--ghost){padding:11px 20px}
 .btn:not(.btn--ghost):disabled,.btn:not(.btn--ghost)[aria-disabled=true]{animation:none;opacity:.5;transform:none}
 @media (prefers-reduced-motion:reduce){.btn{animation:none !important}}
+
+/* ── Every boxed control matches the pill buttons (menu, Regularization tab, signs, page CTAs) ── */
+html body :is(.nav-toggle,.reg-widget__tab,.cta,.retry-btn,.fbtn){border:1.5px solid transparent;border-radius:999px;color:#E7D8B4;
+  background:linear-gradient(180deg,#1a1a1a 0%,#0a0a0a 100%) padding-box,
+    conic-gradient(from var(--btn-rim),#d4d4cc,#a8d38d,#4e6b4a,#d98fae,#e7d8b4,#a8d38d,#d4d4cc) border-box;
+  box-shadow:0 0 0 1px rgba(168,211,141,.18),0 0 14px rgba(168,211,141,.14),0 2px 8px rgba(0,0,0,.6);
+  animation:btn-rim 9s linear infinite;transition:box-shadow .2s ease,transform .15s ease,color .2s ease}
+html body :is(.nav-toggle,.reg-widget__tab,.cta,.retry-btn,.fbtn):hover{color:#F3E7C8;transform:translateY(-1px);
+  box-shadow:0 0 0 1px rgba(168,211,141,.4),0 0 22px rgba(168,211,141,.28),0 2px 8px rgba(0,0,0,.6)}
+html body .nav-toggle{padding:10px 18px}
+html body .reg-widget__tab{padding:.75rem 1.25rem}
+html body .fbtn.on{box-shadow:0 0 0 1px rgba(168,211,141,.45),0 0 18px rgba(168,211,141,.3)}
+html body .fbtn:not(.on){animation:none;background:linear-gradient(180deg,#141414,#0a0a0a) padding-box,linear-gradient(rgba(138,114,84,.5),rgba(138,114,84,.5)) border-box;box-shadow:none}
+html body .reg-widget__panel{border-radius:22px;border:1.5px solid transparent;
+  background:var(--graphite) padding-box,conic-gradient(from var(--btn-rim),#d4d4cc,#a8d38d,#4e6b4a,#d98fae,#e7d8b4,#a8d38d,#d4d4cc) border-box;
+  box-shadow:0 0 22px rgba(168,211,141,.12),0 12px 40px rgba(0,0,0,.6);animation:btn-rim 9s linear infinite}
+html body .reg-widget__sign{border-radius:999px}
+html body .reg-widget__sign.is-active{border-color:#a8d38d;color:#E7D8B4;background:rgba(168,211,141,.1)}
+html body .reg-widget__close{border-radius:999px;width:2rem;height:2rem;padding:0}
+@media (max-width:600px){html body .reg-widget__tab{padding:.8rem;border-radius:999px}}
+@media (prefers-reduced-motion:reduce){html body :is(.nav-toggle,.reg-widget__tab,.cta,.retry-btn,.fbtn,.reg-widget__panel){animation:none!important}}
+
+/* ── The landscape behind every page (scripts/landscape.js) ── */
+.ls-canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:-1;pointer-events:none}
+html.has-ls body{background:transparent}
+.ls-canvas[data-mode=quiet]{opacity:.4}
+html.has-ls .ambient{display:none}
+/* sections rise in as you reach them */
+html.has-ls .ls-rise{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+html.has-ls .ls-rise.ls-in{opacity:1;transform:none}
