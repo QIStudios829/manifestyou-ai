@@ -72,7 +72,11 @@ async function generateSign(sign, today, systemPrompt) {
     }),
   });
 
-  if (!res.ok) throw new Error(`API error ${res.status}`);
+  if (!res.ok) {
+    let detail = "";
+    try { detail = (await res.json())?.error?.message || ""; } catch {}
+    throw new Error(`API error ${res.status}${detail ? ": " + detail : ""}`);
+  }
   const data = await res.json();
   const text = data.content.filter(b => b.type === "text").map(b => b.text).join("").trim();
   const cleaned = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "");
@@ -109,6 +113,7 @@ exports.handler = async (event) => {
       })
     );
 
+    const failed = results.some(([, r]) => r._error);
     const payload = {
       date: today,
       generated_at: new Date().toISOString(),
@@ -120,7 +125,8 @@ exports.handler = async (event) => {
       headers: {
         ...CORS,
         "Content-Type": "application/json",
-        "Cache-Control": "public, s-maxage=86400",
+        // Only cache a good day; a failed run must retry on the next visit.
+        "Cache-Control": failed ? "no-store" : "public, s-maxage=86400",
       },
       body: JSON.stringify(payload, null, 2),
     };
