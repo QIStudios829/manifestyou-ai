@@ -138,12 +138,12 @@
   .no-3d .ds-panel{opacity:1;transform:none}
 
   @media (max-width:700px){
-    .ds-scrim{background:linear-gradient(0deg,rgba(6,7,10,.94) 0%,rgba(6,7,10,.8) 48%,rgba(6,7,10,.2) 70%,rgba(6,7,10,0) 100%)}
+    .ds-scrim{background:linear-gradient(0deg,rgba(6,7,10,.7) 0%,rgba(6,7,10,.45) 40%,rgba(6,7,10,0) 72%)}
     .ds-stop{align-items:flex-end;padding:calc(var(--nav-h) + 40px) 20px 96px}
     .ds-panel pre{font-size:10.5px}
     .ds-cards{grid-template-columns:1fr}
     .ds-rail{right:12px}
-    .ds-hud{left:12px;top:calc(var(--nav-h) + 8px);bottom:auto;font-size:9px;background:rgba(6,7,10,.82);padding:6px 9px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .ds-hud{left:12px;top:calc(var(--nav-h) + 8px);bottom:auto;font-size:9px;text-shadow:0 0 10px #06070a,0 0 4px #06070a}
     .ds-proto{background:rgba(6,7,10,.82)}
   }
 
@@ -180,7 +180,13 @@
   @media (max-width:700px){
     .ds-h2{font-size:clamp(1.9rem,8.6vw,2.6rem)}
     .ds-panel .agents h1{font-size:clamp(2rem,9vw,2.8rem)}
-    .ds-panel{background:rgba(6,7,10,.74);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);padding:20px 16px;margin:0 -6px;box-sizing:border-box}
+    .ds-panel{position:relative;background:none;padding:8px 0;box-sizing:border-box;opacity:1;transform:none;text-shadow:0 1px 14px rgba(6,7,10,.95),0 0 3px rgba(6,7,10,.9)}
+    .ds-panel::before{content:'';position:absolute;inset:-18% -30%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(6,7,10,.72),rgba(6,7,10,.45) 55%,rgba(6,7,10,0))}
+    .ds-stop.ds-center .ds-panel{background:none}
+    .ds-panel pre{background:rgba(16,18,24,.55);border-radius:14px;text-shadow:none}
+    .ds-panel .card{border-radius:18px}
+    .ds-stop{min-height:88vh}
+    .ds-stop.tall{min-height:110vh}
     .ds-stop.ds-center .ds-panel{padding:28px 16px}
     .ds-panel pre{white-space:pre;max-width:100%;box-sizing:border-box}
   }
@@ -653,14 +659,14 @@ function loss(x, z) {
 const H = 1.7, Y = (x, z) => loss(x, z) * H;
 
 const renderer = new THREE.WebGLRenderer({canvas, antialias: !PHONE, powerPreference: 'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio, PHONE ? 1.5 : 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, PHONE ? 1.25 : 2));
 const scene = new THREE.Scene();
 scene.background = VOID; // not setClearColor: the bloom pipeline double-converts clear color (renders slate gray)
-scene.fog = new THREE.FogExp2(VOID, PHONE ? 0.045 : 0.038);
+scene.fog = new THREE.FogExp2(VOID, PHONE ? 0.03 : 0.038);
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
 
 // points: thousands of gold dots, brighter the lower they sit
-const N = PHONE ? 110 : 170, SPAN = 11;
+const N = PHONE ? 90 : 170, SPAN = 11;
 const pos = new Float32Array(N * N * 3), col = new Float32Array(N * N * 3);
 let i = 0, yMin = Infinity, yMax = -Infinity;
 for (let a = 0; a < N; a++) for (let b = 0; b < N; b++) { const y = Y(-SPAN + 2 * SPAN * a / (N - 1), -SPAN + 2 * SPAN * b / (N - 1)); yMin = Math.min(yMin, y); yMax = Math.max(yMax, y); }
@@ -674,7 +680,7 @@ const dotTex = (() => { const c = document.createElement('canvas'); c.width = c.
 const pg = new THREE.BufferGeometry();
 pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 pg.setAttribute('color', new THREE.BufferAttribute(col, 3));
-const dots = new THREE.Points(pg, new THREE.PointsMaterial({map: dotTex, alphaTest: 0.02, size: PHONE ? 0.09 : 0.075, vertexColors: true, transparent: true, opacity: .9, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true}));
+const dots = new THREE.Points(pg, new THREE.PointsMaterial({map: dotTex, alphaTest: 0.02, size: PHONE ? 0.12 : 0.075, vertexColors: true, transparent: true, opacity: .9, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true}));
 scene.add(dots);
 
 // hairlines: contour-ish rows across the surface, the site's 1px language in 3D
@@ -727,7 +733,7 @@ composer.addPass(bloom); composer.addPass(new OutputPass());
 
 function size() {
   const w = innerWidth, h = innerHeight;
-  renderer.setSize(w, h, false); composer.setSize(w, h); bloom.setSize(w, h);
+  renderer.setSize(w, h, false); if (!PHONE) { composer.setSize(w, h); bloom.setSize(w, h); }
   camera.aspect = w / h;
   // shift the scene right on desktop so the text column on the left stays clear
   // desktop: push the scene right of the text; phone: push it up into the top half
@@ -805,7 +811,7 @@ function frame(now) {
   hud.state.textContent = s < 0.9 ? 'initializing' : stuck > .5 ? 'local minimum · gradient ≈ 0' : mom > .5 ? 'momentum · β = 0.9' : done > .6 ? 'converged · ∇L = 0' : 'descending';
   const on = Math.round(s); railDots.forEach((d, k) => d.classList.toggle('on', k === on));
 
-  if (reveal > 0.001 || !drawnOnce) { composer.render(); drawnOnce = true; } // hero covers the screen: skip the GPU work
+  if (reveal > 0.001 || !drawnOnce) { PHONE ? renderer.render(scene, camera) : composer.render(); drawnOnce = true; } // hero covers the screen: skip the GPU work
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
