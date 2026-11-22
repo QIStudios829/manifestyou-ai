@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Begin · ManifestYOU for Humans</title>
+<meta name="description" content="Five questions, then a morning reading that starts from where you actually are." />
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..400&family=Hanken+Grotesk:wght@300..600&family=Geist+Mono:wght@300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/site.css">
+<link rel="stylesheet" href="/styles/humans.css">
+</head>
+<body>
+<canvas class="ls-canvas" data-mode="humans" aria-hidden="true"></canvas>
+<div class="hx-scrim" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="wordmark" href="/"><span class="wm-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,29 4,6 28,6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><polygon points="16,21.4 10,9.8 22,9.8" fill="none" stroke="currentColor" stroke-width="1" opacity=".45" stroke-linejoin="round"/></svg></span>Manifest <span class="y">YOU</span></a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/film">Film</a><a href="/docs">Docs</a><a href="/for-humans" aria-current="page">For Humans</a><a class="btn btn--sm" href="/humans/today">Today</a></nav>
+</header>
+
+<main class="hx" id="main">
+  <div class="hx-dots" id="dots" aria-hidden="true"></div>
+
+  <section class="hx-step on" data-step="intro">
+    <p class="hx-eyebrow">ManifestYOU · for humans</p>
+    <h1 class="hx-h">A morning voice that tells you the truth.</h1>
+    <p class="hx-p">Five questions. Answer in your own words, as messy as they come. Every morning after that, you get a short reading that starts from where you actually are, not where you think you should be.</p>
+    <p class="hx-p">It won't promise you a beach house. It will be honest, gently, and short.</p>
+    <div class="hx-row"><button class="btn" type="button" data-next>Begin</button><a class="hx-link" href="/humans/today">I already have a link</a></div>
+  </section>
+
+  <section class="hx-step" data-step="carrying">
+    <p class="hx-eyebrow">1 of 5</p>
+    <h2 class="hx-h">What are you carrying right now?</h2>
+    <p class="hx-p">The thing that's on you this week. Big or small.</p>
+    <textarea class="hx-field" name="carrying" maxlength="400" placeholder="Say it how you'd say it to yourself."></textarea>
+    <div class="hx-row"><button class="btn" type="button" data-next>Next</button><button class="hx-link" type="button" data-back>Back</button></div>
+  </section>
+
+  <section class="hx-step" data-step="story">
+    <p class="hx-eyebrow">2 of 5</p>
+    <h2 class="hx-h">What do you keep telling yourself?</h2>
+    <p class="hx-p">The sentence that loops. It might not be true. That's fine.</p>
+    <textarea class="hx-field" name="story" maxlength="400" placeholder="I keep telling myself…"></textarea>
+    <div class="hx-row"><button class="btn" type="button" data-next>Next</button><button class="hx-link" type="button" data-back>Back</button></div>
+  </section>
+
+  <section class="hx-step" data-step="want">
+    <p class="hx-eyebrow">3 of 5</p>
+    <h2 class="hx-h">What do you want, if nobody was grading it?</h2>
+    <textarea class="hx-field" name="want" maxlength="400" placeholder="No one else is reading this."></textarea>
+    <div class="hx-row"><button class="btn" type="button" data-next>Next</button><button class="hx-link" type="button" data-back>Back</button></div>
+  </section>
+
+  <section class="hx-step" data-step="good_day">
+    <p class="hx-eyebrow">4 of 5</p>
+    <h2 class="hx-h">What does a good, ordinary day look like?</h2>
+    <p class="hx-p">Not a perfect day. A good one you could actually have.</p>
+    <textarea class="hx-field" name="good_day" maxlength="400" placeholder="Coffee, a walk, two hours of real work…"></textarea>
+    <div class="hx-row"><button class="btn" type="button" data-next>Next</button><button class="hx-link" type="button" data-back>Back</button></div>
+  </section>
+
+  <section class="hx-step" data-step="tone">
+    <p class="hx-eyebrow">5 of 5</p>
+    <h2 class="hx-h">How should it talk to you?</h2>
+    <div class="hx-pills" data-group="tone">
+      <button class="hx-pill" type="button" data-v="gentle" aria-pressed="true">Gentle</button>
+      <button class="hx-pill" type="button" data-v="blunt" aria-pressed="false">Blunt</button>
+      <button class="hx-pill" type="button" data-v="playful" aria-pressed="false">Playful</button>
+      <button class="hx-pill" type="button" data-v="quiet" aria-pressed="false">Quiet</button>
+    </div>
+    <p class="hx-p" style="margin-top:24px">Your sign, if you like. It only adds colour.</p>
+    <div class="hx-pills" data-group="sign"></div>
+    <div class="hx-row"><button class="btn" type="button" data-next>Next</button><button class="hx-link" type="button" data-back>Back</button></div>
+  </section>
+
+  <section class="hx-step" data-step="email">
+    <p class="hx-eyebrow">Last thing</p>
+    <h2 class="hx-h">Where should mornings arrive?</h2>
+    <p class="hx-p">We'll send one link to confirm it's you. After that, one email a morning around <b id="hour-label">6am</b> your time. Pause or delete everything any time.</p>
+    <input class="hx-field" type="email" name="email" inputmode="email" autocomplete="email" placeholder="you@domain.com" aria-label="Email address" />
+    <p class="hx-err" id="err" role="alert"></p>
+    <div class="hx-row"><button class="btn" type="button" id="send">Send my link</button><button class="hx-link" type="button" data-back>Back</button></div>
+    <p class="hx-small" style="margin-top:22px">Your answers are only used to write your readings. Not therapy; if you're in danger, contact local emergency services.</p>
+  </section>
+
+  <section class="hx-step" data-step="sent">
+    <p class="hx-eyebrow">Check your email</p>
+    <h2 class="hx-h">Your link is on its way.</h2>
+    <p class="hx-p" id="sent-msg">Open it on this phone and your first reading will be waiting. While you wait, one minute of breathing helps.</p>
+    <div class="hx-row"><a class="btn" href="/breathe">Breathe</a></div>
+  </section>
+</main>
+
+<script src="/scripts/site.js" defer></script>
+<script>
+(function () {
+  var KEY = 'mfy-humans-draft';
+  var steps = [].slice.call(document.querySelectorAll('.hx-step'));
+  var dots = document.getElementById('dots');
+  var at = 0, data = {};
+  try { data = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  var save = function () { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} };
+
+  // signs
+  var SIGNS = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
+  var sg = document.querySelector('[data-group=sign]');
+  SIGNS.forEach(function (s) { var b = document.createElement('button'); b.type = 'button'; b.className = 'hx-pill'; b.dataset.v = s; b.textContent = s; b.setAttribute('aria-pressed', 'false'); sg.appendChild(b); });
+
+  // restore draft
+  document.querySelectorAll('textarea.hx-field').forEach(function (t) {
+    if (data[t.name]) t.value = data[t.name];
+    t.addEventListener('input', function () { data[t.name] = t.value; save(); });
+  });
+  document.querySelectorAll('[data-group]').forEach(function (g) {
+    var name = g.dataset.group;
+    if (data[name]) g.querySelectorAll('.hx-pill').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.v === data[name])); });
+    g.addEventListener('click', function (e) {
+      var b = e.target.closest('.hx-pill'); if (!b) return;
+      var on = b.getAttribute('aria-pressed') === 'true';
+      if (name === 'sign' && on) { data.sign = null; b.setAttribute('aria-pressed', 'false'); save(); return; }
+      g.querySelectorAll('.hx-pill').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      data[name] = b.dataset.v; save();
+    });
+  });
+  var em = document.querySelector('input[name=email]');
+  if (data.email) em.value = data.email;
+  em.addEventListener('input', function () { data.email = em.value; save(); });
+
+  // progress
+  var qs = steps.length - 2;
+  for (var i = 0; i < qs; i++) dots.appendChild(document.createElement('i'));
+  function show(n) {
+    at = Math.max(0, Math.min(steps.length - 1, n));
+    steps.forEach(function (s, k) { s.classList.toggle('on', k === at); });
+    [].forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k <= at - 1); });
+    dots.style.visibility = at === 0 || at === steps.length - 1 ? 'hidden' : 'visible';
+    var f = steps[at].querySelector('textarea,input'); if (f && matchMedia('(min-width:700px)').matches) f.focus();
+    scrollTo(0, 0);
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-next]')) show(at + 1);
+    if (e.target.closest('[data-back]')) show(at - 1);
+  });
+
+  var err = document.getElementById('err'), btn = document.getElementById('send');
+  btn.addEventListener('click', function () {
+    var email = em.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = "That email doesn't look right."; return; }
+    err.textContent = ''; btn.disabled = true; btn.textContent = 'Sending…';
+    var tz = 'America/Costa_Rica'; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || tz; } catch (e) {}
+    fetch('/.netlify/functions/humans', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      action: 'start', email: email, tz: tz, sign: data.sign || null,
+      profile: { carrying: data.carrying, story: data.story, want: data.want, good_day: data.good_day, tone: data.tone || 'gentle' }
+    }) }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        btn.disabled = false; btn.textContent = 'Send my link';
+        if (!res.ok) { err.textContent = res.j.error || 'Something went wrong. Try again.'; return; }
+        if (res.j.full) {
+          document.querySelector('[data-step=sent] .hx-h').textContent = 'The beta is full right now.';
+          document.getElementById('sent-msg').innerHTML = 'Your answers are saved on this phone. Join the <a href="/for-humans">waitlist</a> and we\'ll email you the moment a spot opens.';
+        } else { try { localStorage.removeItem(KEY); } catch (e) {} }
+        show(steps.length - 1);
+      })
+      .catch(function () { btn.disabled = false; btn.textContent = 'Send my link'; err.textContent = 'No connection. Try again.'; });
+  });
+  show(0);
+})();
+</script>
+<script type="importmap">{"imports":{"three":"/voyage/vendor/three.module.min.js","three/addons/":"/voyage/vendor/addons/"}}</script>
+<script type="module" src="/scripts/landscape.js"></script>
+</body>
+</html>

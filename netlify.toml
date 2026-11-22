@@ -16,3 +16,7 @@
   to = "/"
   status = 301
   force = true
+
+[functions."humans-morning"]
+  schedule = "@hourly"
+  timeout = 26
