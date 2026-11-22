@@ -305,12 +305,22 @@
   var A = { ctx: null, buf: null, master: null, music: null, on: true, srcs: [], timer: 0, loading: null };
   var LOOP_IN = 1.0, XFADE = 7, MUSIC_VOL = 0.38;
 
+  // iPhone: audio must be unlocked inside the tap itself, before any await (the track fetch takes seconds)
+  function unlock() {
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {} // play even with the silent switch on (Safari 17+)
+    if (!A.ctx) return;
+    if (A.ctx.state !== 'running') A.ctx.resume();
+    var b = A.ctx.createBuffer(1, 1, 22050), s = A.ctx.createBufferSource(); // one silent sample primes old iOS
+    s.buffer = b; s.connect(A.ctx.destination); s.start(0);
+  }
+
   function ensureCtx() {
-    if (A.loading) return A.loading; // a second tap while the track is still loading waits for the same load
+    if (A.loading) { unlock(); return A.loading; } // a second tap while the track is still loading waits for the same load
     var C = window.AudioContext || window.webkitAudioContext; if (!C) return Promise.resolve();
     A.ctx = new C();
     A.master = A.ctx.createGain(); A.master.gain.value = A.on ? 1 : 0; A.master.connect(A.ctx.destination);
     A.music = A.ctx.createGain(); A.music.gain.value = 0; A.music.connect(A.master);
+    unlock();
     A.loading = fetch(SRC).then(function (r) { return r.arrayBuffer(); })
       .then(function (b) { return new Promise(function (res, rej) { A.ctx.decodeAudioData(b, res, rej); }); })
       .then(function (buf) { A.buf = buf; }).catch(function () {});
