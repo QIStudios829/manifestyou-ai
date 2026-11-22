@@ -122,16 +122,56 @@ function buildPrompt(human, checkins, recent, when) {
 }
 
 // Free fallback when the model is unavailable: their own words handed back, plainly.
-function templateReading(human, checkins) {
+// Free reading built from the person's own words (used when the model is unavailable).
+// Their answers are quoted, not spliced into a sentence, so any phrasing reads naturally.
+// Lines rotate by date so consecutive mornings don't repeat.
+const TPL = {
+  open: [
+    "I'm starting from where I actually am, not where I think I should be.",
+    "Before the day asks anything of me, I check where I really am.",
+    "This morning doesn't need me finished. It needs me here.",
+    "I don't have to earn this day before I start it.",
+  ],
+  checkin: [
+    (t) => `Last night I wrote: "${t}." That's where today starts.`,
+    (t) => `Last night's line was "${t}." I'll take it seriously, and I'll take it lightly.`,
+  ],
+  carrying: [
+    (t) => `What I'm carrying: "${t}." I don't have to put it down today. I only have to admit how heavy it is.`,
+    (t) => `I'm still carrying "${t}." Naming it out loud makes it a little lighter to hold.`,
+  ],
+  story: [
+    (t) => `The story I keep repeating: "${t}." Today I hold it a little more loosely and look at what's under it.`,
+    (t) => `I notice the old line, "${t}." It's a story, not a law.`,
+  ],
+  want: [
+    (t) => `What I want, when nobody's grading: "${t}." One move today can point that way, even a small one.`,
+    (t) => `Underneath the noise, I want "${t}." I'm allowed to want it plainly.`,
+  ],
+  good_day: [
+    (t) => `A good ordinary day, in my own words: "${t}." I can give myself one piece of that before noon.`,
+    (t) => `I already know what a good day looks like: "${t}." Today I only need one part of it.`,
+  ],
+  close: {
+    gentle: ["One breath before I start. Then one small true step.", "Slowly is still forward."],
+    blunt: ["Enough thinking about it. One real step, now.", "No speech needed. Do the first thing."],
+    playful: ["Coffee first. Then one small, slightly brave thing.", "Today gets a rough draft, not a masterpiece."],
+    quiet: ["Breathe. Begin.", "Small and true is enough."],
+  },
+};
+const clean = (t) => String(t || "").replace(/\s+/g, " ").trim().replace(/[.!?,;:\s]+$/, "").replace(/^["'“]+|["'”]+$/g, "");
+
+function templateReading(human, checkins, when) {
   const p = human.profile || {};
-  const latest = checkins.length ? checkins[checkins.length - 1].text : null;
-  const s = [];
-  s.push(latest ? `Last night I said: ${latest.replace(/[.\s]+$/, "")}. That is where I am starting from, not where I wish I was.`
-                : "I am starting from where I actually am this morning, not where I think I should be.");
-  if (p.carrying) s.push(`I am carrying ${p.carrying.replace(/[.\s]+$/, "")}. I do not have to set it all down today. I only have to notice how heavy it is.`);
-  if (p.story) s.push(`I keep telling myself ${p.story.replace(/[.\s]+$/, "")}. Today I can hold that story a little more loosely and see what is underneath.`);
-  if (p.good_day) s.push(`A good ordinary day looks like ${p.good_day.replace(/[.\s]+$/, "")}. I can make one small piece of that happen before noon.`);
-  s.push("One breath before I start. Then one small true step.");
+  const seed = Number(String((when && when.day) || new Date().toISOString().slice(0, 10)).replace(/-/g, "")) || 0;
+  const pick = (arr, k = 0) => arr[(seed + k) % arr.length];
+  const latest = checkins.length ? clean(checkins[checkins.length - 1].text) : "";
+  const s = [latest ? pick(TPL.checkin)(latest) : pick(TPL.open)];
+  // up to three of their four answers, rotating which one rests each day
+  const keys = ["carrying", "story", "want", "good_day"].filter((k) => clean(p[k]));
+  const use = keys.length > 3 ? keys.filter((_, i) => i !== seed % keys.length) : keys;
+  use.forEach((k, i) => s.push(pick(TPL[k], i)(clean(p[k]))));
+  s.push(pick(TPL.close[p.tone] || TPL.close.gentle));
   return s.join(" ");
 }
 
@@ -158,7 +198,7 @@ async function writeReading(human, when) {
       console.error("humans: model failed", r.status, j && j.error && j.error.message);
     } catch (e) { console.error("humans: model error", e.message); }
   }
-  return { text: templateReading(human, checkins), model: "template" };
+  return { text: templateReading(human, checkins, when), model: "template" };
 }
 
 // Get today's reading, writing (and voicing) it if it doesn't exist yet.

@@ -135,17 +135,12 @@
     <div class="eyebrow">ManifestYOU · for humans</div>
     <h1>The universe has been listening.<br>Now it will speak in your voice.</h1>
     <p class="lede">A personal intention layer. Daily clarity, grounded in where you actually are, not where you think you should be.</p>
-  <!-- FIRST WAITLIST FORM -->
+  <!-- OPEN BETA -->
   <div class="form-wrap" id="waitlist">
-    <form class="humans-form" name="for-humans-waitlist" netlify>
-      <input type="hidden" name="form-name" value="for-humans-waitlist" />
-      <div class="form-row">
-        <input type="email" name="email" inputmode="email" autocomplete="email"
-          placeholder="you@domain.com" aria-label="Email address" />
-        <button type="submit" class="btn">Join the waitlist</button>
-      </div>
-    </form>
-    <div class="fineprint">No spam. One email when it's ready.</div>
+    <div class="form-row">
+      <a class="btn" href="/humans/start">Begin · free beta</a>
+    </div>
+    <div class="fineprint">Five questions, then a short reading every morning. Readings arrive as text for now; your own voice comes next.</div>
   </div>
   <div class="confirm" id="humans-confirm"></div>
   </header>
@@ -174,20 +169,15 @@
 
   <!-- COMING SOON -->
   <section class="fh-stop">
-    <h2>Coming soon</h2>
-    <p class="big">One email, when it ships.</p>
-    <p>We will email you exactly once: when it ships. Then you can decide whether to read.</p>
+    <h2>Open beta</h2>
+    <p class="big">Free while we build it.</p>
+    <p>The first hundred people get a reading every morning, built from their own answers, with a one-line check-in each night that shapes the next day. Readings are text for now. Your own voice is next, and you'll be asked before it's ever recorded.</p>
 
     <div class="form-wrap" id="form-wrap-bottom" style="margin-top:28px;">
-      <form class="humans-form" name="for-humans-waitlist" netlify>
-        <input type="hidden" name="form-name" value="for-humans-waitlist" />
-        <div class="form-row">
-          <input type="email" name="email" inputmode="email" autocomplete="email"
-            placeholder="you@domain.com" aria-label="Email address" />
-          <button type="submit" class="btn">Join the waitlist</button>
-        </div>
-      </form>
-      <div class="fineprint">No spam. One email when it's ready.</div>
+      <div class="form-row">
+        <a class="btn" href="/humans/start">Begin · free beta</a>
+      </div>
+      <div class="fineprint">Pause or delete everything any time.</div>
     </div>
   </section>
 
@@ -233,11 +223,11 @@
 </div>
 
 <script>
-// ∇ arrival takes you to the waitlist form
+// ∇ arrival takes you to the Begin button
 var zh = document.getElementById('zeno-humans'); if (zh) zh.addEventListener('zeno:arrived', function () {
   var w = document.getElementById('waitlist');
   w.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
-  setTimeout(function () { var i = w.querySelector('input[type=email]'); if (i) i.focus({ preventScroll: true }); }, 500);
+  setTimeout(function () { var i = w.querySelector('a.btn'); if (i) i.focus({ preventScroll: true }); }, 500);
 });
 </script>
 <script>
